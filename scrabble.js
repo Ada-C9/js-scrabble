@@ -36,9 +36,13 @@ const Scrabble = {
     const upWord = word.toUpperCase()
     let score = 0
     let wordLetters = this.splitString(upWord)
+
     if (wordLetters.length > 7) {
       throw "Character is not a letter!";
+    } else if (wordLetters.length < 1) {
+      throw "Oops! This word is empty!";
     }
+
     wordLetters.forEach(function(letter) {
       if (LETTERS.test(letter)) {
         score += WORDVALUES[letter]
@@ -46,6 +50,7 @@ const Scrabble = {
         throw "Character is not a letter!";
       }
     });
+    
     if (wordLetters.length === 7) {
       score += 50
     }
