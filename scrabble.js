@@ -47,19 +47,52 @@ const Scrabble = {
     let total = 0;
 
     splitWord.forEach(function(letter) {
-      total += LETTERS[letter]['points']
+      total += LETTERS[letter]['points'];
     });
 
     if (splitWord.length == 7) {
-      total += 50
+      total += 50;
     }
 
     return total
   },
 
+  breakTie(word1, word2) {
+    switch(true) {
+      case (word1.length === 7):
+        return word1;
+      case (word2.length === 7):
+        return word2;
+      case (word2.length < word1.length):
+        return word2;
+      default:
+        return word1;
+    }
+  },
+
 
   highestScoreFrom(arrayOfWords) {
-    // TODO: implement
+    if (arrayOfWords.length < 1) {
+      throw "Not enough words for comparison";
+    }
+
+    if (arrayOfWords.length === 1) {
+      return arrayOfWords[0];
+    }
+    
+    let highestWord = arrayOfWords[0];
+
+    arrayOfWords.forEach(function(word){
+
+      if (Scrabble.score(word) > Scrabble.score(highestWord)) {
+        highestWord = word;
+      } else if (Scrabble.score(word) === Scrabble.score(highestWord)) {
+        highestWord = Scrabble.breakTie(word, highestWord);
+      }
+
+    });
+
+    return highestWord;
   }
 };
 
