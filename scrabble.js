@@ -52,7 +52,21 @@ const Scrabble = {
     return totalScore;
   },
   highestScoreFrom(arrayOfWords) {
-    // let topScore = [];
+    let topScores = [];
+    let maxScore = 0;
+
+    for (let word of arrayOfWords) {
+      let wordScore = this.score(word);
+      if (wordScore == maxScore) {
+        topScores.push(word);
+      }
+      if (wordScore > maxScore) {
+        maxScore = wordScore;
+        topScores = [];
+        topScores.push(word);
+      }
+    }
+    return topScores[0]
   },
 };
 
@@ -63,3 +77,4 @@ Scrabble.Player = class {
 
 module.exports = Scrabble;
 // console.log(Scrabble.score("academia"));
+// console.log(Scrabble.highestScoreFrom(['pig', 'dog']))
