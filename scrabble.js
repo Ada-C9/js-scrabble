@@ -80,7 +80,7 @@ Scrabble.Player = class {
     }
     this.name = name;
     this.plays = [];
-  }
+  } // constructor
 
   totalScore() {
     let words = this.plays;
@@ -89,7 +89,7 @@ Scrabble.Player = class {
       total += Scrabble.score(word);
     }
     return total;
-  }
+  } // totalScore
 
   hasWon() {
     let total = this.totalScore();
@@ -98,7 +98,7 @@ Scrabble.Player = class {
     } else {
       return false;
     }
-  }
+  } // hasWon
 
   play(word) {
     if (typeof word != 'string') {
@@ -111,7 +111,20 @@ Scrabble.Player = class {
       this.plays.push(word);
       return true;
     }
+  } // play
+
+  highestScoringWord() {
+    let words = this.plays;
+    let highestScoringWord = Scrabble.highestScoreFrom(words);
+    return highestScoringWord;
+  } // highestScoringWord
+
+  highestWordScore() {
+    let highestScoringWord = this.highestScoringWord();
+    let highestScore = Scrabble.score(highestScoringWord);
+    return highestScore;
   }
+
 };
 
 module.exports = Scrabble;
