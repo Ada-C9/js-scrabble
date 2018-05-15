@@ -31,23 +31,31 @@ const Scrabble = {
 
 
   highestScoreFrom(arrayOfWords) {
-    let highest_word = arrayOfWords[0];
-    let highest_score = Scrabble.score(arrayOfWords[0]);
+    let highestWord = arrayOfWords[0];
+    let highestScore = Scrabble.score(arrayOfWords[0]);
 
     arrayOfWords.forEach(function (word) {
       let this_score = Scrabble.score(word);
 
-      if (this_score > highest_score) {
-        highest_word = word;
-        highest_score = this_score;
-      } else if (this_score === highest_score) {
-        if (word.length < highest_word.length) {
-        highest_word = word ;
-        highest_score = this_score; }
-      }
-    })
+      if (this_score > highestScore) {
+        highestWord = word;
+        highestScore = this_score;
+      } else if (this_score === highestScore) {
 
-    return highest_word
+        switch (true) {
+          case word.length == 7:
+            highestWord = word;
+            highestScore = this_score;
+            break;
+          case word.length < highestWord.length:
+            highestWord = word;
+            highestScore = this_score;
+            break;
+        }
+      }
+    });
+
+    return highestWord
   }
 };
 
@@ -61,4 +69,4 @@ module.exports = Scrabble;
 
 
 console.log(Scrabble.score("okay"))
-console.log(Scrabble.highestScoreFrom(['ok', 'fun', 'xyxyx']))
+console.log(Scrabble.highestScoreFrom(['ok', 'fun', 'qzqz', 'jjjjjj' ]))
