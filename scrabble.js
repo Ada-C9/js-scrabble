@@ -31,7 +31,14 @@ const LETTERS = {
 
 const Scrabble = {
 
+  checkForBadChars(word) {
+    return !word.match(/^[a-zA-Z]+$/);
+  },
+
   score(word) {
+    if (Scrabble.checkForBadChars(word)) {
+      throw "Invalid word";
+    }
 
     let splitWord = word.split('');
     let total = 0;
@@ -41,12 +48,12 @@ const Scrabble = {
     });
 
     return total
-  }
-
   },
+
+
   highestScoreFrom(arrayOfWords) {
-
-  },
+    // TODO: implement
+  }
 };
 
 Scrabble.Player = class {

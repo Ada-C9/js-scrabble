@@ -11,11 +11,11 @@ describe('score', () => {
     expect(Scrabble.score('pig')).toBe(6);
   });
 
-  test.skip('adds 50 points for a 7-letter word', () => {
+  test('adds 50 points for a 7-letter word', () => {
     expect(Scrabble.score('academy')).toBe(65);
   });
 
-  test.skip('throws on bad characters', () => {
+  test('throws on bad characters', () => {
     expect(() => {
       Scrabble.score('char^');
     }).toThrow();
