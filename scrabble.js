@@ -28,9 +28,15 @@ const Scrabble = {
 
   score(word) {
     let total = 0;
-    if (typeof word != 'string' || word.length < 1 ) {
-      throw "Word must be a string."
+
+    if (typeof word != 'string' || word.length < 1 || word.length > 7) {
+      throw "Word must be a non-empty string less than 8 chars."
     }
+
+    if (word.length === 7) {
+      total += 50;
+    }
+
     for (let letter of word) {
       let capLetter = letter.toUpperCase();
       if (this[capLetter]) {
@@ -57,4 +63,3 @@ const Scrabble = {
 module.exports = Scrabble;
 
 ////
-Scrabble.score('hellothere')
