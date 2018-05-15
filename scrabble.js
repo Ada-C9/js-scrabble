@@ -1,4 +1,4 @@
-// let pry = require('pryjs');
+let pry = require('pryjs');
 
 const scores = {
   a: 1, e: 1, i: 1, o: 1, u: 1, l: 1, n: 1, r: 1, s: 1,
@@ -28,9 +28,47 @@ const Scrabble = {
       totalScore += 50;
     }
     return totalScore;
-  }
+  }, // score
 
-  // TODO: add the highestScoreFrom method
+  highestScoreFrom(arrayOfWords) {
+    if (!Array.isArray(arrayOfWords) || arrayOfWords.length == 0) {
+      throw 'Must enter a valid array of words.'
+    }
+
+    let wordsAndScores = {};
+
+    let highestScore = this.score(arrayOfWords[0]);
+    for (let word of arrayOfWords) {
+      let score = this.score(word);
+      wordsAndScores[word] = score;
+      if (score > highestScore) {
+        highestScore = score;
+      }
+    }
+
+    let possibleWinners = {};
+    for (let word in wordsAndScores) {
+      let score = this.score(word);
+      if (score == highestScore) {
+        possibleWinners[word] = score;
+      }
+    }
+
+    let winner;
+    let shortestLength = 7;
+    for (let possibleWinner in possibleWinners) {
+      let length = possibleWinner.length
+      if (length == 7) {
+        winner = possibleWinner;
+        return winner;
+      } else if (length < shortestLength) {
+        shortestLength = length;
+        winner = possibleWinner;
+      }
+    }
+
+    return winner;
+  } // highestScoreFrom
 
 };
 
