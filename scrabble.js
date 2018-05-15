@@ -31,22 +31,28 @@ const LETTERS = {
 
 const Scrabble = {
 
-  checkForBadChars(word) {
-    return !word.match(/^[a-z]+$/);
+  checkForValidWord(word) {
+    let downWord = word.toLowerCase()
+
+    if (!downWord.match(/^[a-z]+$/) || downWord.length > 7 || downWord.length < 1) {
+      throw "Invalid Word";
+    } else {
+      return downWord;
+    }
   },
 
   score(word) {
-    let downWord = word.toLowerCase()
-    if (Scrabble.checkForBadChars(downWord)) {
-      throw "Invalid word";
-    }
-
-    let splitWord = downWord.split('');
+    let checkedWord = this.checkForValidWord(word);
+    let splitWord = checkedWord.split('');
     let total = 0;
 
     splitWord.forEach(function(letter) {
       total += LETTERS[letter]['points']
     });
+
+    if (splitWord.length == 7) {
+      total += 50
+    }
 
     return total
   },

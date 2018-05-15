@@ -11,7 +11,7 @@ describe('score', () => {
     expect(Scrabble.score('pig')).toBe(6);
   });
 
-  test.skip('adds 50 points for a 7-letter word', () => {
+  test('adds 50 points for a 7-letter word', () => {
     expect(Scrabble.score('academy')).toBe(65);
   });
 
@@ -27,11 +27,11 @@ describe('score', () => {
     expect(Scrabble.score('DoG')).toBe(5);
   });
 
-  test.skip('does not allow words > 7 letters', () => {
+  test('does not allow words > 7 letters', () => {
     expect(() => { Scrabble.score('abcdefgh'); }).toThrow();
   });
 
-  test.skip('does not allow empty words', () => {
+  test('does not allow empty words', () => {
     expect(() => { Scrabble.score(''); }).toThrow();
   });
 });
