@@ -14,6 +14,7 @@ const Scrabble = {
     let letters = word.toUpperCase().split("");
     let score = 0
 
+    // Add points for each letter:
     letters.forEach(function(letter) {
       if (letterScoreOf1.includes(letter)){
         score ++;
@@ -31,6 +32,11 @@ const Scrabble = {
         score += 10;
       }
     });
+
+    // Test for 7-letter word:
+    if  (letters.length == 7){
+      score += 50;
+    }
 
     return score;
   },
