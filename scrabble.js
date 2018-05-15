@@ -33,7 +33,7 @@ const Scrabble = {
   score(word) {
     if ( word === "" ) throw "empty";
     if ( word.length > 7 ) throw "too many letters";
-    if ( word.match(/[^a-zA-Z]/) ) throw "invalid characters"
+    if ( word.match(/[^a-zA-Z]/) ) throw "invalid characters";
 
     let total = 0
 
@@ -50,7 +50,7 @@ const Scrabble = {
 
   highestScoreFrom(arrayOfWords) {
 
-    if ( arrayOfWords.length === 0 ) throw "empty"
+    if ( arrayOfWords.length === 0 ) throw "empty";
     if ( arrayOfWords.length === 1 ) {
       return arrayOfWords[0]
     }
@@ -104,6 +104,57 @@ const Scrabble = {
 };
 
 Scrabble.Player = class {
+
+  constructor(name){
+    if ( name == "" || name == null ) throw "needs name"
+    this.name = name;
+    this.plays = []
+  }
+
+  play(word){
+    if ( word == "" || word == null ) throw "needs real word"
+    // Returns false if player has already won
+    if ( this.hasWon() || Scrabble.score(word) == 0 ) {
+      return false
+    } else {
+      this.plays.push(word);
+      return true
+    }
+    // adds the input word to the plays Array
+
+
+  }
+
+  totalScore(){
+    // sums up and returns the score of the players words
+    let score = 0
+    this.plays.forEach(function(word){
+      score += Scrabble.score(word);
+    });
+    return score
+  }
+
+  hasWon(){
+    let score = this.totalScore()
+    if ( score >= 100 ) {
+      return true
+    } else { return false }
+    // returns true if the player has over 100 points, otherwise returns false
+  }
+
+  highestScoringWord(){
+    // returns the highest scoring word the user has played
+    let word = Scrabble.highestWordFrom(this.plays)
+    return word
+  }
+
+  highestWordScore(){
+    // returns the highestScoringWord score
+    let word = this.highestScoringWord()
+    score = Scrabble.score(word)
+    return score
+  }
+
 
 };
 
