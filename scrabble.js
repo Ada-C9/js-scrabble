@@ -49,24 +49,75 @@ const Scrabble = {
       return arrayOfWords[0];
     }
 
-    let max = {}
+    let allScores = {}
 
     arrayOfWords.forEach(function(word) {
 
       let wordScore = Scrabble.score(word);
 
-      if (!max[wordScore]) {
-        max[wordScore] = [word];
+      if (!allScores[wordScore]) {
+        allScores[wordScore] = [word];
       }
       else {
-        max[wordScore].push(word);
+        allScores[wordScore].push(word);
       }
     })
-  },
+
+    let keys = Object.keys(allScores);
+    let max = Math.max(...keys);
+
+    if (allScores[max].length === 1) {
+      return allScores[max][0];
+    }
+    else {
+      let min = allScores[max][0];
+
+      allScores[max].forEach(function(maxWord) {
+        if ( maxWord.length === 7 ) {
+          return maxWord
+        }
+        else if ( maxWord.length < min.length) {
+          min = maxWord;
+        }
+      })
+      return min
+    }
+  }
 };
 
 Scrabble.Player = class {
+  constructor(name) {
+    if (!name) {
+      throw "Player needs a name";
+    }
+    this.name = name;
+    this.plays = [];
+  }
 
+  play(word) {
+
+    if (!/^[A-Z]+$/.test(word.toUpperCase())) {
+      throw "Not a valid word";
+    }
+
+    else {
+      return this.plays.push(word)
+    }
+  }
+
+  totalScore() {
+    let total = 0
+
+    this.plays.forEach(function(play) {
+      total += Scrabble.score(play)
+    })
+    return total
+  }
+
+  hasWon() {
+    let scores = [];
+
+  }
 };
 
 

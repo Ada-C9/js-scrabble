@@ -60,7 +60,7 @@ describe('highestScoreFrom', () => {
     expect(Scrabble.highestScoreFrom(['pig', 'dog'])).toBe('pig');
   });
 
-  test.skip('if tied, prefer a word with 7 letters', () => {
+  test('if tied, prefer a word with 7 letters', () => {
     const loser = 'zzzzzz';
     const winner = 'iiiiddd';
 
@@ -73,7 +73,7 @@ describe('highestScoreFrom', () => {
     expect(Scrabble.highestScoreFrom([winner, loser])).toBe(winner);
   });
 
-  test.skip('if tied and no word has 7 letters, prefers the word with fewer letters', () => {
+  test('if tied and no word has 7 letters, prefers the word with fewer letters', () => {
     // Check score assumptions
     expect(Scrabble.score('dog')).toBe(5);
     expect(Scrabble.score('goat')).toBe(5);
@@ -83,7 +83,7 @@ describe('highestScoreFrom', () => {
     expect(Scrabble.highestScoreFrom(['goat', 'dog'])).toBe('dog');
   });
 
-  test.skip('returns the first word of a tie with same letter count', () => {
+  test('returns the first word of a tie with same letter count', () => {
     // Check score assumptions
     expect(Scrabble.score('i')).toBe(1);
     expect(Scrabble.score('dog')).toBe(5);
@@ -98,19 +98,19 @@ describe('highestScoreFrom', () => {
 });
 
 describe('Player', () => {
-  test.skip('is defined', () => {
+  test('is defined', () => {
     expect(Scrabble.Player).toBeDefined();
   });
 
   describe('Constructor', () => {
-    test.skip('Creates a new player', () => {
+    test('Creates a new player', () => {
       const name = 'test name';
       const player = new Scrabble.Player(name);
 
       expect(player.name).toBe(name);
     });
 
-    test.skip('Requires a name', () => {
+    test('Requires a name', () => {
       expect(() => {
         new Scrabble.Player();
       }).toThrow();
@@ -118,7 +118,7 @@ describe('Player', () => {
   });
 
   describe('play', () => {
-    test.skip('Records the played word', () => {
+    test('Records the played word', () => {
       const word = 'dog';
       const player = new Scrabble.Player('test player');
 
@@ -130,7 +130,7 @@ describe('Player', () => {
       expect(player.plays[0]).toBe(word);
     });
 
-    test.skip('Requires a real word', () => {
+    test('Requires a real word', () => {
       const player = new Scrabble.Player('test player');
 
       expect(player.plays.length).toBe(0);
@@ -155,13 +155,13 @@ describe('Player', () => {
   });
 
   describe('totalScore', () => {
-    test.skip('Is zero if the player has not played anything', () => {
+    test('Is zero if the player has not played anything', () => {
       const player = new Scrabble.Player('test player');
 
       expect(player.totalScore()).toBe(0);
     });
 
-    test.skip('Is updated by play', () => {
+    test('Is updated by play', () => {
       // Arrange
       const player = new Scrabble.Player('test player');
       const words = [{word: 'dog', score: 5}, {word: 'cat', score: 5}, {word: 'goat', score: 5}];
