@@ -87,14 +87,13 @@ const Scrabble = {
 };
 
 Scrabble.Player = class {
-
+  constructor(name) {
+    if ( name === undefined ) {
+      throw 'You need a name to play';
+    }
+    this.name = name;
+  }
 };
 
 
 module.exports = Scrabble;
-
-const loser = 'zzzzzz';
-const winner = 'iiiiddd';
-
-Scrabble.highestScoreFrom([loser, winner])
-Scrabble.highestScoreFrom([winner, loser])
