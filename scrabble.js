@@ -57,6 +57,19 @@ const Scrabble = {
 
   highestScoreFrom(arrayOfWords) {
 
+    if (arrayOfWords.length === 0) {
+      throw Error('No words Played');
+    }
+
+    let hiScore = 0;
+    let hiWord = '';
+    for (let word of arrayOfWords) {
+      if (this.score(word) > hiScore) {
+        hiScore = this.score(word);
+        hiWord = word;
+      }
+    }
+
   },
 };
 
