@@ -56,6 +56,34 @@ const findPoints = function findPoints(letter) {
 }
 
 const Scrabble = {
+
+  const Player = class {
+    constructor(name, plays = []) {
+      this.name = name;
+      this.plays = plays;
+    },
+
+    play(word) {
+
+    },
+
+    totalScore() {
+
+    },
+
+    hasWon() {
+
+    },
+
+    highScoringWord() {
+
+    },
+
+    highestWordScore() {
+
+    }
+  },
+
   score(word) {
     let score = 0;
     if (word.length === 7) {
@@ -68,6 +96,7 @@ const Scrabble = {
     }
     return score;
   },
+
   highestScoreFrom(arrayOfWords) {
     let maxWord = null;
     let maxPoints = null;
@@ -80,8 +109,15 @@ const Scrabble = {
     });
     return maxWord;
   },
-};
+}
 
+
+
+
+
+let jill = new Scrabble.Player('jill');
+
+console.log(jill);
 
 console.log(Scrabble.score('apple'));
 console.log(Scrabble.score('mom'));
@@ -90,12 +126,7 @@ console.log(Scrabble.score('q'));
 console.log(Scrabble.highestScoreFrom(['quartzy','axe','mom','q']));
 
 
-// Scrabble.Player = class {
-//
-// };
-//
-//
-// module.exports = Scrabble;
+
 
 
 
