@@ -1,47 +1,46 @@
-const POSSIBLE_LETTERS = {
-  A: 9,
-  N: 6,
-  B: 2,
-  O: 8,
-  C: 2,
-  P: 2,
-  D: 4,
-  Q: 1,
-  E: 12,
-  R: 6,
-  F: 2,
-  S: 4,
-  G: 3,
-  T: 6,
-  H: 2,
-  U: 4,
-  I: 9,
-  V: 2,
-  J: 1,
-  W: 2,
-  K: 1,
-  X: 1,
-  L: 4,
-  Y: 2,
-  M: 2,
-  Z: 1
+const LETTERS = {
+  "a": { "points":  1, "tiles":  9 },
+  "b": { "points":  3, "tiles":  2 },
+  "c": { "points":  3, "tiles":  2 },
+  "d": { "points":  2, "tiles":  4 },
+  "e": { "points":  1, "tiles": 12 },
+  "f": { "points":  4, "tiles":  2 },
+  "g": { "points":  2, "tiles":  3 },
+  "h": { "points":  4, "tiles":  2 },
+  "i": { "points":  1, "tiles":  9 },
+  "j": { "points":  8, "tiles":  1 },
+  "k": { "points":  5, "tiles":  1 },
+  "l": { "points":  1, "tiles":  4 },
+  "m": { "points":  3, "tiles":  2 },
+  "n": { "points":  1, "tiles":  6 },
+  "o": { "points":  1, "tiles":  8 },
+  "p": { "points":  3, "tiles":  2 },
+  "q": { "points": 10, "tiles":  1 },
+  "r": { "points":  1, "tiles":  6 },
+  "s": { "points":  1, "tiles":  4 },
+  "t": { "points":  1, "tiles":  6 },
+  "u": { "points":  1, "tiles":  4 },
+  "v": { "points":  4, "tiles":  2 },
+  "w": { "points":  4, "tiles":  2 },
+  "x": { "points":  8, "tiles":  1 },
+  "y": { "points":  4, "tiles":  2 },
+  "z": { "points": 10, "tiles":  1 },
+  "blank": { "tiles": 2}
 }
-
-const LETTER_SCORES = {
-  1: ['A', 'E', 'I', 'O', 'U', 'L', 'N', 'R', 'S', 'T'],
-  2: ['D', 'G'],
-  3: ['B', 'C', 'M', 'P'],
-  4: ['F', 'H', 'V', 'W', 'Y'],
-  5: ['K'],
-  8: ['J', 'X'],
-  10: ['Q', 'Z']
-}
-
 
 
 const Scrabble = {
+
   score(word) {
-    // TODO: implement score
+
+    let splitWord = word.split('');
+    let total = 0;
+
+    splitWord.forEach(function(letter) {
+      total += LETTERS[letter]['points']
+    });
+
+    return total
   }
 
   // TODO: add the highestScoreFrom method
