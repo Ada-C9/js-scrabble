@@ -28,9 +28,12 @@ const scores = {
 }
 const Scrabble = {
   score(word) {
-    // add error reporting here to check that word is valid
     if ( !/^[a-zA-Z]+$/.test(word) ) {
       throw "Please enter valid letters.";
+    }
+
+    if (word.length > 7 || word.length < 1) {
+      throw "Word must be no more than 7 letters.";
     }
 
     word = word.toUpperCase();
@@ -59,4 +62,4 @@ Scrabble.Player = class {
 
 
 module.exports = Scrabble;
-// console.log(Scrabble.score("ac$demy"));
+// console.log(Scrabble.score("academia"));
