@@ -43,7 +43,11 @@ const Scrabble = {
 
   },
   highestScoreFrom(arrayOfWords) {
+    if (arrayOfWords.length < 1 || !(arrayOfWords instanceof Array) ){
+      throw new Error (`This is not an array of words.`)
+    }
 
+    
   },
 };
 
