@@ -28,21 +28,20 @@ const WORDVALUES = {
   Z: 10
 }
 
-const Scrabble = {
+const LETTERS = /[A-Z]/
 
-  // sevenLetterCheck(wordLetters, score) {
-  //   if (wordLetters.count === 7) {
-  //     score += 50
-  //   }
-  //   return score;
-  // },
+const Scrabble = {
 
   score(word) {
     const upWord = word.toUpperCase()
     let score = 0
     let wordLetters = this.splitString(upWord)
     wordLetters.forEach(function(letter) {
-      score += WORDVALUES[letter]
+      if (LETTERS.test(letter)) {
+        score += WORDVALUES[letter]
+      } else {
+        throw "Character is not a letter!";
+      }    
     });
     if (wordLetters.length === 7) {
       score += 50
