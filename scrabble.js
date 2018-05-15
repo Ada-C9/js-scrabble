@@ -37,23 +37,23 @@ const Scrabble = {
     }
 
     word = word.toUpperCase();
-    let word_score = [];
+    let wordScore = [];
 
     for (let i = 0; i < word.length; i += 1) {
-      word_score.push(scores[word[i]]);
+      wordScore.push(scores[word[i]]);
     }
 
-    let total_score = word_score.reduce(function(acc, val) { return acc + val; });
+    let totalScore = wordScore.reduce(function(acc, val) { return acc + val; });
 
     if (word.length == 7) {
-      total_score += 50;
+      totalScore += 50;
     }
 
-    return total_score;
+    return totalScore;
   },
-  // highestScoreFrom(arrayOfWords) {
-  //
-  // },
+  highestScoreFrom(arrayOfWords) {
+    // let topScore = [];
+  },
 };
 
 Scrabble.Player = class {

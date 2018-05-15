@@ -37,7 +37,7 @@ describe('score', () => {
 });
 
 describe('highestScoreFrom', () => {
-  test.skip('is defined', () => {
+  test('is defined', () => {
     expect(Scrabble.highestScoreFrom).toBeDefined();
   });
 
