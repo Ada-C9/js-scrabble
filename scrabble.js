@@ -16,6 +16,10 @@ const Scrabble = {
     }
     let score = 0
 
+    if (word.length === 7) {
+      score = 50;
+    }
+
     word.toUpperCase().split('').forEach((letter) => {
       if ((ScoreChart.one).includes(letter)) {
         score += 1;
