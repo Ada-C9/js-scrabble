@@ -9,6 +9,7 @@ const letterValues = {
 };
 
 const Scrabble = {
+  // playedWords: [],
   score(word) {
     let letters = word.toUpperCase().split("");
     if (letters.length > 7) {
@@ -39,10 +40,49 @@ const Scrabble = {
     if (letters.length === 7) {
       totalScore += 50;
     }
+    // self.playedWords.push(word)
     return totalScore;
   },
   highestScoreFrom(arrayOfWords) {
-
+    if ( !Array.isArray(arrayOfWords) || arrayOfWords.length === 0 ) {
+      throw 'We need to actually have words to compare';
+    } else if (arrayOfWords.length === 1) {
+      return arrayOfWords[0];
+    } else {
+      const scores = arrayOfWords.map(word => this.score(word));
+      let highestScore = 0
+      scores.forEach( function(score) {
+        if (score > highestScore) {
+          highestScore = score;
+        }
+      });
+      const highestScoringWords = []
+      scores.forEach( function(score, index) {
+        if (score === highestScore) {
+          highestScoringWords.push(arrayOfWords[index]);
+        }
+      });
+      if (highestScoringWords.length === 1) {
+        return highestScoringWords[0];
+      } else {
+        let shortestLength = 7;
+        let shortestIndex = null;
+        let sevenIndex = null;
+        highestScoringWords.forEach(function(word, index) {
+          if (word.length === 7) {
+            sevenIndex = index;
+          } else if (word.length < shortestLength) {
+            shortestLength = word.length;
+            shortestIndex = index;
+          }
+        });
+        if (sevenIndex !== null) {
+          return highestScoringWords[sevenIndex];
+        } else {
+          return highestScoringWords[shortestIndex];
+        }
+      }
+    }
   },
 };
 
@@ -52,3 +92,9 @@ Scrabble.Player = class {
 
 
 module.exports = Scrabble;
+
+const loser = 'zzzzzz';
+const winner = 'iiiiddd';
+
+Scrabble.highestScoreFrom([loser, winner])
+Scrabble.highestScoreFrom([winner, loser])
