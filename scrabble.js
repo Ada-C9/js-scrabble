@@ -10,8 +10,13 @@ const letterValues = {
 
 const Scrabble = {
   score(word) {
-    let totalScore = 0;
     let letters = word.toUpperCase().split("");
+    if (letters.length > 7) {
+      throw 'Your word can only be 7 letters or less';
+    } else if (letters.length === 0) {
+      throw 'Your word can\t be empty';
+    }
+    let totalScore = 0;
     letters.forEach( function(char) {
       if (letterValues.one.includes(char)) {
         totalScore += 1;
@@ -27,8 +32,13 @@ const Scrabble = {
         totalScore += 8;
       } else if (letterValues.ten.includes(char)) {
         totalScore += 10;
+      } else {
+        throw 'Those aren\'t characters in this Scrabble Game';
       }
     });
+    if (letters.length === 7) {
+      totalScore += 50;
+    }
     return totalScore;
   },
   highestScoreFrom(arrayOfWords) {
