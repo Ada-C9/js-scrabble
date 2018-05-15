@@ -1,5 +1,3 @@
-
-
 const Scrabble = {
   A: 1,
   B: 3,
@@ -30,19 +28,19 @@ const Scrabble = {
 
   score(word) {
     let total = 0;
-    if (typeof word != 'string' ) {
-      throw "Invalid word played, must be a string."
+    if (typeof word != 'string' || word.length < 1 ) {
+      throw "Word must be a string."
     }
     for (let letter of word) {
       let capLetter = letter.toUpperCase();
       if (this[capLetter]) {
         total += this[capLetter];
       } else {
-        throw "Invalid word played, includes invalid letter."
+        throw "Word includes an invalid letter."
       }
     }
 
-    console.log(`Total score for "${word}" is ${total} points.`);
+    return total;
   },
 
   // highestScoreFrom(arrayOfWords) {
@@ -56,7 +54,7 @@ const Scrabble = {
 // };
 
 
-// module.exports = Scrabble;
+module.exports = Scrabble;
 
 ////
 Scrabble.score('hellothere')
