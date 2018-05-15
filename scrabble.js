@@ -36,6 +36,10 @@ const Scrabble = {
     if (word.length < 1 || word.length > 7) {
       throw new Error('Word must be 1-7 letters.');
     }
+
+    if (word.length === 0) {
+      throw new Error('Word is empty');
+    }
   },
 
   score(word) {
