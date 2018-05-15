@@ -30,7 +30,11 @@ const tilescores = {
 const Scrabble = {
   valid(word) {
     if (word.match(/[^a-zA-Z]/i)) {
-      throw new Error('only letters can be played');
+      throw new Error('Bad character entered');
+    }
+
+    if (word.length < 1 || word.length > 7) {
+      throw new Error('Word must be 1-7 letters.');
     }
   },
 

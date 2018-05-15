@@ -21,13 +21,13 @@ describe('score', () => {
     }).toThrow();
   });
 
-  test.skip('handles all upper- and lower-case letters', () => {
+  test('handles all upper- and lower-case letters', () => {
     expect(Scrabble.score('dog')).toBe(5);
     expect(Scrabble.score('DOG')).toBe(5);
     expect(Scrabble.score('DoG')).toBe(5);
   });
 
-  test.skip('does not allow words > 7 letters', () => {
+  test('does not allow words > 7 letters', () => {
     expect(() => { Scrabble.score('abcdefgh'); }).toThrow();
   });
 
