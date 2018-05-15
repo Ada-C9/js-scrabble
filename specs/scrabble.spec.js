@@ -27,7 +27,7 @@ describe('score', () => {
     expect(Scrabble.score('DoG')).toBe(5);
   });
 
-  test.skip('does not allow words > 7 letters', () => {
+  test('does not allow words > 7 letters', () => {
     expect(() => { Scrabble.score('abcdefgh'); }).toThrow();
   });
 
