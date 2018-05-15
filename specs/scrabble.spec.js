@@ -222,13 +222,19 @@ describe('Player', () => {
 
   describe('highestWordScore', () => {
     test('returns the score of the highest scoring word played', () => {
-
-
+      const player = new Scrabble.Player('test player');
+      player.play('dog');
+      player.play('axolotl');
+      player.play('que');
+      const highestScore = Scrabble.score('axolotl');
+      expect(player.highestWordScore()).toBe(highestScore);
     });
 
     test('throws an error if no words have been played', () => {
-
-
+      const player = new Scrabble.Player('test player');
+      expect(() => {
+        player.highestWordScore();
+      }).toThrow();
     });
   });
 });
