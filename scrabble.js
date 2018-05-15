@@ -32,15 +32,16 @@ const LETTERS = {
 const Scrabble = {
 
   checkForBadChars(word) {
-    return !word.match(/^[a-zA-Z]+$/);
+    return !word.match(/^[a-z]+$/);
   },
 
   score(word) {
-    if (Scrabble.checkForBadChars(word)) {
+    let downWord = word.toLowerCase()
+    if (Scrabble.checkForBadChars(downWord)) {
       throw "Invalid word";
     }
 
-    let splitWord = word.split('');
+    let splitWord = downWord.split('');
     let total = 0;
 
     splitWord.forEach(function(letter) {
