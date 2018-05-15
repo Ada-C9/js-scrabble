@@ -11,7 +11,7 @@ describe('score', () => {
     expect(Scrabble.score('pig')).toBe(6);
   });
 
-  test.skip('adds 50 points for a 7-letter word', () => {
+  test('adds 50 points for a 7-letter word', () => {
     expect(Scrabble.score('academy')).toBe(65);
   });
 
@@ -21,7 +21,7 @@ describe('score', () => {
     }).toThrow();
   });
 
-  test.skip('handles all upper- and lower-case letters', () => {
+  test('handles all upper- and lower-case letters', () => {
     expect(Scrabble.score('dog')).toBe(5);
     expect(Scrabble.score('DOG')).toBe(5);
     expect(Scrabble.score('DoG')).toBe(5);

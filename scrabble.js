@@ -36,7 +36,13 @@ const Scrabble = {
       word_score.push(scores[word[i]]);
     }
 
-    return word_score.reduce(function(acc, val) { return acc + val; });
+    let total_score = word_score.reduce(function(acc, val) { return acc + val; });
+
+    if (word.length == 7) {
+      total_score += 50;
+    }
+
+    return total_score;
   },
   // highestScoreFrom(arrayOfWords) {
   //
@@ -49,4 +55,4 @@ Scrabble.Player = class {
 
 
 module.exports = Scrabble;
-console.log(Scrabble.score("word"));
+console.log(Scrabble.score("academy"));
