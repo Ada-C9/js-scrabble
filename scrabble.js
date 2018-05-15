@@ -79,7 +79,7 @@ const Scrabble = {
     if (arrayOfWords.length === 1) {
       return arrayOfWords[0];
     }
-    
+
     let highestWord = arrayOfWords[0];
 
     arrayOfWords.forEach(function(word){
@@ -87,7 +87,7 @@ const Scrabble = {
       if (Scrabble.score(word) > Scrabble.score(highestWord)) {
         highestWord = word;
       } else if (Scrabble.score(word) === Scrabble.score(highestWord)) {
-        highestWord = Scrabble.breakTie(word, highestWord);
+        highestWord = Scrabble.breakTie(highestWord, word);
       }
 
     });
