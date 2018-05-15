@@ -2,7 +2,7 @@
 const Scrabble = {
   score(word) {
 
-
+    //  Letter Scores Table:
     let letterScoreOf1 = ["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"];
     let letterScoreOf2 =  ["D", "G"	];
     let letterScoreOf3 =  ["B", "C", "M", "P"	];
@@ -11,8 +11,25 @@ const Scrabble = {
     let letterScoreOf8 =  ["J", "X"];
     let letterScoreOf10 =  ["Q", "Z"];
 
+    // Split word into letter:
     let letters = word.toUpperCase().split("");
     let score = 0
+
+    // Validates characters:
+    letters.forEach(function(char) {
+      if (!char.match(/[a-z]/i)) {
+        throw `${char} is not a letter!`;
+      }
+    });
+
+    // Check and act uppon lenght of word:
+    if (letters.length > 7){
+      throw `Word cannot have more than seven character!`;
+    } else if (letters.length < 1){
+      throw `Word should have more than one character!`;
+    } else if (letters.length == 7){
+      score += 50;
+    }
 
     // Add points for each letter:
     letters.forEach(function(letter) {
@@ -32,11 +49,6 @@ const Scrabble = {
         score += 10;
       }
     });
-
-    // Test for 7-letter word:
-    if  (letters.length == 7){
-      score += 50;
-    }
 
     return score;
   },
