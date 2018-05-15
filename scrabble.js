@@ -33,8 +33,17 @@ const Scrabble = {
   },
 
   score(word) {
-
+    word = word.toUpperCase();
+    let sum = 0;
+    for (let letter of word) {
+      sum += tilescores[letter]
+    }
+    if (word.length === 7) {
+      sum += 50;
+    }
+    return sum;
   },
+
   highestScoreFrom(arrayOfWords) {
 
   },
