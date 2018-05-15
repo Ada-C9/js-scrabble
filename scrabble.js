@@ -10,8 +10,12 @@ const value10Array = ["q", "z"]
 
 const Scrabble = {
   score(word) {
-    if (word === null || word === "" || word.length > 7) {
-      return null;
+    if (word === null || word === "") {
+      throw 'Please enter valid input';
+    }
+
+    if (word.length > 7) {
+      throw 'Words must be 7 letters or less';
     }
 
     let letters = /^[A-Za-z]+$/;
@@ -20,7 +24,7 @@ const Scrabble = {
       letterArray = word.toLowerCase().split("");
       console.log(letterArray);
     } else {
-      console.log('Please enter valid input');
+      throw 'Please enter valid input';
     }
 
     let wordScore = 0
@@ -45,10 +49,6 @@ const Scrabble = {
         wordScore += 10;
       }
     }
-
-
-
-
     return wordScore;
 
   },
@@ -56,6 +56,16 @@ const Scrabble = {
     if (arrayOfWords.length === 0) {
       return null;
     }
+
+    let scoredWords = {}
+    let winner = {}
+
+    for (let word of arrayOfWords) {
+      let score = Scrabble.score(word);
+      winner[word] = score;
+    }
+
+
   },
 };
 
@@ -67,4 +77,6 @@ Scrabble.Player = class {
 module.exports = Scrabble;
 
 // Driver code
+words = ['apple', 'pear']
 console.log(Scrabble.score('academy'));
+console.log(Scrabble.highestScoreFrom(words))
