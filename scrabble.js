@@ -1,4 +1,4 @@
-let pry = require('pryjs');
+// let pry = require('pryjs');
 
 const scores = {
   a: 1, e: 1, i: 1, o: 1, u: 1, l: 1, n: 1, r: 1, s: 1,
@@ -73,7 +73,45 @@ const Scrabble = {
 };
 
 Scrabble.Player = class {
-  // TODO: implement the Player class
+
+  constructor(name) {
+    if (name.null) {
+      throw 'A name is required.';
+    }
+    this.name = name;
+    this.plays = [];
+  }
+
+  totalScore() {
+    let words = this.plays;
+    let total = 0;
+    for (let word of words) {
+      total += Scrabble.score(word);
+    }
+    return total;
+  }
+
+  hasWon() {
+    let total = this.totalScore();
+    if (total >= 100) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  play(word) {
+    if (typeof word != 'string') {
+      throw 'Must play a valid word.';
+    }
+    let won = this.hasWon();
+    if (won) {
+      return false;
+    } else {
+      this.plays.push(word);
+      return true;
+    }
+  }
 };
 
 module.exports = Scrabble;
