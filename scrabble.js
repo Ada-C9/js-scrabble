@@ -29,10 +29,13 @@ const tilescores = {
 
 const Scrabble = {
   valid(word) {
-
+    if (word.match(/[^a-zA-Z]/i)) {
+      throw new Error('only letters can be played');
+    }
   },
 
   score(word) {
+    this.valid(word)
     word = word.toUpperCase();
     let sum = 0;
     for (let letter of word) {
