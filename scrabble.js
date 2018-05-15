@@ -43,12 +43,15 @@ const Scrabble = {
     return total
   }
 
-  // TODO: add the highestScoreFrom method
+  },
+  highestScoreFrom(arrayOfWords) {
 
+  },
 };
 
 Scrabble.Player = class {
-  // TODO: implement the Player class
+
 };
+
 
 module.exports = Scrabble;
