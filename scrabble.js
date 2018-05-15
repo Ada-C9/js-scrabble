@@ -1,5 +1,7 @@
 
 const Scrabble = {
+
+
   score(word) {
 
     //  Letter Scores Table:
@@ -49,12 +51,28 @@ const Scrabble = {
         score += 10;
       }
     });
-
     return score;
   },
 
 
   highestScoreFrom(arrayOfWords) {
+
+    if (arrayOfWords.length == 0){
+      throw `No words given!`;
+    } else if (!Array.isArray(arrayOfWords)){
+      throw `This is not an array!`;
+    } else if (arrayOfWords.length == 1){
+      return arrayOfWords[0];
+    }
+
+    // let arrayOfScores = [];
+    // arrayOfWords.forEach(function(word) {
+    //   arrayOfScores.push(this.score(word));
+    // });
+    //
+    // let indexOfMaxValue = arrayOfScores.reduce((iMax, x, i, arr) => x > arr[iMax] ? i : iMax, 0);
+    //
+    // return arrayOfWords[indexOfMaxValue];
 
   },
 };

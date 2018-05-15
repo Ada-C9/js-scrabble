@@ -37,16 +37,16 @@ describe('score', () => {
 });
 
 describe('highestScoreFrom', () => {
-  test.skip('is defined', () => {
+  test('is defined', () => {
     expect(Scrabble.highestScoreFrom).toBeDefined();
   });
 
-  test.skip('throws if no words were passed', () => {
+  test('throws if no words were passed', () => {
     expect(() => { Scrabble.highestScoreFrom([]); }).toThrow();
     expect(() => { Scrabble.highestScoreFrom('not array'); }).toThrow();
   });
 
-  test.skip('returns the only word in a length-1 array', () => {
+  test('returns the only word in a length-1 array', () => {
     expect(Scrabble.highestScoreFrom(['dog'])).toBe('dog');
   });
 
