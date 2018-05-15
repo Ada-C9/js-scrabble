@@ -54,16 +54,25 @@ const Scrabble = {
   },
   highestScoreFrom(arrayOfWords) {
     if (arrayOfWords.length === 0) {
-      return null;
+      throw 'Please provide some words to score!'
+    }
+
+    if (arrayOfWords.length === 1) {
+      return arrayOfWords[0];
     }
 
     let scoredWords = {}
-    let winner = {}
+    let winner = []
 
     for (let word of arrayOfWords) {
       let score = Scrabble.score(word);
-      winner[word] = score;
+      scoredWords[word] = score;
     }
+
+    // return Object.keys(scoredWords).reduce((a, b) => scoredWords[a] > scoredWords[b] ? a : b);
+    let highestScore = Object.values(scoredWords).reduce((a, b) => scoredWords[a] > scoredWords[b] ? a : b);
+    console.log(`highest score: ${highestScore}`)
+
 
 
   },
@@ -77,6 +86,5 @@ Scrabble.Player = class {
 module.exports = Scrabble;
 
 // Driver code
-words = ['apple', 'pear']
-console.log(Scrabble.score('academy'));
+words = ['ate','academy']
 console.log(Scrabble.highestScoreFrom(words))
