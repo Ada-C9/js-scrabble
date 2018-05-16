@@ -16,7 +16,7 @@ const Scrabble =  {
 
         wordScore += letterValues[word.charAt(i)];
       }
-
+      
       return wordScore;
 
     } else {
@@ -51,7 +51,5 @@ const Scrabble =  {
 
 module.exports = Scrabble;
 
-
-// let mygame = new Scrabble();
 
 console.log(Scrabble.score("ZZzzZZ"));
