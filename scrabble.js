@@ -107,11 +107,17 @@ Scrabble.Player = class {
     this.plays= [];
   }
 
-  hasWon() {
+  totalScore() {
     let total = 0;
     this.plays.forEach(function(word) {
       total += Scrabble.score(word);
     });
+
+    return total;
+  }
+
+  hasWon() {
+    let total = this.totalScore();
 
     return total >= 100;
   }
@@ -125,6 +131,7 @@ Scrabble.Player = class {
       return checkedWord; // not sure if this is the functionality wanted
     }
   }
+
 
 };
 
