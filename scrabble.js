@@ -120,11 +120,11 @@ Scrabble.Player = class {
   }
 
   highestScoringWord() {
-
+    return Scrabble.highestScoreFrom(this.plays);
   }
 
   highestWordScore() {
-
+    return Scrabble.score(this.highestScoringWord());
   }
 };
 
