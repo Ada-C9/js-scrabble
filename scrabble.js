@@ -63,19 +63,13 @@ const Scrabble = {
     }
 
     let topWord = arrayOfWords[0];
-    let topScore = Scrabble.score(topWord);
 
     arrayOfWords.forEach (function (word) {
-      let score = Scrabble.score(word);
-      if (score > topScore) {
-        topScore = score;
+      if ( Scrabble.score(word) > Scrabble.score(topWord)) {
         topWord = word;
-      } else if (score === topScore) {
-        if (word.length === 7 && topWord.length !==7 || word.length < topWord.length) {
-          topScore = score;
-          topWord = word;
-        }
-      }
+      } else if ( Scrabble.score(word) == Scrabble.score(topWord))
+
+
     });
     return topWord;
   }
@@ -83,6 +77,56 @@ const Scrabble = {
 
 Scrabble.Player = class {
 
+  constructor(name) {
+    if (name == null) {
+      throw("The player needs a name!");
+    }
+    this.name = name;
+    this.plays = [];
+  }
+
+  play(word) {
+    if ( this.hasWon ) {
+      return false;
+    } else {
+      this.plays.push(word);
+    }
+  }
+
+  totalScore() {
+    let score = 0;
+    this.plays.forEach (function (word){
+      let wordScore = Scrabble.score(word);
+      score += wordScore;
+    });
+    return score;
+  }
+
+  hasWon() {
+    let score = this.totalScore();
+    if (score > 100) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  highestScoringWord() {
+    let max_word = "";
+    this.plays.forEach (function(word) {
+      if ( Scrabble.score(word) > max_word ) {
+        max_word = word;
+      }
+    });
+    return max_word;
+  }
+
+  highestWordScore() {
+    let word = this.highestScoringWord();
+    let wordScore = Scrabble.score(word);
+
+    return wordScore;
+  }
 };
 
 
