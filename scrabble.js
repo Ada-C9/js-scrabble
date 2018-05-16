@@ -85,6 +85,8 @@ Scrabble.Player = class {
   play(word) {
     if (word.length < 1 || typeof word != 'string') {
       throw "Word is invalid."
+    } else if (this.hasWon()) {
+      return false;
     } else {
       this.plays.push(word);
       return this.plays;
@@ -92,11 +94,21 @@ Scrabble.Player = class {
   }
 
   totalScore() {
+    let playerScore = 0;
 
-    
+    this.plays.forEach((word) => {
+      playerScore += Scrabble.score(word)
+    });
+
+    return playerScore;
   }
 
   hasWon() {
+    if (this.totalScore() > 100) {
+      return true;
+    } else {
+      return false;
+    }
 
   }
 
