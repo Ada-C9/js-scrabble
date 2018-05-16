@@ -1,11 +1,11 @@
-
-const value1Array = ["a", "e", "i", "o", "u", "l", "n", "r", "s", "t"]
-const value2Array = ["d", "g"]
-const value3Array = ["b", "c", "m", "p"]
-const value4Array = ["f", "h", "v", "w", "y"]
-const value5Array = ["k"]
-const value8Array = ["j", "x"]
-const value10Array = ["q", "z"]
+//
+// const value1Array = ["a", "e", "i", "o", "u", "l", "n", "r", "s", "t"]
+// const value2Array = ["d", "g"]
+// const value3Array = ["b", "c", "m", "p"]
+// const value4Array = ["f", "h", "v", "w", "y"]
+// const value5Array = ["k"]
+// const value8Array = ["j", "x"]
+// const value10Array = ["q", "z"]
 
 
 const Scrabble = {
@@ -18,9 +18,9 @@ const Scrabble = {
       throw 'Words must be 7 letters or less';
     }
 
-    let letters = /^[A-Za-z]+$/;
+    let validLetters = /^[A-Za-z]+$/;
     let letterArray = []
-    if (word.match(letters)) {
+    if (word.match(validLetters)) {
       letterArray = word.toLowerCase().split("");
       console.log(letterArray);
     } else {
@@ -33,21 +33,65 @@ const Scrabble = {
     }
 
     for (let letter of letterArray) {
-      if (value1Array.includes(letter)) {
-        wordScore += 1;
-      } else if (value2Array.includes(letter)) {
-        wordScore += 2;
-      } else if (value3Array.includes(letter)) {
-        wordScore += 3;
-      } else if (value4Array.includes(letter)) {
-        wordScore += 4;
-      } else if (value5Array.includes(letter)) {
-        wordScore += 5;
-      } else if (value8Array.includes(letter)) {
-        wordScore += 8;
-      } else if (value8Array.includes(letter)) {
-        wordScore += 10;
+      switch (letter) {
+        case 'a':
+        case 'e':
+        case 'i':
+        case 'o':
+        case 'u':
+        case 'l':
+        case 'n':
+        case 'r':
+        case 's':
+        case 't':
+          wordScore += 1;
+          break;
+        case 'd':
+        case 'g':
+          wordScore += 2;
+          break;
+        case 'b':
+        case 'c':
+        case 'm':
+        case 'p':
+          wordScore += 3;
+          break;
+        case 'f':
+        case 'h':
+        case 'v':
+        case 'w':
+        case 'y':
+          wordScore += 4;
+          break;
+        case 'k':
+          wordScore += 5;
+          break;
+        case 'j':
+        case 'x':
+          wordScore += 8;
+          break;
+        case 'q':
+        case 'z':
+          wordScore += 10;
+          break;
+        default:
+          throw 'Unscoreable character';
       }
+      // if (value1Array.includes(letter)) {
+      //   wordScore += 1;
+      // } else if (value2Array.includes(letter)) {
+      //   wordScore += 2;
+      // } else if (value3Array.includes(letter)) {
+      //   wordScore += 3;
+      // } else if (value4Array.includes(letter)) {
+      //   wordScore += 4;
+      // } else if (value5Array.includes(letter)) {
+      //   wordScore += 5;
+      // } else if (value8Array.includes(letter)) {
+      //   wordScore += 8;
+      // } else if (value8Array.includes(letter)) {
+      //   wordScore += 10;
+      // }
     }
     return wordScore;
 
