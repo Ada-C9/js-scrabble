@@ -44,7 +44,6 @@ const Scrabble = {
     }
 
     wordSplits.forEach(function(letter) {
-
       if (REGEX.test(letter)) {
         totalScore += SCORECHART[letter];
       } else {
@@ -72,13 +71,22 @@ const Scrabble = {
       });
 
       let highest_score = 0;
+      let winWord = null;
       for(const word in word_score) {
         if (word_score[word] > highest_score) {
-          word_score[word] = highest_score;
+          highest_score = word_score[word];
+          winWord = word;
+        } if (word_score[word] === highest_score && winWord.length === 7) {
+          return winWord;
+        } if (word_score[word] === highest_score && word.length === 7) {
+            return word;
+        } if (word_score[word] === highest_score && winWord.length < word.length) {
+          return winWord;
+        } if (word_score[word] === highest_score && winWord.length > word.length) {
+          return word;
         }
-      }
-      return `${word} and score of ${word_score[word]}`;
-
+      } //for loop
+      return winWord;
     }
   }
 
@@ -91,3 +99,11 @@ Scrabble.Player = class {
 
 
 module.exports = Scrabble;
+
+// else if (word_score[word] === highest_score && winWord.length === 7 && word.length !== 7) {
+//   return winWord;
+// } else if (word_score[word] === highest_score && winWord.length > word.length) {
+//   return word;
+// } else {
+//   return winWord;
+// }
