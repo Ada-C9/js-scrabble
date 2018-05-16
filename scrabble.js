@@ -47,7 +47,7 @@ const Scrabble = {
   },
 
   highestScoreFrom(arrayOfWords) {
-    let highestScore = ["", 0]
+    let highestScore = ["", 0];
 
     if (arrayOfWords.length < 1 || !Array.isArray(arrayOfWords)) {
       throw "Must contain an array.";
@@ -68,8 +68,7 @@ const Scrabble = {
       }
     }
     return highestScore[0]
-  },
-
+  }
 };
 
 
@@ -104,15 +103,28 @@ Scrabble.Player = class {
   }
 
   hasWon() {
-    if (this.totalScore() > 100) {
+    if (this.totalScore() >= 100) {
       return true;
     } else {
       return false;
     }
-
   }
 
-};
+  highestScoringWord() {
+    if (this.plays.length < 1) {
+      throw "No words have been played yet."
+    } else {
+      return Scrabble.highestScoreFrom(this.plays);
+    }
+  }
 
+  highestWordScore() {
+    if (this.plays.length < 1 ){
+      throw "No words have been played yet.";
+    } else {
+      return Scrabble.score(this.highestScoringWord());
+    }
+  }
+};
 
 module.exports = Scrabble;
