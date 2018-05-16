@@ -47,7 +47,7 @@ const Scrabble = {
       if (LETTERS.test(letter)) {
         score += WORDVALUES[letter]
       } else {
-        throw "Character is not a letter!";
+        throw "This contains a character is not a letter!";
       }
     });
 
@@ -101,10 +101,27 @@ Scrabble.Player = class {
   }
 
   play(word) {
-    this.plays.push(word)
-    return `You played ${word}`
+    const wordUp = word.toUpperCase()
+    let wordLetters = wordUp.split('')
+    if (wordLetters.length === 0) {
+      throw "No word was given!"
+    }
+    if (this.wordPrep(wordLetters)) {
+      this.plays.push(word)
+      return `You successfully played ${word}!`
+      }
   }
 
+  wordPrep (wordLetters) {
+    wordLetters.forEach(function(letter) {
+      if (!LETTERS.test(letter)) {
+        throw "This contains a character is not a letter!";
+      }
+    });
+    return true
+  }
+}
+module.exports = Scrabble;
   // totalScore() {
   //
   // }
@@ -120,8 +137,3 @@ Scrabble.Player = class {
   // highestWordScore() {
   //
   // }
-
-};
-
-
-module.exports = Scrabble;
