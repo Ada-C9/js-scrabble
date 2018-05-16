@@ -27,15 +27,30 @@ const SCORECHART = {
   Z: 10,
 }
 
+const REGEX = /[A-Z]/
+
 const Scrabble = {
-  // score returns the total score value for the given word.
-  // word input is a string (case sensitive)
   score(word) {
     let wordUp = word.toUpperCase()
     let wordSplits = wordUp.split('');
+
     let totalScore = 0;
+    if (wordSplits.length > 7 || wordSplits.length === 0) {
+      throw 'Invalid word';
+    }
+
+    if (wordSplits.length === 7) {
+      totalScore += 50;
+    }
+
     wordSplits.forEach(function(letter) {
-      totalScore += SCORECHART[letter]
+
+      if (REGEX.test(letter)) {
+        totalScore += SCORECHART[letter];
+      } else {
+        throw 'Not a valid word';
+      }
+
     });
 
     return totalScore
@@ -52,5 +67,3 @@ Scrabble.Player = class {
 
 
 module.exports = Scrabble;
-
-Scrabble.score('dog');
