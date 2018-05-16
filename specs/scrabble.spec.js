@@ -6,16 +6,16 @@ describe('formatValidWord', () => {
     expect(Scrabble.formatValidWord).toBeDefined();
   });
 
-  // Currently does NOT removed whitespace in middle.
-  test('removes white space', () => {
-    expect(Scrabble.formatValidWord(' FOO')).toBe('FOO');
-    expect(Scrabble.formatValidWord('BAR  ')).toBe('BAR');
-  });
-
-  test('capitolizes all letters', () => {
-    expect(Scrabble.formatValidWord('foo')).toBe('FOO');
-    expect(Scrabble.formatValidWord('BAR')).toBe('BAR'); // makes sure it keeps caps
-  });
+  // // Currently does NOT removed whitespace in middle.
+  // test('removes white space', () => {
+  //   expect(Scrabble.formatValidWord(' FOO')).toBe('FOO');
+  //   expect(Scrabble.formatValidWord('BAR  ')).toBe('BAR');
+  // });
+  //
+  // test('capitolizes all letters', () => {
+  //   expect(Scrabble.formatValidWord('foo')).toBe('FOO');
+  //   expect(Scrabble.formatValidWord('BAR')).toBe('BAR'); // makes sure it keeps caps
+  // });
 
   test('does not allow non-Strings', () => {
     expect(() => { Scrabble.formatValidWord(null); }).toThrow();
