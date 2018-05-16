@@ -95,6 +95,11 @@ Scrabble.Player = class {
     this.name = name;
     this.plays = []
   }
+
+  play(word) {
+    // after add hasWon(), return false if player has won
+    this.plays.push(word);
+  }
 };
 
 
@@ -103,5 +108,5 @@ module.exports = Scrabble;
 // console.log(Scrabble.highestScoreFrom(['dog', 'goat']))
 let sam = new Scrabble.Player('Sam');
 console.log(sam.name);
-sam.plays.push('dog');
+sam.play('academy');
 console.log(sam.plays);
