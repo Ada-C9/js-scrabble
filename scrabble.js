@@ -99,6 +99,7 @@ const Scrabble = {
     };
 
     Scrabble.Player.prototype = {
+<<<<<<< Updated upstream
       plays() {
         let plays = ''
         this.plays.forEach((play) => {
@@ -117,5 +118,17 @@ const Scrabble = {
       },
     };
 
+=======
+      hasWon() {
+        let won = false;
+
+        let score = this.totalScore;
+        console.log(`For testing purposes only the current totalScore is ${score}`)
+        if (score >= 100) {
+          won = true;
+        }
+        return won;
+      }}
+>>>>>>> Stashed changes
 
     module.exports = Scrabble;
