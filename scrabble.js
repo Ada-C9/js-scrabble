@@ -35,7 +35,6 @@ const TILEBAG = {
   'x': { 'points':  8, 'tiles':  1 },
   'y': { 'points':  4, 'tiles':  2 },
   'z': { 'points': 10, 'tiles':  1 },
-  'blank': { 'tiles': 2}
 }
 
 const Scrabble = {
@@ -102,8 +101,7 @@ const Scrabble = {
         this.plays = [];
       } else {
         throw 'Player requires a name.'
-      }
-      }
+      }}
 
       play(word) {
         if (this.hasWon()) {
@@ -113,8 +111,7 @@ const Scrabble = {
           return (`${this.name} played the word ${word}`);
         } else {
           throw `${word} is not a valid play.`;
-        }
-      }
+        }}
 
       totalScore() {
         let total = 0
@@ -142,11 +139,24 @@ const Scrabble = {
       hasWon() {
         let won = false;
 
-        let score = this.totalScore() * 1;
+        let score = this.totalScore();
         if (score >= 100) {
           won = true;
         }
         return won;
-      }};
+      }}
 
     module.exports = Scrabble;
+
+
+    let value = [1, 2, 3]
+
+    value.forEach(function (letter) {
+      console.log(letter)
+    })
+
+    value.forEach((letter) => {
+
+    }
+
+  )
