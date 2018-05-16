@@ -46,8 +46,17 @@ const Scrabble = {
     if (arrayOfWords.length < 1 || !(arrayOfWords instanceof Array) ){
       throw new Error (`This is not an array of words.`)
     }
+    // go through the array and score each word if score of word is highest, keep word in varible
+    let highestScoredInArray = ''
+    let highestScore = 0
+    for (let word of arrayOfWords) {
+      if (this.score(word) > highestScore){
+        highestScore = this.score(word);
+        highestScoredInArray = word;
+      }
+    }
 
-    
+    return highestScoredInArray
   },
 };
 
