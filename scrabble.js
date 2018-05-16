@@ -129,6 +129,12 @@ const Scrabble = {
       return total;
       }
 
+      highestWordScore() {
+        let plays = this.plays;
+        let max = Scrabble.highestScoreFrom(plays);
+        return Scrabble.score(max);
+      }
+
       hasWon() {
         let won = false;
 
@@ -138,17 +144,5 @@ const Scrabble = {
         }
         return won;
       }};
-
-    Scrabble.Player.prototype = {
-      hasWon() {
-        let won = false;
-
-        let score = this.totalScore;
-        console.log(`For testing purposes only the current totalScore is ${score}`)
-        if (score >= 100) {
-          won = true;
-        }
-        return won;
-      }}
 
     module.exports = Scrabble;
