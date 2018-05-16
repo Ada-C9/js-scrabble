@@ -43,7 +43,6 @@ const Scrabble = {
         throw "Word includes an invalid letter.";
       }
     }
-
     return total;
   },
 
@@ -73,9 +72,13 @@ const Scrabble = {
 
 };
 
-// Scrabble.Player = class {
-//
-// };
+
+Scrabble.Player = class {
+  constructor(name) {
+    this.name = name;
+  }
+
+};
 
 
 module.exports = Scrabble;
