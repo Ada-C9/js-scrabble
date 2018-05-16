@@ -58,7 +58,7 @@ const Scrabble = {
           highestWord = word;
           highestScore = this_score;
           break;
-          case highestWord.length < 7:
+          case word.length < highestWord.length:
           highestWord = word;
           highestScore = this_score;
           break;
