@@ -33,18 +33,18 @@ const UserException = function userException(message) {
 };
 
 const Scrabble ={
-  score: function score(word){
+  score(word){
 
     if ((word.length>7)||(word == '')) {
       throw new UserException('does not allow ');
     }
     else if(!(/^[a-zA-Z]+$/.test(word))){
-      throw new UserException('bad characters ')
+      throw new UserException('bad characters ');
 
     }
     else{
-    let  letter_array = word.toUpperCase().split('');
-    let sum = 0;
+      let  letter_array = word.toUpperCase().split('');
+      let sum = 0;
 
       letter_array.forEach(function (value)
       {
@@ -59,11 +59,35 @@ const Scrabble ={
       }
 
       return sum;
+    }
+    },
 
-}
+    tie(word, maxWord) {
+    if (((word.length === 7) && (maxWord.length !== 7)) || ((word.length < maxWord.length) && (maxWord.length !== 7))) {
+      maxWord = word;
+    }
+    return maxWord;
+  },
 
+  highestScoreFrom: function highestScoreFrom(words) {
+    let maxScore = 0;
+    let maxWord = '';
+    if (words.length === 0) {
+      throw new UserException('You must provide words to score.');
+    } else {
+      words.forEach((word) => {
+        if (this.score(word) === maxScore) {
+          maxWord = this.tie(word, maxWord);
+          maxScore = this.score(maxWord);
+        } else if (this.score(word) > maxScore) {
+          maxScore = this.score(word);
+          maxWord = word;
+        }
+      });
+      return maxWord;
     }
   }
+};
 
 
 
@@ -73,14 +97,18 @@ const Scrabble ={
 
 
 
-  //   highestScoreFrom(arrayOfWords) {
-  //
-  //   },
-  // };
 
-  // Scrabble.Player = class {
-  //
-  // };
-  //
-  //
-  module.exports = Scrabble;
+
+
+
+//   highestScoreFrom(arrayOfWords) {
+//
+//   },
+// };
+
+// Scrabble.Player = class {
+//
+// };
+//
+//
+module.exports = Scrabble;
