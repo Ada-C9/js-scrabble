@@ -92,6 +92,32 @@ Scrabble.Player = class {
       throw 'You need a name to play';
     }
     this.name = name;
+    this.plays = [];
+  }
+
+  play(word) {
+    if ( typeof word === 'string' ) {
+      this.plays.push(word);
+      return true;
+    } else {
+      throw 'We need a real word';
+    }
+  }
+
+  totalScore() {
+    
+  }
+
+  hasWon() {
+
+  }
+
+  highestScoringWord() {
+
+  }
+
+  highestWordScore() {
+
   }
 };
 
