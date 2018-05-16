@@ -56,34 +56,6 @@ const findPoints = function findPoints(letter) {
 }
 
 const Scrabble = {
-
-  const Player = class {
-    constructor(name, plays = []) {
-      this.name = name;
-      this.plays = plays;
-    },
-
-    play(word) {
-
-    },
-
-    totalScore() {
-
-    },
-
-    hasWon() {
-
-    },
-
-    highScoringWord() {
-
-    },
-
-    highestWordScore() {
-
-    }
-  },
-
   score(word) {
     let score = 0;
     if (word.length === 7) {
@@ -112,6 +84,40 @@ const Scrabble = {
 }
 
 
+Scrabble.Player = class {
+  constructor(name, plays = []) {
+    this.name = name;
+    this.plays = plays;
+  }
+
+  play(word) {
+    return (this.hasWon ? this.plays.push(word) : false);
+  }
+
+  totalScore() {
+    let wordsPlayed = this.plays;
+    let total = 0;
+    wordsPlayed.forEach(function (word) {
+      total += Scrabble.score(word);
+    })
+    return total;
+  }
+
+  hasWon() {
+    let total = this.totalScore;
+    return (total >= 100);
+  }
+
+  highestScoringWord() {
+    let plays = this.plays;
+    return Scrabble.highestScoreFrom(plays);
+  }
+
+  highestWordScore() {
+    let word = this.highestScoringWord();
+    return Scrabble.score(word);
+  }
+};
 
 
 
@@ -119,17 +125,30 @@ let jill = new Scrabble.Player('jill');
 
 console.log(jill);
 
-console.log(Scrabble.score('apple'));
-console.log(Scrabble.score('mom'));
-console.log(Scrabble.score('q'));
+jill.play('mom');
+jill.play('text');
 
-console.log(Scrabble.highestScoreFrom(['quartzy','axe','mom','q']));
+console.log(jill.plays);
+
+let total = jill.totalScore();
+
+console.log(total);
+
+console.log(jill.hasWon());
+console.log(jill.highestScoringWord());
+console.log(jill.highestWordScore());
 
 
 
 
+//
+// console.log(Scrabble.score('apple'));
+// console.log(Scrabble.score('mom'));
+// console.log(Scrabble.score('q'));
+//
+// console.log(Scrabble.highestScoreFrom(['quartzy','axe','mom','q']));
 
 
-// let index = null;
-// for (index in word) {
-//   console.log(word[index]);
+
+
+module.exports = Scrabble;
