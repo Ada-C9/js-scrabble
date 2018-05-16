@@ -15,19 +15,16 @@ const Scrabble = {
   },
 
   isValidString(str) {
-    if (typeof str !== 'string' && !(str instanceof String) && RegExp(/^[a-zA-Z]+$/).test(str)) {
+    if (typeof str !== 'string' && !(str instanceof String) || !RegExp(/^[a-zA-Z]+$/).test(str)) {
       throw new Error(`Invalid word: ${str}. It must be a String.`);
     }
   },
 
   formatValidWord(word) {
-    this.isValidString(word)
-    if (word.length > MAX || word.length === 0) {
-      throw new Error(`${word} must be more than 0 and less than 8 characters long.`);
-    }
+    this.isValidString(word);
+    if (word.length > MAX) { throw new Error(`${word} must be less than ${MAX} characters long.`); }
     return word.toUpperCase();
   },
-
 
   score(word) {
     word = this.formatValidWord(word);
@@ -60,13 +57,35 @@ const Scrabble = {
     });
     return highestScoringWord;
   }
-
 };
 
 
 Scrabble.Player = class {
+  constructor(name) {
+    this.isValidString(name);
+    this.name = name;
+    this.plays = [];
+    this.score = 0;
+  }
 
+  isValidString(str) {
+    if (typeof str !== 'string' && !(str instanceof String) || str.trim().length === 0) {
+      throw new Error(`Invalid word: ${str}. It must be a String.`);
+    }
+  }
 
+  play(word) {
+    let originalLength = this.plays.length;
+    if (!this.hasWon()) {
+      this.score += Scrabble.score(word);
+      this.plays.push(word);
+    }
+    return this.plays.length > originalLength;
+  }
+
+  hasWon(){
+    return this.score > 100;
+  }
 };
 
 

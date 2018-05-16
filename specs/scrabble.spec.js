@@ -128,14 +128,14 @@ describe('Player', () => {
   });
 
   describe('Constructor', () => {
-    test.skip('Creates a new player', () => {
+    test('Creates a new player', () => {
       const name = 'test name';
       const player = new Scrabble.Player(name);
 
       expect(player.name).toBe(name);
     });
 
-    test.skip('Requires a name', () => {
+    test('Requires a name', () => {
       expect(() => {
         new Scrabble.Player();
       }).toThrow();
@@ -143,7 +143,7 @@ describe('Player', () => {
   });
 
   describe('play', () => {
-    test.skip('Records the played word', () => {
+    test('Records the played word', () => {
       const word = 'dog';
       const player = new Scrabble.Player('test player');
 
@@ -155,7 +155,7 @@ describe('Player', () => {
       expect(player.plays[0]).toBe(word);
     });
 
-    test.skip('Requires a real word', () => {
+    test('Requires a real word', () => {
       const player = new Scrabble.Player('test player');
 
       expect(player.plays.length).toBe(0);
@@ -167,7 +167,7 @@ describe('Player', () => {
       expect(player.plays.length).toBe(0);
     });
 
-    test.skip('Returns false and does not update plays if the player has already won', () => {
+    test('Returns false and does not update plays if the player has already won', () => {
       const player = new Scrabble.Player('test player');
 
       expect(player.play('zzzzzzz')).toBeTruthy(); // +120 pts
