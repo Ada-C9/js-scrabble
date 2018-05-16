@@ -181,22 +181,34 @@ describe('Player', () => {
   });
 
   describe('hasWon', () => {
-    test.skip('returns false when score < 100', () => {
+    test('returns false when score < 100', () => {
+      const player = new Scrabble.Player('test player');
 
+      player.play('academy');
 
+      expect(player.hasWon()).toBe(false);
     });
 
-    test.skip('returns true when score == 100', () => {
+    test('returns true when score == 100', () => {
+      const player = new Scrabble.Player('test player');
 
+      player.play('academy');
+      player.play('zzz');
+      player.play('dog')
 
+      expect(player.hasWon()).toBe(true);
     });
 
-    test.skip('returns true when score > 100', () => {
+    test('returns true when score > 100', () => {
+      const player = new Scrabble.Player('test player');
 
+      player.play('academy');
+      player.play('zzzz');
 
+      expect(player.hasWon()).toBe(true);
     });
   });
-
+  
   describe('highestScoringWord', () => {
     // Tie-breaking logic is already described in the tests
     // for highestWordFrom, so we will not repeat it here.

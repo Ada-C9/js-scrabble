@@ -15,7 +15,7 @@ const Scrabble = {
     if (letters.length > 7) {
       throw 'Your word can only be 7 letters or less';
     } else if (letters.length === 0) {
-      throw 'Your word can\t be empty';
+      throw 'Your word can\'t be empty';
     }
     let totalScore = 0;
     letters.forEach( function(char) {
@@ -115,15 +115,15 @@ Scrabble.Player = class {
   }
 
   hasWon() {
-    return this.totalScore() > 100;
+    return this.totalScore() >= 100;
   }
 
   highestScoringWord() {
-    return Scrabble.highestScoreFrom(this.plays);
+    // return Scrabble.highestScoreFrom(this.plays);
   }
 
   highestWordScore() {
-    return Scrabble.score(this.highestScoringWord());
+    // return Scrabble.score(this.highestScoringWord());
   }
 };
 
