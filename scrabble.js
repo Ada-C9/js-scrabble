@@ -27,7 +27,7 @@ const Scrabble =  {
   highestScoreFrom(arrayOfWords) {
 
     if (arrayOfWords.length === 0 || arrayOfWords.constructor !== Array) {
-      
+
       throw new Error('Array of words can not be empty');
 
     } else if (arrayOfWords.length === 1) {
@@ -60,9 +60,42 @@ const Scrabble =  {
   },
 };
 
-// Scrabble.Player = class {
-//
-// };
+Scrabble.Player = class {
+  constructor(name) {
+    this.name = name;
+    this.plays =[];
+
+  }
+
+  play() {
+    //adds the input words to the plays Array
+    // return false if player has already won
+
+  }
+
+  totalScore() {
+
+    //sums up and returns the score of the players words
+
+  }
+
+  hasWon() {
+    // returns true if the player has over 100 points, otherwise returns false
+  }
+
+  highestScoringWord() {
+
+    // returns the highest scoring word the user has played
+
+  }
+
+  highestWordScore() {
+
+     // returns the highestScoringWord score
+
+  }
+
+};
 
 
 module.exports = Scrabble;
