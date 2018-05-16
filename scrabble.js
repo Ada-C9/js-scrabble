@@ -86,22 +86,39 @@ const Scrabble = {
       }
       else if (score === max) {
         if (highestWord.length !== 7 &&
-          (arrayOfWords[i].length === 7 || (arrayOfWords[i].length < highestWord.length))) {
+          (arrayOfWords[i].length === 7 || arrayOfWords[i].length < highestWord.length)) {
             highestWord = arrayOfWords[i];
           }
         }
       }
-
       return highestWord;
+    }
+  }
+
+
+
+  Scrabble.Player = class {
+    constructor(name) {
+      if (name === undefined) {
+        throw 'Player needs a name.';
+      }
+      this.name = name;
+      this.plays = []
+
+    }
+
+    play(word) {
+      let regex = /^[a-zA-Z]+$/;
+
+      if (word === undefined || !regex.test(word)) {
+       throw 'Invalid word';
+      }
 
     }
 
 
-  }
 
-  // Scrabble.Player = class {
-  //
-  // };
+  };
 
   // do not comment me out.
   module.exports = Scrabble;
