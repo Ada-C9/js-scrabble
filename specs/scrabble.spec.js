@@ -247,13 +247,19 @@ describe('Player', () => {
         player.highestScoringWord();
       }).toThrow();
     });
-    
+
   });
 
   describe('highestWordScore', () => {
-    test.skip('returns the score of the highest scoring word played', () => {
+    test('returns the score of the highest scoring word played', () => {
+      // Arrange
+      const player = new Scrabble.Player('test player');
 
+      // Act
+      player.play('academy');
 
+      // Assert
+      expect(player.highestWordScore()).toBe(65);
     });
 
     test.skip('throws an error if no words have been played', () => {
