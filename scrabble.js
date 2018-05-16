@@ -1,8 +1,9 @@
+const LETTERS_ONLY = /^[a-z]+$/i;
 
 const Scrabble = {
 
   score(word) {
-    if (word == "") throw "Cannot allow empty words";
+    if (word == "" || word == null) throw "Cannot allow empty words";
 
     const scoreBook = {
       1: ['a', 'e', 'i', 'o', 'u', 'l', 'n', 'r', 's', 't'],
@@ -14,8 +15,9 @@ const Scrabble = {
       10: ['q', 'z']
     };
 
+
     let letterScore = function letterScore(letter) {
-      if (letter.match(/[a-z]/i)) {
+      if (letter.match(LETTERS_ONLY)) {
         let score = Object.keys(scoreBook).find(key => scoreBook[key].includes(letter));
         return parseInt(score);  }
 
@@ -65,14 +67,67 @@ const Scrabble = {
       }
     }
   }
-  console.log(`last return' ${highestWord}`)
     return highestWord;
   }
 }
 
 Scrabble.Player = class {
+  constructor(name) {
+    this.name = name;
+    this.plays = [];
 
+  }
+
+   play(word) {
+     if (word.match(LETTERS_ONLY)) {
+
+       if (this.totalScore() < 100) {
+        console.log(this.name)
+        this.plays.push(word);
+        return word;
+      } else {
+        return false;}
+      }
+      else {
+        throw "not a word";
+      }
+  }
+
+
+   totalScore() {
+    let total = 0;
+    this.plays.forEach((word) => {
+      total += Scrabble.score(word);
+    });
+
+    return total;
+  }
+
+  hasWon() {
+    if (this.totalScore() >= 100 ) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  highestScoringWord (){
+    return Scrabble.highestScoreFrom(this.plays)
+  }
+
+  highestWordScore (){
+    let word = Scrabble.highestScoreFrom(this.plays)
+    return Scrabble.score(word)
+  }
 };
 
 
 module.exports = Scrabble;
+
+let steffany = new Scrabble.Player
+steffany.play("hello")
+steffany.play("zzzzzz")
+steffany.totalScore()
+steffany.hasWon()
+console.log(steffany.highestScoringWord())
