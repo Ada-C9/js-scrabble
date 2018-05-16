@@ -91,10 +91,14 @@ const Scrabble = {
 };
 
 Scrabble.Player = class {
-
+  constructor(name) {
+    this.name = name;
+  }
 };
 
 
 module.exports = Scrabble;
 // console.log(Scrabble.score("academia"));
 // console.log(Scrabble.highestScoreFrom(['dog', 'goat']))
+let sam = new Scrabble.Player('Sam');
+console.log(sam.name);
