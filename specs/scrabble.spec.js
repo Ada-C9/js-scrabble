@@ -244,7 +244,6 @@ describe('Player', () => {
       const player = new Scrabble.Player('test player');
       expect(player.plays.length).toBe(0);
       expect(() => { player.highestWordScore(); }).toThrow();
-
     });
   });
 });
@@ -273,12 +272,29 @@ describe('TileBag', () => {
       expect(myBag.remainingTiles()).toEqual(98);
       // expect(myBag.drawTile()).toMatch(/\w{1}/);
       expect(myBag.drawTile(num).length).toEqual(num);
-      expect(myBag.remainingTiles()).toEqual(98-num);
+      expect(myBag.remainingTiles()).toEqual(98 - num);
     });
 
-    // test('throws an error if there are no tiles in the tilebag', () => {
-    //   const myBag = new Scrabble.TileBag();
-    // });
+    test('throws an error if there is no parameter given', () => {
+      const myBag = new Scrabble.TileBag();
+      expect(() => { myBag.drawTile(); }).toThrow();
+    });
+
+    // throws error for more than 7 letters
+    test('throws error for more than 7 letters', () => {
+      const myBag = new Scrabble.TileBag();
+      expect(() => { myBag.drawTile(8); }).toThrow();
+    });
+
+    // throws error if there are no more tiles to draw
+    test('throws error if there are no more tiles to draw', () => {
+      const myBag = new Scrabble.TileBag();
+      const num = 7;
+      for (let i = 0; i < 14; i++){
+        expect(myBag.drawTile(num).length).toEqual(num);
+      }
+      expect(() => { myBag.drawTile(1); }).toThrow();
+    });
   });
 
   describe('remainingTiles', () => {
@@ -287,10 +303,15 @@ describe('TileBag', () => {
       expect(myBag.remainingTiles).toBeDefined();
     });
 
-    // test('throws an error if there are no tiles in the tilebag', () => {
-    //
-    // });
-
+    // returns 0 when there are no more tiles
+    test('returns 0 if there are no more tiles', () => {
+      const myBag = new Scrabble.TileBag();
+      const num = 7;
+      for (let i = 0; i < 14; i++){
+        expect(myBag.drawTile(num).length).toEqual(num);
+      }
+      expect(myBag.remainingTiles()).toEqual(0);
+    });
   });
 
 

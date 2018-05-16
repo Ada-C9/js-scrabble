@@ -122,21 +122,24 @@ Scrabble.TileBag = class {
   }
 
   drawTile(num){
-    // check if there are any tiles left!
-    let drawnTiles = [];
-    for ( let i = 0; i < num; i++ ){
-      let randNum = Math.floor(Math.random() * this.bag.length);
-      let randLetter = this.bag[randNum];
-      drawnTiles.push(randLetter)
-      this.bag.splice(this.bag.indexOf(randLetter), 1);
+    if (this.bag.length - num < 0){
+      throw 'There are not enough tiles left';
+    } else if (num === undefined || num === null || num < 0 || num > 7) {
+      throw 'invalid num of tiles';
+    } else {
+      let drawnTiles = [];
+      for ( let i = 0; i < num; i++ ){
+        let randNum = Math.floor(Math.random() * this.bag.length);
+        let randLetter = this.bag[randNum];
+        drawnTiles.push(randLetter)
+        this.bag.splice(this.bag.indexOf(randLetter), 1);
+      }
+      return drawnTiles;
     }
-    return drawnTiles;
   }
 
   remainingTiles(){
-    if (this.bag !== []){
-      return this.bag.length;
-    }
+    return this.bag.length;
   }
 }
 
