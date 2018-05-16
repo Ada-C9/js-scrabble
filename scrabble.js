@@ -73,6 +73,13 @@ const Scrabble = {
         for (let i = 1; i < arrayOfWords.length; i += 1) {
           if (this.score(arrayOfWords[i]) > this.score(topWord)) {
             topWord = arrayOfWords[i]
+          } else if (this.score(arrayOfWords[i]) === this.score(topWord)) {
+            if (arrayOfWords[i].length === 7  && topWord.length < 7 ) {
+              topWord = arrayOfWords[i]
+            }
+            else if ( topWord.length < 7 && topWord.length > arrayOfWords[i].length) {
+              topWord = arrayOfWords[i]
+            }
           }
           return topWord
         }
