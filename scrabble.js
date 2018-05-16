@@ -69,7 +69,13 @@ const Scrabble = {
       } else if (arrayOfWords.length === 1) {
         return arrayOfWords[0]
       } else {
-        throw "not implemented"
+        let topWord = arrayOfWords[0]
+        for (let i = 1; i < arrayOfWords.length; i += 1) {
+          if (this.score(arrayOfWords[i]) > this.score(topWord)) {
+            topWord = arrayOfWords[i]
+          }
+          return topWord
+        }
       }
     } else {
       throw "No array of words given!";

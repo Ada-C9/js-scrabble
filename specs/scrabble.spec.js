@@ -50,7 +50,7 @@ describe('highestScoreFrom', () => {
     expect(Scrabble.highestScoreFrom(['dog'])).toBe('dog');
   });
 
-  test.skip('returns the highest word if there are two words', () => {
+  test('returns the highest word if there are two words', () => {
     // Check score assumptions
     expect(Scrabble.score('dog')).toBe(5);
     expect(Scrabble.score('pig')).toBe(6);
