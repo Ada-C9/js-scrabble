@@ -118,16 +118,19 @@ Scrabble.TileBag = class {
     }
 
     this.bag = tileBag;
-    // this.remainingTiles = tileBag.length;
     return tileBag;
   }
 
-  drawTile(){
+  drawTile(num){
     // check if there are any tiles left!
-    let randNum = Math.floor(Math.random() * this.bag.length);
-    let randLetter = this.bag[randNum];
-    this.bag.splice(this.bag.indexOf(randLetter), 1);
-    return randLetter;
+    let drawnTiles = [];
+    for ( let i = 0; i < num; i++ ){
+      let randNum = Math.floor(Math.random() * this.bag.length);
+      let randLetter = this.bag[randNum];
+      drawnTiles.push(randLetter)
+      this.bag.splice(this.bag.indexOf(randLetter), 1);
+    }
+    return drawnTiles;
   }
 
   remainingTiles(){
@@ -162,7 +165,7 @@ const checkBonus = function checkBonus(word){
 
 const bag = new Scrabble.TileBag();
 console.log(`My tilebag is: ${bag.bag}`);
-console.log(`My letter: ${bag.drawTile()}`);
+console.log(`My letter: ${bag.drawTile(4)}`);
 console.log(`My tilebag is: ${bag.bag}`);
 
 module.exports = Scrabble;

@@ -269,14 +269,28 @@ describe('TileBag', () => {
 
     test('drawTile returns letter (as string) & count descreases', () => {
       const myBag = new Scrabble.TileBag();
+      const num = 5;
       expect(myBag.remainingTiles()).toEqual(98);
-      expect(myBag.drawTile()).toMatch(/\w{1}/);
-      expect(myBag.remainingTiles()).toEqual(97);
+      // expect(myBag.drawTile()).toMatch(/\w{1}/);
+      expect(myBag.drawTile(num).length).toEqual(num);
+      expect(myBag.remainingTiles()).toEqual(98-num);
+    });
+
+    // test('throws an error if there are no tiles in the tilebag', () => {
+    //   const myBag = new Scrabble.TileBag();
+    // });
+  });
+
+  describe('remainingTiles', () => {
+    test('is defined', () => {
+      const myBag = new Scrabble.TileBag();
+      expect(myBag.remainingTiles).toBeDefined();
     });
 
     // test('throws an error if there are no tiles in the tilebag', () => {
     //
     // });
+
   });
 
 
