@@ -28,8 +28,8 @@ const scores = {
 }
 const Scrabble = {
   score(word) {
-    if ( !/^[a-zA-Z]+$/.test(word) ) {
-      throw "Please enter valid letters.";
+    if ( !Scrabble.isValid(word) ) {
+      throw new Error('Please enter valid letters.');
     }
 
     if (word.length > 7 || word.length < 1) {
@@ -88,6 +88,16 @@ const Scrabble = {
     }
     return topScores[0]
   },
+
+  isValid(word) {
+    if (typeof word !== 'string') {
+      return false;
+    }
+
+    if ( /^[a-zA-Z]+$/.test(word) ) {
+      return true;
+    }
+  }
 };
 
 Scrabble.Player = class {
@@ -101,9 +111,13 @@ Scrabble.Player = class {
 
   play(word) {
     // after add hasWon(), return false if player has won
-    // if (this.totalScore() >= 100) {
+    // if (this.hasWon()) {
     //   return false;
     // }
+    if ( !Scrabble.isValid(word) ) {
+      throw new Error('Invalid word.');
+    }
+
     this.plays.push(word);
     return this.plays;
   }
