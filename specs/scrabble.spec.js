@@ -120,7 +120,7 @@ describe('Player', () => {
   });
 
   describe('play', () => {
-    test.skip('Records the played word', () => {
+    test('Records the played word', () => {
       const word = 'dog';
       const player = new Scrabble.Player('test player');
 
@@ -132,7 +132,7 @@ describe('Player', () => {
       expect(player.plays[0]).toBe(word);
     });
 
-    test.skip('Requires a real word', () => {
+    test('Requires a real word', () => {
       const player = new Scrabble.Player('test player');
 
       expect(player.plays.length).toBe(0);

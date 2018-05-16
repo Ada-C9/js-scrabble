@@ -83,12 +83,17 @@ Scrabble.Player = class {
   }
 
   play(word) {
-    this.plays.push(word)
+    if (word.length < 1 || typeof word != 'string') {
+      throw "Word is invalid."
+    } else {
+      this.plays.push(word);
+      return this.plays;
+    }
   }
 
   totalScore() {
 
-
+    
   }
 
   hasWon() {
