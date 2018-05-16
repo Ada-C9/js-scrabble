@@ -22,8 +22,8 @@ const Scrabble = {
 
     return checkBonus(word) ? wordScore += 50 : wordScore;
   },
+
   highestScoreFrom(arrayOfWords) {
-    //  returns the WORD in the array with the highest score
     checkArray(arrayOfWords);
 
     let maxScore = Scrabble.score(arrayOfWords[0]);
@@ -49,7 +49,6 @@ const Scrabble = {
 };
 
 Scrabble.Player = class {
-  // const wordsPlayed = [];
   constructor(name){
     if (name === undefined || name === null){
       throw 'Must provide name';
@@ -60,8 +59,6 @@ Scrabble.Player = class {
   }
 
   play(word){
-    // add check for win
-
     if (this.hasWon()){
       return false;
     } else {
@@ -78,10 +75,6 @@ Scrabble.Player = class {
     this.plays.forEach( (word) => {
       total += Scrabble.score(word);
     });
-
-    // [1, 2, 3].forEach((num) => {
-    //   this.value += num;
-    // });
     return total;
   }
 
@@ -126,11 +119,5 @@ const checkBonus = function checkBonus(word){
     return 50;
   }
 }
-
-// const testPlayer = new Scrabble.Player('testPlayer');
-// console.log(`plays length: ${testPlayer.plays.length}`);
-// console.log(`play fn called: ${testPlayer.play('dog')}`);
-// console.log(`plays length: ${testPlayer.plays.length}`);
-// console.log(test);
 
 module.exports = Scrabble;
