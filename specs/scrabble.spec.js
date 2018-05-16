@@ -36,7 +36,7 @@ describe.skip('score', () => {
   });
 });
 
-describe('highestScoreFrom', () => {
+describe.skip('highestScoreFrom', () => {
   test('is defined', () => {
     expect(Scrabble.highestScoreFrom).toBeDefined();
   });
@@ -60,7 +60,7 @@ describe('highestScoreFrom', () => {
     expect(Scrabble.highestScoreFrom(['pig', 'dog'])).toBe('pig');
   });
 
-  test.skip('if tied, prefer a word with 7 letters', () => {
+  test('if tied, prefer a word with 7 letters', () => {
     const loser = 'zzzzzz';
     const winner = 'iiiiddd';
 
@@ -73,7 +73,7 @@ describe('highestScoreFrom', () => {
     expect(Scrabble.highestScoreFrom([winner, loser])).toBe(winner);
   });
 
-  test.skip('if tied and no word has 7 letters, prefers the word with fewer letters', () => {
+  test('if tied and no word has 7 letters, prefers the word with fewer letters', () => {
     // Check score assumptions
     expect(Scrabble.score('dog')).toBe(5);
     expect(Scrabble.score('goat')).toBe(5);
@@ -83,7 +83,7 @@ describe('highestScoreFrom', () => {
     expect(Scrabble.highestScoreFrom(['goat', 'dog'])).toBe('dog');
   });
 
-  test.skip('returns the first word of a tie with same letter count', () => {
+  test('returns the first word of a tie with same letter count', () => {
     // Check score assumptions
     expect(Scrabble.score('i')).toBe(1);
     expect(Scrabble.score('dog')).toBe(5);

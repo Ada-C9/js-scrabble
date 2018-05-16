@@ -30,7 +30,6 @@ const scrabbleTiles = {
 
 const Scrabble = {
   score(word) {
-
     word = word.toLowerCase();
     let scrabbleWord = word.split('');
     let totalScore = 0;
@@ -44,7 +43,8 @@ const Scrabble = {
     }
 
     // output the score of each letter in a word
-    scrabbleWord.forEach(function(letter) {
+    // find the total score of the word
+    scrabbleWord.forEach((letter) => {
       if (scrabbleTiles[letter] > 0) {
         totalScore += scrabbleTiles[letter];
       } else {
@@ -56,28 +56,34 @@ const Scrabble = {
   },
 
   highestScoreFrom(arrayOfWords) {
-    let topScore = 0;
-    let topWord = [];
+    let topWord = arrayOfWords[0];
 
     if (typeof arrayOfWords !== 'object' || arrayOfWords.length === 0) {
       throw 'Invalid array.';
-    } else if (arrayOfWords.length === 1) {
-      topWord = arrayOfWords[0];
-      return topWord;
     }
 
-    arrayOfWords.forEach( function(word) {
-      if (Scrabble.score(word) > topScore) {
-        topScore = Scrabble.score(word);
-        topWord.push(word);
-      } else if (Scrabble.score(word) === topScore) {
-        topWord.push(word);
+    arrayOfWords.forEach((word) => {
+      if (this.score(word) > this.score(topWord)) {
+        topWord = word;
+      } else if (this.score(word) === this.score(topWord)) {
+        topWord = this.breakTie(topWord, word);
       }
     });
 
-    return topWord[0]
+    return topWord;
+  },
 
 
+  breakTie(originWinner, challenger) {
+    if (originWinner.length === 7) {
+      return originWinner;
+    } else if (challenger.length === 7) {
+      return challenger;
+    } else if (challenger.length < originWinner.length){
+      return challenger;
+    } else {
+      return originWinner;
+    }
   },
 };
 
@@ -89,5 +95,7 @@ Scrabble.Player = class {
 module.exports = Scrabble;
 
 
-let myWord = Scrabble.score('apple');
+let myWord = Scrabble.score('pig');
 console.log(myWord); // "Ada says: 'Try again later.'"
+let myArray = Scrabble.highestScoreFrom(['cat', 'pig']);
+console.log(myArray)
