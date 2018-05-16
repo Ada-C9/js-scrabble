@@ -25,7 +25,7 @@ const Scrabble = {
       for (let i = 0; i < wordArray.length; i++;) {
         wordArray[i] = scoreBoard[wordArray[i]]
         // TODO: return a sum of this array now that values have been assigned
-
+        return wordArray.reduce((x, y) => x + y);
       }
     });
   },
