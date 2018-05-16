@@ -76,6 +76,23 @@ const Scrabble = {
 Scrabble.Player = class {
   constructor(name) {
     this.name = name;
+    if (this.name.length < 1) {
+      throw "Player name cannot be empty."
+    }
+    this.plays = [];
+  }
+
+  play(word) {
+    this.plays.push(word)
+  }
+
+  totalScore() {
+
+
+  }
+
+  hasWon() {
+
   }
 
 };
