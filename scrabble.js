@@ -104,7 +104,7 @@ Scrabble.Player = class {
     }
 
     this.name = name;
-    this.plays= [];
+    this.plays = [];
   }
 
   totalScore() {
