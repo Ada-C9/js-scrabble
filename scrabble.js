@@ -105,25 +105,22 @@ Scrabble.Player = class {
   hasWon() {
     if (this.totalScore() >= 100) {
       return true;
-    } else {
-      return false;
     }
+    return false;
   }
 
   highestScoringWord() {
     if (this.plays.length < 1) {
       throw "No words have been played yet."
-    } else {
-      return Scrabble.highestScoreFrom(this.plays);
     }
+    return Scrabble.highestScoreFrom(this.plays);
   }
 
   highestWordScore() {
     if (this.plays.length < 1 ){
       throw "No words have been played yet.";
-    } else {
-      return Scrabble.score(this.highestScoringWord());
     }
+    return Scrabble.score(this.highestScoringWord());
   }
 };
 
