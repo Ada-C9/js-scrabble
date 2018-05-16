@@ -1,5 +1,4 @@
 const Scrabble = {
-
   score(word) {
     let scoreChart = {
       'A': 1,
@@ -50,8 +49,8 @@ const Scrabble = {
   },
 
   highestScoreFrom(arrayOfWords) {
-    let scores = {}
-    let nums = []
+    let scores = {};
+    let nums = [];
 
     if ( arrayOfWords.length === 0 ) {
       throw 'No words!';
@@ -62,20 +61,19 @@ const Scrabble = {
 
       if ( scores[score] === undefined ) { //new score
         scores[score] = word;
-        nums.push(score)
-
+        nums.push(score);
       } else { //tied score
-        if ( scores[score].length != 7 )
-          if ( scores[score].length >  word.length ) {
-            scores[score] = word;
-          } else if ( scores[score].length <  word.length && word.length === 7 ) {
-            scores[score] = word;
-          }
+        if ( scores[score].length != 7 );
+        if ( scores[score].length >  word.length ) {
+          scores[score] = word;
+        } else if ( scores[score].length <  word.length && word.length === 7 ) {
+          scores[score] = word;
         }
+      }
     });
 
     let max_score = Math.max(...nums);
-    return scores[max_score]
+    return scores[max_score];
   },
 };
 
@@ -99,7 +97,7 @@ Scrabble.Player = class {
         this.plays.push(word);
         this.score += Scrabble.score(word);
         if ( this.score >= 100 ) {
-          this.won = true
+          this.won = true;
         }
         return word;
       }
@@ -109,21 +107,21 @@ Scrabble.Player = class {
   }
 
   totalScore() {
-    return this.score
+    return this.score;
   }
 
   hasWon() {
     if ( this.score >= 100 ) {
-      this.won = true
+      this.won = true;
     }
-    return this.won
+    return this.won;
   }
 
   highestScoringWord() {
     if ( this.plays.length === 0 ) {
       throw new Error (`No words!`);
     } else {
-      return Scrabble.highestScoreFrom(this.plays)
+      return Scrabble.highestScoreFrom(this.plays);
     }
   }
 
