@@ -30,10 +30,8 @@ const Scrabble = {
     let total = 0;
 
     if (typeof word != 'string' || word.length < 1 || word.length > 7) {
-      throw "Word must be a non-empty string less than 8 chars."
-    }
-
-    if (word.length === 7) {
+      throw "Word must be a non-empty string less than 8 chars.";
+    } else if (word.length === 7) {
       total += 50;
     }
 
@@ -42,16 +40,38 @@ const Scrabble = {
       if (this[capLetter]) {
         total += this[capLetter];
       } else {
-        throw "Word includes an invalid letter."
+        throw "Word includes an invalid letter.";
       }
     }
 
     return total;
   },
 
-  // highestScoreFrom(arrayOfWords) {
-  //
-  // },
+  highestScoreFrom(arrayOfWords) {
+    let highestScore = ["", 0]
+
+    if (arrayOfWords.length < 1 || !Array.isArray(arrayOfWords)) {
+      throw "Must contain an array.";
+    } else if (arrayOfWords.length === 1) {
+      return arrayOfWords[0];
+    }
+
+    for (let i = 0; i < arrayOfWords.length; i++) {
+
+
+      if (this.score(arrayOfWords[i]) === highestScore[1]) {
+        if (arrayOfWords[i].length === 7 || highestScore[0].length === 7) {
+          return (arrayOfWords[i].length === 7 ? arrayOfWords[i] : highestScore[0]);
+        } else {
+          return (arrayOfWords[i].length < highestScore[1].length ? arrayOfWords[i] : highestScore[0]);
+        }
+      } else if (this.score(arrayOfWords[i]) >= highestScore[1]) {
+        highestScore[0] = arrayOfWords[i];
+        highestScore[1] = this.score(arrayOfWords[i]);
+      }
+    }
+    return highestScore[0]
+  },
 
 };
 
@@ -61,5 +81,3 @@ const Scrabble = {
 
 
 module.exports = Scrabble;
-
-////
