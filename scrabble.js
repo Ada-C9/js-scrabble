@@ -96,10 +96,26 @@ const Scrabble = {
         this.name = name;
         this.plays = [];
       }
-
     };
 
-
+    Scrabble.Player.prototype = {
+      plays() {
+        let plays = ''
+        this.plays.forEach((play) => {
+          plays += ` ${play}`
+        })
+        return plays;
+      },
+      purr() {
+        return ('Prrrrr'); // use return instead of console.log
+      },
+      play() {
+        return (`${this.name} chases a ball of yarn!`);
+      },
+      speak() {
+        return (`${this.name} says meow!`);
+      },
+    };
 
 
     module.exports = Scrabble;
