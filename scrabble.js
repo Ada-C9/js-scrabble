@@ -92,30 +92,35 @@ const Scrabble = {
 };
 
 Scrabble.Player = class {
+  constructor (name) {
+    this.name = name;
+    if (name === undefined) {
+      throw "Oops! No name was given!";
+    }
+    // this.plays = []
+  }
+
+  // play(word) {
+  //
+  // }
+
+  // totalScore() {
+  //
+  // }
+  //
+  // hasWon() {
+  //
+  // }
+  //
+  // highestScoringWord() {
+  //
+  // }
+  //
+  // highestWordScore() {
+  //
+  // }
 
 };
 
 
 module.exports = Scrabble;
-
-
-// switch (letter) {
-//   case 'A':
-//     return 1;
-//   case 'B':
-//     return 3;
-//   case 'C':
-//     return 3;
-//   case 'D':
-//     return 2;
-//   case 'O':
-//     return 1;
-//   case 'G':
-//     return 2;
-//   case 'T':
-//     return 1;
-//   case 'P':
-//     return 3;
-//   case 'I':
-//     return 1;
-// }
