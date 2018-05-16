@@ -67,11 +67,20 @@ Scrabble.Player = class {
 
   }
 
-  play() {
+  play(word) {
     //adds the input words to the plays Array
     // return false if player has already won
 
+    if (word === " "|| typeof word !== 'string') {
+      throw new Error('Please enter a valid word');
+    }
+    if (this.hasWon()) {
+      return false;
+    }
+    this.plays.push(word);
+    return true;
   }
+
 
   totalScore() {
 
@@ -81,6 +90,10 @@ Scrabble.Player = class {
 
   hasWon() {
     // returns true if the player has over 100 points, otherwise returns false
+    if (this.totalScore() >= 100 ) {
+      return true;
+    }
+    return false;
   }
 
   highestScoringWord() {
