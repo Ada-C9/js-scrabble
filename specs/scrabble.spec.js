@@ -181,18 +181,51 @@ describe('Player', () => {
   });
 
   describe('hasWon', () => {
-    test.skip('returns false when score < 100', () => {
+    test('returns false when score < 100', () => {
+      // Arrange
+      const player = new Scrabble.Player('Test Name');
+      const word1 = "qz"
+      expect(Scrabble.score(word1)).toBe(20);
+      expect(player.hasWon()).toBe(false);
+
+      // Act
+      player.play(word1);
+
+      // Assert
+      expect(player.hasWon()).toBe(false)
+
+    });
+
+    test('returns true when score == 100', () => {
+      // Arrange
+      const player = new Scrabble.Player('Test Name');
+      const word1 = "qzqzq"
+      expect(Scrabble.score(word1)).toBe(50);
+      expect(player.hasWon()).toBe(false);
+
+      // Act
+      player.play(word1);
+      player.play(word1);
+
+      // Assert
+      expect(player.hasWon()).toBe(true)
 
 
     });
 
-    test.skip('returns true when score == 100', () => {
+    test('returns true when score > 100', () => {
+      // Arrange
+      const player = new Scrabble.Player('Test Name');
+      const word1 = "qzqzqz"
+      expect(Scrabble.score(word1)).toBe(60);
+      expect(player.hasWon()).toBe(false);
 
+      // Act
+      player.play(word1);
+      player.play(word1);
 
-    });
-
-    test.skip('returns true when score > 100', () => {
-
+      // Assert
+      expect(player.hasWon()).toBe(true)
 
     });
   });
@@ -200,26 +233,109 @@ describe('Player', () => {
   describe('highestScoringWord', () => {
     // Tie-breaking logic is already described in the tests
     // for highestWordFrom, so we will not repeat it here.
-    test.skip('returns the highest scoring word played', () => {
+    test('returns the highest scoring word played', () => {
+      // Arrange
+      const player = new Scrabble.Player('FakeName');
+      const word1 = "kae"; // 7
+      expect(Scrabble.score(word1)).toBe(7)
+      const word2 = "qd"; // 12
+      expect(Scrabble.score(word2)).toBe(12)
+      const word3 = "bax"; //12
+      expect(Scrabble.score(word3)).toBe(12)
 
+      // Act
+      player.play(word1);
+      player.play(word2);
+      player.play(word3);
+
+      // Assert
+      expect(player.highestScoringWord()).toBe(word2);
 
     });
 
-    test.skip('throws an error if no words have been played', () => {
+    test('throws an error if no words have been played', () => {
+      // Arrange
+      const player = new Scrabble.Player('test player');
+
+      // Assert
+      expect(() => {
+        player.highestScoringWord();
+      }).toThrow();
+
+    });
+
+  });
+
+  describe('highestWordScore', () => {
+    test('returns the score of the highest scoring word played', () => {
+      // Arrange
+      const player = new Scrabble.Player('Player Name');
+      const word1 = "kae"; // 7
+      expect(Scrabble.score(word1)).toBe(7)
+      const word2 = "qd"; // 12
+      expect(Scrabble.score(word2)).toBe(12)
+      const word3 = "bax"; //12
+      expect(Scrabble.score(word3)).toBe(12)
+
+      const expectedWinnerScore = Scrabble.score(word2)
+
+      // Act
+      player.play(word1);
+      player.play(word2);
+      player.play(word3);
+
+      // Assert
+      expect(player.highestWordScore()).toBe(expectedWinnerScore);
+
+    });
+
+    test('throws an error if no words have been played', () => {
+      // Arrange
+      const player = new Scrabble.Player('test player')
+
+      // Assert
+      expect(() => {
+        player.highestWordScore();
+      }).toThrow();
+
+    });
+  });
+});
+
+describe.skip('TileBag', () => {
+  test('is defined', () => {
+    expect(Scrabble.TileBag).toBeDefined();
+  });
+
+  describe('Constructor', () => {
+    test('Creates a new TileBag', () => {
 
 
     });
   });
+  describe('drawTiles', () => {
+    test('is defined', () => {
+      expect(Scrabble.TileBag.drawTiles).toBeDefined();
+    });
 
-  describe('highestWordScore', () => {
-    test.skip('returns the score of the highest scoring word played', () => {
+    test('it returns an array of maximum ')
+  });
 
+  describe('availableTiles', () => {
+    test('it returns a number', () => {
+      const bag = new Scrabble.TileBag()
+
+      expect(bag.availableTiles).toBe(Number)
 
     });
 
-    test.skip('throws an error if no words have been played', () => {
-
+    test('it decrements every time cards are drawn', () => {
 
     });
+
+    test('returns 0 if no tiles available', () => {
+
+    });
+
   });
 });

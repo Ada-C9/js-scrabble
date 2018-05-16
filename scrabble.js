@@ -117,10 +117,10 @@ Scrabble.Player = class {
     if ( this.hasWon() || Scrabble.score(word) == 0 ) {
       return false
     } else {
+      // adds the input word to the plays Array
       this.plays.push(word);
       return true
     }
-    // adds the input word to the plays Array
 
 
   }
@@ -144,27 +144,31 @@ Scrabble.Player = class {
 
   highestScoringWord(){
     // returns the highest scoring word the user has played
-    let word = Scrabble.highestWordFrom(this.plays)
+    let word = Scrabble.highestScoreFrom(this.plays)
     return word
   }
 
   highestWordScore(){
     // returns the highestScoringWord score
     let word = this.highestScoringWord()
-    score = Scrabble.score(word)
+    let score = Scrabble.score(word)
     return score
   }
 
 
 };
 
+Scrabble.TileBag = class {
+
+  constructor(){
+
+  }
+
+  drawTiles(){
+    
+  }
+
+}
+
 
 module.exports = Scrabble;
-
-let obj = { a: 4, b: 0.5 , c: 0.35, d: 5 };
-
-let arr = Object.values(obj);
-let min = Math.min(...arr);
-let max = Math.max(...arr);
-
-console.log( `Min value: ${min}, max value: ${max}` );
