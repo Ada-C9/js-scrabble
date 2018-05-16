@@ -140,13 +140,28 @@ Scrabble.Player = class {
     }
   }
 
+  highestScoringWord() {
+    let words = this.plays;
+    let highestScore = 0;
+    let highestScoredWord = null;
+
+    for (let i = 0; i < words.length; i += 1) {
+      let currentWordScore = Scrabble.score(words[i]);
+      if (currentWordScore > highestScore) {
+        highestScore = currentWordScore;
+        highestScoredWord = words[i];
+      }
+    }
+    return highestScoredWord;
+  }
+
 };
 
 
 module.exports = Scrabble;
 // let sam = new Scrabble.Player('Sam');
 // console.log(sam.name);
-// sam.play('academy');
+// sam.play('cat');
 // sam.play('octopus');
-// console.log(sam.totalScore());
+// console.log(sam.highestScoringWord());
 // console.log(sam.hasWon());
