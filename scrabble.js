@@ -42,7 +42,31 @@ const Scrabble = {
   },
 
   highestScoreFrom(arrayOfWords) {
+    if (!Array.isArray(arrayOfWords) || arrayOfWords.length === 0) {
+      throw 'Error: no words were passed!';
+    }
 
+    let scores = {};
+
+    for (let word of arrayOfWords) {
+      let score = Scrabble.score(word);
+      if (!scores[score]) {
+        scores[score] = [word];
+      }
+      else {
+        scores[score].push(word);
+      }
+    }
+
+    let max_score = Math.max(...Object.keys(scores));
+    let winner = scores[max_score][0];
+    for (let word of scores[max_score]) {
+      if (winner.length < 7 && (word.length == 7 || word.length < winner.length)) {
+        winner = word;
+      }
+    }
+
+    return winner;
   },
 };
 
