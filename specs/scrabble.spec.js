@@ -241,15 +241,13 @@ describe('Player', () => {
     });
 
     test('throws an error if no words have been played', () => {
-      // Arrange
       const player = new Scrabble.Player('test player');
 
-      // Act
-      player.plays = [];
-
-      //Assert
-      expect(player.highestScoringWord()).toThrow();
+      expect(() => {
+        player.highestScoringWord();
+      }).toThrow();
     });
+    
   });
 
   describe('highestWordScore', () => {
