@@ -1,24 +1,3 @@
-// // deprecated findPoints function
-// const findPoints = function findPoints(letter) {
-//   switch(true) {
-//     case (['A','E','I','O','U','L','N','R','S','T'].includes(letter)):
-//       return 1;
-//     case (['D','G'].includes(letter)):
-//       return 2;
-//     case (['B','C','M','P'].includes(letter)):
-//       return 3;
-//     case (['F','H','V','W','Y'].includes(letter)):
-//       return 4;
-//     case (['K'].includes(letter)):
-//       return 5;
-//     case (['J','X'].includes(letter)):
-//       return 8;
-//     case (['Q','Z'].includes(letter)):
-//       return 8;
-//   }
-// }
-
-
 const scoreTable = {
   'a': { 'points':  1, 'tiles':  9 },
   'b': { 'points':  3, 'tiles':  2 },
@@ -49,11 +28,13 @@ const scoreTable = {
   'blank': { 'tiles': 2}
 }
 
+
 const findPoints = function findPoints(letter) {
   let tileInfo = scoreTable[letter];
   let points = tileInfo['points'];
   return points;
 }
+
 
 const Scrabble = {
   score(word) {
@@ -80,7 +61,7 @@ const Scrabble = {
       }
     });
     return maxWord;
-  },
+  }
 }
 
 
@@ -121,32 +102,22 @@ Scrabble.Player = class {
 
 
 
-let jill = new Scrabble.Player('jill');
-
-console.log(jill);
-
-jill.play('mom');
-jill.play('text');
-
-console.log(jill.plays);
-
-let total = jill.totalScore();
-
-console.log(total);
-
-console.log(jill.hasWon());
-console.log(jill.highestScoringWord());
-console.log(jill.highestWordScore());
-
-
-
-
+// let jill = new Scrabble.Player('jill');
 //
-// console.log(Scrabble.score('apple'));
-// console.log(Scrabble.score('mom'));
-// console.log(Scrabble.score('q'));
+// console.log(jill);
 //
-// console.log(Scrabble.highestScoreFrom(['quartzy','axe','mom','q']));
+// jill.play('mom');
+// jill.play('text');
+//
+// console.log(jill.plays);
+//
+// let total = jill.totalScore();
+//
+// console.log(total);
+//
+// console.log(jill.hasWon());
+// console.log(jill.highestScoringWord());
+// console.log(jill.highestWordScore());
 
 
 
