@@ -38,11 +38,15 @@ const Scrabble = {
     if (!letterCheck.test(word)) {
       throw 'Invalid characters';
     }
-
     let letters = word.split('');
 
     let wordScore = 0
 
+    if (word.length === 7) {
+      wordScore += 50
+    }
+
+// separate into a function that gets called?
     for (let letter of letters) {
       for (let value in letterValues) {
         if (letter === value) {
