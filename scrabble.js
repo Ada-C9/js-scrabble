@@ -105,6 +105,7 @@ Scrabble.Player = class {
     //   return false;
     // }
     this.plays.push(word);
+    return this.plays;
   }
 
   totalScore() {
