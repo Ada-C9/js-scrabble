@@ -60,9 +60,9 @@ const Scrabble ={
 
       return sum;
     }
-    },
+  },
 
-    tie(word, maxWord) {
+  tie(word, maxWord) {
     if (((word.length === 7) && (maxWord.length !== 7)) || ((word.length < maxWord.length) && (maxWord.length !== 7))) {
       maxWord = word;
     }
@@ -89,26 +89,41 @@ const Scrabble ={
   }
 };
 
+Scrabble.Player = class {
+  constructor(name,plays){
+    this.name = name;
+    this.plays = [];
+  }
+  plays(word){
+
+    if (word === undefined || !(/^[a-zA-Z]+$/.test(word))) {
+      throw new UserException('You must provide a word');
+    } else if (this.hasWon()) {
+      return false;
+    } else {
+      this.plays.push(word);
+      return true;
+    }
+  }
+
+  totalScore(){
+    let total = 0;
+    this.plays.forEach(function (word) {
+      total += Scrabble.score(word)
+    });
+    return total;
+  }
+
+
+  hasWon()
+  {
+    return this.total >= 100 ? ( true) : (false);
+  }
+}
 
 
 
 
 
 
-
-
-
-
-
-
-//   highestScoreFrom(arrayOfWords) {
-//
-//   },
-// };
-
-// Scrabble.Player = class {
-//
-// };
-//
-//
-module.exports = Scrabble;
+  module.exports = Scrabble;
