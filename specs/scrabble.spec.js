@@ -256,9 +256,15 @@ describe('TileBag', () => {
 
   describe('Constructor', () => {
     test('Creates a new TileBag instance', () => {
-      const bag = new Scrabble.TileBag();
-      expect(bag).toBeDefined();
+      const myBag = new Scrabble.TileBag();
+      expect(myBag).toBeDefined();
+      expect(myBag.bag).not.toEqual([]);
+      expect(myBag.bag.length).toEqual(98);
     });
+
+    // test('', ()=> {
+    //
+    // });
   });
 
   // test('returns an available letter and decrements tile count', () => {
