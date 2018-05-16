@@ -57,13 +57,11 @@ const Scrabble = {
     }
 
     for (let i = 0; i < arrayOfWords.length; i++) {
-
-
       if (this.score(arrayOfWords[i]) === highestScore[1]) {
         if (arrayOfWords[i].length === 7 || highestScore[0].length === 7) {
           return (arrayOfWords[i].length === 7 ? arrayOfWords[i] : highestScore[0]);
         } else {
-          return (arrayOfWords[i].length < highestScore[1].length ? arrayOfWords[i] : highestScore[0]);
+          return (arrayOfWords[i].length < highestScore[0].length ? arrayOfWords[i] : highestScore[0]);
         }
       } else if (this.score(arrayOfWords[i]) >= highestScore[1]) {
         highestScore[0] = arrayOfWords[i];
