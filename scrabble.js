@@ -28,18 +28,16 @@ const LETTERVALUES = {
 };
 
 const Scrabble = {
-  score: function(word) {
+  score(word) {
     let score = 0;
-    if (word.length > 7) {
-      throw ('Too long!');
+    if (word.length > 7 || word.length < 1) {
+      throw ('Word must be between 1 and 7 letters!');
     } else if (word.length === 7) { score = 50;
-    } else if (word.length === 0) {
-      throw ('Too short!');
     } else if (!word.match(/^[a-zA-Z]+$/)) {
       throw ('not a Letter');
     }
 
-    let wordArray = word.toUpperCase().split('');
+    const wordArray = word.toUpperCase().split('');
 
     wordArray.forEach(function (value) {
       score += LETTERVALUES[value];
@@ -47,8 +45,43 @@ const Scrabble = {
 
     return score;
   },
+
+  highestScoreFrom(arrayofWords) {
+    if (arrayofWords.length === 0) {
+      throw ('no words to compare');
+    }
+
+    let maxWord = ['', 0];
+    arrayofWords.forEach(function (word) {
+      let wordScore = Scrabble.score(word);
+
+      if (wordScore > maxWord[1]) {
+        maxWord[0] = word;
+        maxWord[1] = wordScore;
+      } else if (wordScore === maxWord[1]) {
+        if (word.length === 7 || (word.length < maxWord[0].length && maxWord[0].length !== 7)) {
+          maxWord[0] = word;
+          maxWord[1] = wordScore;
+        }
+      }
+
+    });
+
+    return maxWord[0];
+  },
 };
-Scrabble.score("cat");
 
+// console.log(Scrabble.score('nicolet'));
+//
+// Scrabble.Player = class {
+//   constructor(name) {
+//     if (!name) {
+//       throw ('player must have a name');
+//     }
+//
+//     this.name = name;
+//     this.plays = [];
+//   }
 
+// };
 module.exports = Scrabble;
