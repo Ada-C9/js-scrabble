@@ -249,13 +249,20 @@ describe('Player', () => {
   });
 });
 
-describe('drawTile', () => {
+describe('TileBag', () => {
   test('is defined', () => {
-    expect(Scrabble.TileBag.drawTile).toBeDefined();
+    expect(Scrabble.TileBag).toBeDefined();
   });
 
-  test('returns an available letter and decrements tile count', () => {
-    expect(Scrabble.TileBag.drawTile()).toBeInstanceOf(String);
+  describe('Constructor', () => {
+    test('Creates a new TileBag instance', () => {
+      const bag = new Scrabble.TileBag();
+      expect(bag).toBeDefined();
+    });
   });
+
+  // test('returns an available letter and decrements tile count', () => {
+  //   expect(Scrabble.TileBag.drawTile()).toBeInstanceOf(String);
+  // });
 
 });
