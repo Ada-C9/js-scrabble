@@ -147,16 +147,3 @@ const Scrabble = {
       }}
 
     module.exports = Scrabble;
-
-
-    let value = [1, 2, 3]
-
-    value.forEach(function (letter) {
-      console.log(letter)
-    })
-
-    value.forEach((letter) => {
-
-    }
-
-  )
