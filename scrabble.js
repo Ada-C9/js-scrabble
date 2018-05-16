@@ -57,8 +57,32 @@ const Scrabble = {
   },
 
   highestScoreFrom(arrayOfWords) {
+    if (arrayOfWords.length === 0) {
+      throw 'Unable to calculate highest score without any words.';
+    }
+    if (Array.isArray(arrayOfWords) !== true) {
+      throw 'Unable to calculate highest score without an array of words';
+    }
+    if (arrayOfWords.length === 1){
+      return arrayOfWords[0];
+    } else {
+      let word_score = {};
+      arrayOfWords.forEach(function(word) {
+        word_score[word] = Scrabble.score(word);
+      });
 
-  },
+      let highest_score = 0;
+      for(const word in word_score) {
+        if (word_score[word] > highest_score) {
+          word_score[word] = highest_score;
+        }
+      }
+      return `${word} and score of ${word_score[word]}`;
+
+    }
+  }
+
+
 };
 
 Scrabble.Player = class {
