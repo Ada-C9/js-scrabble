@@ -31,7 +31,8 @@ const Scrabble = {
 
 
   score(word) {
-    if (this.caller == null) { word = this.formatValidWord(word); }
+    word = this.formatValidWord(word);
+    // if (this.caller == null) { word = this.formatValidWord(word); }
     let wordScore = 0;
     for (let i = 0; i < word.length; i++ ) {
       wordScore += this.getPointValue(word[i]);
@@ -50,7 +51,8 @@ const Scrabble = {
     // const that = this;
     arrayOfWords.forEach((word) => {
       // word = this.formatValidWord(word);
-      let wordScore = this.score(this.formatValidWord(word));
+      // let wordScore = this.score(this.formatValidWord(word));
+      let wordScore = this.score(word);
       if (wordScore === highestScore && highestScoringWord.length > 7) {
         highestScoringWord = highestScoringWord.length > word.length? word : highestScoringWord;
       } else if (wordScore > highestScore) {
