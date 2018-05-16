@@ -127,6 +127,14 @@ Scrabble.Player = class {
     //this should return an array of the words that a player has played so far
     return this.plays;
   }
+
+  totalScore() {
+    if (this.plays.length === 0) {
+      return 0;
+    } else {
+      //
+    }
+  }
 };
 
 

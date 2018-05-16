@@ -155,7 +155,7 @@ describe('Player', () => {
   });
 
   describe('totalScore', () => {
-    test.skip('Is zero if the player has not played anything', () => {
+    test('Is zero if the player has not played anything', () => {
       const player = new Scrabble.Player('test player');
 
       expect(player.totalScore()).toBe(0);
