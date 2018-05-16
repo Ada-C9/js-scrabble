@@ -61,12 +61,12 @@ const Scrabble = {
     if (arrayOfWords.length === 0) {
       throw "No words given";
     }
-    
+
     let topWord = arrayOfWords[0];
-    let topScore = score(topWord);
+    let topScore = Scrabble.score(topWord);
 
     arrayOfWords.forEach (function (word) {
-      let score = score(word);
+      let score = Scrabble.score(word);
       if (score > topScore) {
         topScore = score;
         topWord = word;
