@@ -233,14 +233,22 @@ describe('Player', () => {
   });
 
   describe('highestWordScore', () => {
-    test.skip('returns the score of the highest scoring word played', () => {
-      
+    test('returns the score of the highest scoring word played', () => {
+      const player = new Scrabble.Player('test player');
+      const winner = 'zzz';
+      const loser = 'dog';
+      player.play(winner);
+      player.play(loser);
+
+      expect(player.highestScoringWord()).toBe(winner);
+      expect(player.highestWordScore()).toBe(30)
 
     });
 
-    test.skip('throws an error if no words have been played', () => {
+    test('throws an error if no words have been played', () => {
+      const player = new Scrabble.Player('test player');
 
-
+      expect(() => { player.highestWordScore(); }).toThrow();
     });
   });
 });
