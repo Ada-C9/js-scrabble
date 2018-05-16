@@ -258,17 +258,26 @@ describe('TileBag', () => {
     test('Creates a new TileBag instance', () => {
       const myBag = new Scrabble.TileBag();
       expect(myBag).toBeDefined();
-      expect(myBag.bag).not.toEqual([]);
-      expect(myBag.bag.length).toEqual(98);
+    });
+  });
+
+  describe('drawTile', () => {
+    test('is defined', () => {
+      const myBag = new Scrabble.TileBag();
+      expect(myBag.drawTile).toBeDefined();
     });
 
-    // test('', ()=> {
+    test('drawTile returns letter (as string) & count descreases', () => {
+      const myBag = new Scrabble.TileBag();
+      expect(myBag.remainingTiles()).toEqual(98);
+      expect(myBag.drawTile()).toMatch(/\w{1}/);
+      expect(myBag.remainingTiles()).toEqual(97);
+    });
+
+    // test('throws an error if there are no tiles in the tilebag', () => {
     //
     // });
   });
 
-  // test('returns an available letter and decrements tile count', () => {
-  //   expect(Scrabble.TileBag.drawTile()).toBeInstanceOf(String);
-  // });
 
 });

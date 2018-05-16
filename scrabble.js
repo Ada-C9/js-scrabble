@@ -48,34 +48,6 @@ const Scrabble = {
   },
 };
 
-Scrabble.TileBag = class {
-  constructor(){
-    this.bag = this.createBag();
-  }
-
-  createBag(){
-    let alphabet =  'abcdefghijklmnopqrstuvwxyz'.split('');
-    let alphabetQuant = [9,2,2,4,12,2,3,2,9,1,1,4,2,6,8,2,1,6,4,6,4,2,2,1,2,1];
-    let tileBag = [];
-
-    for (let i = 0; i < alphabet.length; i++){
-      let quantity = alphabetQuant[i];
-      for (let j=0; j < quantity; j++){
-        tileBag.push(alphabet[i]);
-      }
-    }
-    return tileBag;
-  }
-
-  drawTile(){
-
-  }
-
-  remainingTiles(){
-
-  }
-}
-
 Scrabble.Player = class {
   constructor(name){
     if (name === undefined || name === null){
@@ -127,6 +99,43 @@ Scrabble.Player = class {
   }
 };
 
+Scrabble.TileBag = class {
+  constructor(){
+    this.createBag();
+    this.bag;
+  }
+
+  createBag(){
+    let alphabet =  'abcdefghijklmnopqrstuvwxyz'.split('');
+    let alphabetQuant = [9,2,2,4,12,2,3,2,9,1,1,4,2,6,8,2,1,6,4,6,4,2,2,1,2,1];
+    let tileBag = [];
+
+    for (let i = 0; i < alphabet.length; i++){
+      let quantity = alphabetQuant[i];
+      for (let j=0; j < quantity; j++){
+        tileBag.push(alphabet[i]);
+      }
+    }
+
+    this.bag = tileBag;
+    // this.remainingTiles = tileBag.length;
+    return tileBag;
+  }
+
+  drawTile(){
+    // check if there are any tiles left!
+    let randNum = Math.floor(Math.random() * this.bag.length);
+    let randLetter = this.bag[randNum];
+    this.bag.splice(this.bag.indexOf(randLetter), 1);
+    return randLetter;
+  }
+
+  remainingTiles(){
+    if (this.bag !== []){
+      return this.bag.length;
+    }
+  }
+}
 
 // Helper methods
 
@@ -152,6 +161,8 @@ const checkBonus = function checkBonus(word){
 }
 
 const bag = new Scrabble.TileBag();
+console.log(`My tilebag is: ${bag.bag}`);
+console.log(`My letter: ${bag.drawTile()}`);
 console.log(`My tilebag is: ${bag.bag}`);
 
 module.exports = Scrabble;
