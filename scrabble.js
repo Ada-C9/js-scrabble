@@ -18,17 +18,29 @@ const Scrabble = {
 
   score(word) {
     let totalScore = 0;
+
+    // throws if word contains invalid characters
+    // .search will return -1 if there is a match
+    // throws if word is empty
+    //throws if word is longer then 7 characters
+    if (word.search(/[^a-zA-Z]+/) !== -1 || word.length === 0 || word.length > 7)  {
+      throw 'Invalid word.';
+    }
+
     // split our word into an array of Uppercase characters
     let upcase_word = word.toUpperCase()
     let wordArray = upcase_word.split("");
+
     // if the word <= 7 in length proceed
     while (wordArray.length <= 7) {
+
       // look at each letter in the array and scoreboard and then reassign value at index to value from scoreBoard wordArray[i] = scoreBoard[wordArray[i]]
       for (let i = 0; i < wordArray.length; i++) {
         wordArray[i] = Scrabble.scoreBoard[wordArray[i]]
         //gets a sum of this array now that values have been assigned
         totalScore = wordArray.reduce((x, y) => x + y);
       }
+
       // Adds 50 points if you play a 7 letter word, else just returns your normal score
       if (wordArray.length === 7) {
         return totalScore + 50;
