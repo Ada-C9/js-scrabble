@@ -142,7 +142,7 @@ describe('Player', () => {
       expect(player.plays.length).toBe(0);
     });
 
-    test.skip('Returns false and does not update plays if the player has already won', () => {
+    test('Returns false and does not update plays if the player has already won', () => {
       const player = new Scrabble.Player('test player');
 
       expect(player.play('zzzzzzz')).toBeTruthy(); // +120 pts
@@ -155,13 +155,13 @@ describe('Player', () => {
   });
 
   describe('totalScore', () => {
-    test.skip('Is zero if the player has not played anything', () => {
+    test('Is zero if the player has not played anything', () => {
       const player = new Scrabble.Player('test player');
 
       expect(player.totalScore()).toBe(0);
     });
 
-    test.skip('Is updated by play', () => {
+    test('Is updated by play', () => {
       // Arrange
       const player = new Scrabble.Player('test player');
       const words = [{word: 'dog', score: 5}, {word: 'cat', score: 5}, {word: 'goat', score: 5}];
@@ -181,18 +181,36 @@ describe('Player', () => {
   });
 
   describe('hasWon', () => {
-    test.skip('returns false when score < 100', () => {
+    test('returns false when score < 100', () => {
+      const player = new Scrabble.Player('player');
 
+      const words = ['dog', 'water', 'coco', 'zi'];
+
+      words.forEach( (word) => player.play(word) );
+
+      expect(player.hasWon()).toBe(false);
 
     });
 
-    test.skip('returns true when score == 100', () => {
+    test('returns true when score == 100', () => {
+      const player = new Scrabble.Player('player');
 
+      const words = ['zoo', 'ox', 'pave', 'job', 'tearing'];
+
+      words.forEach( (word) => player.play(word) );
+
+      expect(player.hasWon()).toBe(true);
 
     });
 
-    test.skip('returns true when score > 100', () => {
+    test('returns true when score > 100', () => {
+      const player = new Scrabble.Player('player');
 
+      const words = ['zoo', 'ox', 'cake', 'job', 'tearing'];
+
+      words.forEach( (word) => player.play(word) );
+
+      expect(player.hasWon()).toBe(true);
 
     });
   });
