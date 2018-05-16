@@ -1,12 +1,3 @@
-//
-// const value1Array = ["a", "e", "i", "o", "u", "l", "n", "r", "s", "t"]
-// const value2Array = ["d", "g"]
-// const value3Array = ["b", "c", "m", "p"]
-// const value4Array = ["f", "h", "v", "w", "y"]
-// const value5Array = ["k"]
-// const value8Array = ["j", "x"]
-// const value10Array = ["q", "z"]
-
 
 const Scrabble = {
   score(word) {
@@ -77,21 +68,6 @@ const Scrabble = {
         default:
           throw 'Unscoreable character';
       }
-      // if (value1Array.includes(letter)) {
-      //   wordScore += 1;
-      // } else if (value2Array.includes(letter)) {
-      //   wordScore += 2;
-      // } else if (value3Array.includes(letter)) {
-      //   wordScore += 3;
-      // } else if (value4Array.includes(letter)) {
-      //   wordScore += 4;
-      // } else if (value5Array.includes(letter)) {
-      //   wordScore += 5;
-      // } else if (value8Array.includes(letter)) {
-      //   wordScore += 8;
-      // } else if (value8Array.includes(letter)) {
-      //   wordScore += 10;
-      // }
     }
     return wordScore;
 
@@ -105,30 +81,60 @@ const Scrabble = {
       return arrayOfWords[0];
     }
 
-    let scoredWords = {}
-    let winner = []
+    let winner = arrayOfWords[0]
 
     for (let word of arrayOfWords) {
       let score = Scrabble.score(word);
-      scoredWords[word] = score;
+      let winningScore = Scrabble.score(winner);
+
+      if (winningScore < score) {
+        winner = word;
+      } else if (winningScore === score) {
+        if (word.length === 7) {
+          winner = word;
+        } else if (winner.length === 7) {
+          //handles if the existing winning word is also 7 so no reassignment
+        } else if (word.length < winner.length) {
+          winner = word;
+        }
+      }
     }
-
-    // return Object.keys(scoredWords).reduce((a, b) => scoredWords[a] > scoredWords[b] ? a : b);
-    let highestScore = Object.values(scoredWords).reduce((a, b) => scoredWords[a] > scoredWords[b] ? a : b);
-    console.log(`highest score: ${highestScore}`)
-
-
-
-  },
+    return winner;
+  }
 };
 
 Scrabble.Player = class {
+  constructor(name) {
+    if (name == null || name == "") {
+      throw 'Requires a name';
+    } else {
+        this.name = name;
+        this.plays = [];
+    }
+  }
 
+  play(word) {
+    if (word.length === 0 || word === null || word === "") {
+      throw 'Please enter a word to play';
+    } else {
+        Scrabble.score(word);
+        this.plays.push(word);
+        return this.plays;
+    }
+  }
+
+  plays() {
+    //this should return an array of the words that a player has played so far
+    return this.plays;
+  }
 };
 
 
 module.exports = Scrabble;
 
 // Driver code
-words = ['ate','academy']
+let words = ['ate','academy']
 console.log(Scrabble.highestScoreFrom(words))
+
+let anne = new Scrabble.Player('Anne');
+console.log(anne.play('apple'));
