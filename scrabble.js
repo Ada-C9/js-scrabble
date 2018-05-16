@@ -132,6 +132,9 @@ Scrabble.Player = class {
     }
   }
 
+  highestScoringWord() {
+    return Scrabble.highestScoreFrom(this.plays);
+  }
 
 };
 

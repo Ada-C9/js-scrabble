@@ -189,13 +189,20 @@ describe('Player', () => {
       expect(player.hasWon()).toBe(false);
     });
 
-    test.skip('returns true when score == 100', () => {
+    test('returns true when score == 100', () => {
+      const player = new Scrabble.Player('test player');
 
-
+      expect(player.play('zzzzzz')).toBeTruthy();
+      expect(player.play('qqqq')).toBeTruthy();
+      expect(player.hasWon()).toBe(true);
     });
 
-    test.skip('returns true when score > 100', () => {
+    test('returns true when score > 100', () => {
+      const player = new Scrabble.Player('test player');
 
+      expect(player.play('zzzzzz')).toBeTruthy();
+      expect(player.play('qqqqq')).toBeTruthy();
+      expect(player.hasWon()).toBe(true);
 
     });
   });
@@ -203,20 +210,31 @@ describe('Player', () => {
   describe('highestScoringWord', () => {
     // Tie-breaking logic is already described in the tests
     // for highestWordFrom, so we will not repeat it here.
-    test.skip('returns the highest scoring word played', () => {
+    test('returns the highest scoring word played', () => {
+      const player = new Scrabble.Player('test player');
+      const winner = 'zzz';
+      const loser = 'dog';
 
+
+      expect(player.play(winner)).toBeTruthy();
+      expect(Scrabble.score(winner)).toBe(30);
+      expect(player.play(loser)).toBeTruthy();
+      expect(Scrabble.score(loser)).toBe(5);
+
+      expect(player.highestScoringWord()).toBe(winner);
 
     });
 
-    test.skip('throws an error if no words have been played', () => {
+    test('throws an error if no words have been played', () => {
+      const player = new Scrabble.Player('test player');
 
-
+      expect(() => { player.highestScoringWord(); }).toThrow();
     });
   });
 
   describe('highestWordScore', () => {
     test.skip('returns the score of the highest scoring word played', () => {
-
+      
 
     });
 
