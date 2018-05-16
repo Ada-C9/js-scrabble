@@ -107,12 +107,11 @@ const Scrabble = {
     hasWon() {
      let totalScores = 0;
      this.plays.forEach((word) => totalScores += Scrabble.score(word));
-     if (totalScores > 100) {
+     if (totalScores >= 100) {
        return true;
      } else {
        return false;
      }
-
     }
 
     play(word) {
@@ -132,16 +131,29 @@ const Scrabble = {
       this.plays.push(word);
       return this.plays
     }
+
+    totalScore() {
+      if(this.plays.length == 0) {
+        return 0;
+      }
+
+      let total = 0;
+      this.plays.forEach( word => total += Scrabble.score(word) );
+      return total;
+    }
   }
 
 };
 
 
-// const word = 'dog';
-// const player = new Scrabble.Player('test player');
-//
-// console.log(player.plays.length);
-// console.log(player.play('coco'));
+const word = 'dog';
+const player = new Scrabble.Player('test player');
+
+console.log(player.plays.length);
+player.play(word);
+console.log(player.plays);
+console.log(player.totalScore());
+// console.log(player.play(word));
 // console.log(player.play('water'));
 // console.log(player.play('cdakda'));
 // console.log(player.plays);
