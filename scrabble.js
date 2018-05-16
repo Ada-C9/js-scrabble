@@ -51,7 +51,12 @@ const Scrabble = {
 
     return totalScore;
   },
+
   highestScoreFrom(arrayOfWords) {
+    if (arrayOfWords.length === 0) {
+      throw "No words were passed";
+    }
+
     let topScores = [];
     let maxScore = 0;
 
@@ -66,6 +71,21 @@ const Scrabble = {
         topScores.push(word);
       }
     }
+    let lengthToBeat = 6;
+    let shortestWord = null;
+
+    if (topScores.length > 1) {
+      for (let word of topScores) {
+        if ( word.length === 7 ) {
+          return word;
+        }
+        else if (word.length < lengthToBeat) {
+          lengthToBeat = word.length
+          shortestWord = word;
+        }
+      }
+      return shortestWord;
+    }
     return topScores[0]
   },
 };
@@ -77,4 +97,4 @@ Scrabble.Player = class {
 
 module.exports = Scrabble;
 // console.log(Scrabble.score("academia"));
-// console.log(Scrabble.highestScoreFrom(['pig', 'dog']))
+// console.log(Scrabble.highestScoreFrom(['dog', 'goat']))
