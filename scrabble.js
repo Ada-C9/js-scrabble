@@ -131,7 +131,8 @@ Scrabble.Player = class {
   }
 
   hasWon() {
-    if (this.totalScore() >= 100) {
+    let totalScore = this.totalScore();
+    if (totalScore >= 100) {
       return true;
     }
     else {
@@ -143,11 +144,9 @@ Scrabble.Player = class {
 
 
 module.exports = Scrabble;
-// console.log(Scrabble.score("academia"));
-// console.log(Scrabble.highestScoreFrom(['dog', 'goat']))
 // let sam = new Scrabble.Player('Sam');
 // console.log(sam.name);
 // sam.play('academy');
-// // console.log(sam.hasWon());
-// sam.play('academy');
+// sam.play('octopus');
 // console.log(sam.totalScore());
+// console.log(sam.hasWon());
