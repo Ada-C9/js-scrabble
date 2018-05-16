@@ -67,7 +67,6 @@ const Scrabble = {
       }
     });
     return highestScoredInArray;
-
   },
 };
 
@@ -77,6 +76,13 @@ Scrabble.Player = class {
       throw new Error ('Name required')
     }
     this.name = name;
+    this.plays = [];
+  }
+
+  play(word) {
+    this.plays.push(word);
+
+    return word;
   }
 };
 
