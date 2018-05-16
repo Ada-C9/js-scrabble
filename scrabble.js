@@ -128,14 +128,14 @@ const Scrabble = {
       )}
       return total;
       }
-      highestScoreFrom() {
+      highestScoringWord() {
         let plays = this.plays;
         let max = Scrabble.highestScoreFrom(plays);
         return max;
       }
 
       highestWordScore() {
-        let max = this.highestScoreFrom();
+        let max = this.highestScoringWord();
         return Scrabble.score(max);
       }
 
