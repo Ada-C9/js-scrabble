@@ -1,5 +1,29 @@
 const Scrabble = require('../scrabble');
 
+// I added.
+describe('formatValidWord', () => {
+  test('is defined', () => {
+    expect(Scrabble.formatValidWord).toBeDefined();
+  });
+
+  // Currently does NOT removed whitespace in middle.
+  test('removes white space', () => {
+    expect(Scrabble.formatValidWord(' FOO')).toBe('FOO');
+    expect(Scrabble.formatValidWord('BAR  ')).toBe('BAR');
+  });
+
+  test('capitolizes all letters', () => {
+    expect(Scrabble.formatValidWord('foo')).toBe('FOO');
+    expect(Scrabble.formatValidWord('BAR')).toBe('BAR'); // makes sure it keeps caps
+  });
+
+  test.skip('does not allow non-Strings', () => {
+    expect(() => { Scrabble.formatValidWord(null); }).toThrow();
+    expect(() => { Scrabble.formatValidWord(42); }).toThrow();
+  });
+});
+
+// Start of provided tests.
 describe('score', () => {
   test('is defined', () => {
     expect(Scrabble.score).toBeDefined();
@@ -9,44 +33,45 @@ describe('score', () => {
     expect(Scrabble.score('dog')).toBe(5);
     expect(Scrabble.score('cat')).toBe(5);
     expect(Scrabble.score('pig')).toBe(6);
+    expect(() => { Scrabble.score('ab gh'); }).toThrow();
   });
 
-  test.skip('adds 50 points for a 7-letter word', () => {
+  test('adds 50 points for a 7-letter word', () => {
     expect(Scrabble.score('academy')).toBe(65);
   });
 
-  test.skip('throws on bad characters', () => {
+  test('throws on bad characters', () => {
     expect(() => {
       Scrabble.score('char^');
     }).toThrow();
   });
 
-  test.skip('handles all upper- and lower-case letters', () => {
+  test('handles all upper- and lower-case letters', () => {
     expect(Scrabble.score('dog')).toBe(5);
     expect(Scrabble.score('DOG')).toBe(5);
     expect(Scrabble.score('DoG')).toBe(5);
   });
 
-  test.skip('does not allow words > 7 letters', () => {
+  test('does not allow words > 7 letters', () => {
     expect(() => { Scrabble.score('abcdefgh'); }).toThrow();
   });
 
-  test.skip('does not allow empty words', () => {
+  test('does not allow empty words', () => {
     expect(() => { Scrabble.score(''); }).toThrow();
   });
 });
 
 describe('highestScoreFrom', () => {
-  test.skip('is defined', () => {
+  test('is defined', () => {
     expect(Scrabble.highestScoreFrom).toBeDefined();
   });
 
-  test.skip('throws if no words were passed', () => {
+  test('throws if no words were passed', () => {
     expect(() => { Scrabble.highestScoreFrom([]); }).toThrow();
     expect(() => { Scrabble.highestScoreFrom('not array'); }).toThrow();
   });
 
-  test.skip('returns the only word in a length-1 array', () => {
+  test('returns the only word in a length-1 array', () => {
     expect(Scrabble.highestScoreFrom(['dog'])).toBe('dog');
   });
 
