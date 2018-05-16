@@ -94,15 +94,16 @@ const Scrabble = {
 Scrabble.Player = class {
   constructor (name) {
     this.name = name;
+    this.plays = []
     if (name === undefined) {
       throw "Oops! No name was given!";
     }
-    // this.plays = []
   }
 
-  // play(word) {
-  //
-  // }
+  play(word) {
+    this.plays.push(word)
+    return `You played ${word}`
+  }
 
   // totalScore() {
   //
