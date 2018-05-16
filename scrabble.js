@@ -15,7 +15,7 @@ const Scrabble = {
   },
 
   isValidString(str) {
-    if (typeof str !== 'string' && !(str instanceof String) || !RegExp(/^[a-zA-Z]+$/).test(str)) {
+    if (typeof str !== 'string' && !(str instanceof String) || !RegExp(/^[a-z]+$/i).test(str)) {
       throw new Error(`Invalid word: ${str}. It must be a String.`);
     }
   },
@@ -44,7 +44,6 @@ const Scrabble = {
 
   highestScoreFrom(words) {
     if (!(words instanceof Array) || words.length === 0 ) { throw new Error(`No words!`); }
-    // let currHighest = (word, score) => ({ word, score });
     let highestScore = 0;
     let highestScoringWord = "";
     words.forEach((word) => {
@@ -73,6 +72,14 @@ Scrabble.Player = class {
     if (typeof str !== 'string' && !(str instanceof String) || str.trim().length === 0) {
       throw new Error(`Invalid word: ${str}. It must be a String.`);
     }
+  }
+
+  highestWordScore() {
+    return Scrabble.score(Scrabble.highestScoreFrom(this.plays));
+  }
+
+  highestScoringWord() {
+    return Scrabble.highestScoreFrom(this.plays);
   }
 
   totalScore() {
