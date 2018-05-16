@@ -119,7 +119,10 @@ Scrabble.Player = class {
   }
 
   highestScoringWord() {
-    // return Scrabble.highestScoreFrom(this.plays);
+    if (this.plays.length === 0 ) {
+      throw 'A play has to be made';
+    }
+    return Scrabble.highestScoreFrom(this.plays);
   }
 
   highestWordScore() {
@@ -129,3 +132,6 @@ Scrabble.Player = class {
 
 
 module.exports = Scrabble;
+// const player = new Scrabble.Player('meka')
+//
+// player.highestScoringWord()

@@ -223,18 +223,17 @@ describe('Player', () => {
 
     test('throws an error if no words have been played', () => {
       const player = new Scrabble.Player('test player');
-
-      expect(player.highestScoringWord()).toThrow();
+      expect(() => { player.highestScoringWord(); }).toThrow();
     });
   });
 
   describe('highestWordScore', () => {
-    test.skip('returns the score of the highest scoring word played', () => {
+    test('returns the score of the highest scoring word played', () => {
 
 
     });
 
-    test.skip('throws an error if no words have been played', () => {
+    test('throws an error if no words have been played', () => {
 
 
     });
