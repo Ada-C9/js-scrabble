@@ -96,28 +96,34 @@ Scrabble.Player = class {
   }
 
   play(word) {
-    if ( typeof word === 'string' ) {
+    if ( typeof word === 'string' && this.hasWon() === false) {
       this.plays.push(word);
       return true;
+    } else if ( typeof word === 'string' && this.hasWon() === true) {
+      return false;
     } else {
       throw 'We need a real word';
     }
   }
 
   totalScore() {
-    
+    let totalScore = 0;
+    this.plays.forEach( function(play) {
+      totalScore += Scrabble.score(play);
+    });
+    return totalScore;
   }
 
   hasWon() {
-
+    return this.totalScore() > 100;
   }
 
   highestScoringWord() {
-
+    return Scrabble.highestScoreFrom(this.plays);
   }
 
   highestWordScore() {
-
+    return Scrabble.score(this.highestScoringWord());
   }
 };
 
