@@ -241,7 +241,7 @@ describe('Player', () => {
       player.play(loser);
 
       expect(player.highestScoringWord()).toBe(winner);
-      expect(player.highestWordScore()).toBe(30)
+      expect(player.highestWordScore()).toBe(30);
 
     });
 
@@ -249,6 +249,60 @@ describe('Player', () => {
       const player = new Scrabble.Player('test player');
 
       expect(() => { player.highestWordScore(); }).toThrow();
+    });
+  });
+});
+
+describe('Scrabble.TileBag', () => {
+  test('is defined', () => {
+    expect(Scrabble.Player).toBeDefined();
+  });
+
+  describe('constructor', () => {
+    test('Creates a new tileBag', () => {
+      const tileBag = new Scrabble.TileBag();
+
+      expect(tileBag).toBeInstanceOf(Scrabble.TileBag);
+    });
+
+    test ('it has a collection of tiles', () => {
+      const tileBag = new Scrabble.TileBag();
+
+      expect(tileBag.tiles.length).toBe(100);
+    });
+  });
+
+  describe('drawTiles', () => {
+    test('it returns the number of tiles specified', () => {
+      const tileBag = new Scrabble.TileBag();
+      let tilesToBeDrawn = 7;
+
+      expect(tileBag.drawTiles(tilesToBeDrawn).length).toBe(tilesToBeDrawn);
+    });
+
+    test('it decrements tileBag.tiles', () => {
+      const tileBag = new Scrabble.TileBag();
+      const tilesLength = tileBag.tiles.length;
+      let tilesToBeDrawn = 3;
+
+      expect(tileBag.drawTiles(tilesToBeDrawn).length).toBe(tilesToBeDrawn);
+      expect(tileBag.tiles.length).toBe(tilesLength - tilesToBeDrawn);
+    });
+
+    test('it throws if more tiles are requested than in the tileBag', () => {
+      const tileBag = new Scrabble.TileBag();
+
+      for (let i = 0; i < 14; i += 1) {
+        tileBag.drawTiles(7);
+      }
+
+      expect( () => { tileBag.drawTiles(7); }).toThrow();
+    });
+
+    test('it throws if more than 7 tiles are requested', () => {
+      const tileBag = new Scrabble.TileBag();
+
+      expect( () => { tileBag.drawTiles(9); }).toThrow();
     });
   });
 });
