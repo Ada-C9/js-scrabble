@@ -30,18 +30,47 @@ const scoreTable = {
 
 
 const findPoints = function findPoints(letter) {
-  let tileInfo = scoreTable[letter];
-  let points = tileInfo['points'];
+  let lowercase_letter = letter.toLowerCase();
+  let points = scoreTable[lowercase_letter]['points'];
+
   return points;
 }
 
+const checkWord = function permissableWord(word) {
+  let pattern = /[^a-zA-Z]/;
+
+  if (word === '') {
+    throw "Word cannot be empty";
+  } else if (pattern.test(word)) {
+    throw "Must be a real word";
+  } else if (word.length > 7) {
+    throw "More than 7 letters not allowed";
+  }
+}
+
+const checkArrayOfWords = function checkArrayofWords(arrayOfWords) {
+  if (arrayOfWords.length === 0) {
+    throw "List of words cannot be empty";
+  }
+}
+
+// const highestScoreTieBreaker = function highestScoreTieBreaker(maxWord, word) {
+//   if (maxWord.length != 7 && word.length == 7) {
+//     maxWord = word
+//   }
+//
+//   if (maxWord.length != 7 && word.length != 7 && maxWord.length > word.length) {
+//     maxWord = word;
+//   }
+// }
 
 const Scrabble = {
   score(word) {
+    checkWord(word);
+
     let score = 0;
     if (word.length === 7) {
-      score = 50;
-      return score;
+      score += 50;
     }
     for (let i = 0; i < word.length; i++) {
       let points = findPoints(word[i]);
@@ -51,14 +80,31 @@ const Scrabble = {
   },
 
   highestScoreFrom(arrayOfWords) {
+    checkArrayOfWords(arrayOfWords);
+
     let maxWord = null;
     let maxPoints = null;
+
     arrayOfWords.forEach(function (word) {
       let score = Scrabble.score(word);
-      if (maxPoints < score) {
+
+
+      if (maxPoints === score) {
+
+        // highestScoreTieBreaker(maxWord, word);
+
+        if (maxWord.length != 7 && word.length == 7) {
+          maxWord = word
+        }
+        if (maxWord.length != 7 && word.length != 7 && maxWord.length > word.length) {
+          maxWord = word;
+        }
+
+      } else if (maxPoints < score) {
         maxWord = word;
         maxPoints = score;
       }
+
     });
     return maxWord;
   }
@@ -67,12 +113,17 @@ const Scrabble = {
 
 Scrabble.Player = class {
   constructor(name, plays = []) {
+    if (name === undefined ) {
+      throw "Player must have a name"
+    }
+
     this.name = name;
     this.plays = plays;
   }
 
   play(word) {
-    return (this.hasWon ? this.plays.push(word) : false);
+    checkWord(word);
+    return (this.hasWon() ? false : this.plays.push(word));
   }
 
   totalScore() {
@@ -85,7 +136,7 @@ Scrabble.Player = class {
   }
 
   hasWon() {
-    let total = this.totalScore;
+    let total = this.totalScore();
     return (total >= 100);
   }
 
@@ -99,27 +150,6 @@ Scrabble.Player = class {
     return Scrabble.score(word);
   }
 };
-
-
-
-// let jill = new Scrabble.Player('jill');
-//
-// console.log(jill);
-//
-// jill.play('mom');
-// jill.play('text');
-//
-// console.log(jill.plays);
-//
-// let total = jill.totalScore();
-//
-// console.log(total);
-//
-// console.log(jill.hasWon());
-// console.log(jill.highestScoringWord());
-// console.log(jill.highestWordScore());
-
-
 
 
 module.exports = Scrabble;
