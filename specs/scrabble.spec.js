@@ -248,3 +248,14 @@ describe('Player', () => {
     });
   });
 });
+
+describe('drawTile', () => {
+  test('is defined', () => {
+    expect(Scrabble.TileBag.drawTile).toBeDefined();
+  });
+
+  test('returns an available letter and decrements tile count', () => {
+    expect(Scrabble.TileBag.drawTile()).toBeInstanceOf(String);
+  });
+
+});

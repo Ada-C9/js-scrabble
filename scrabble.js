@@ -45,6 +45,18 @@ const Scrabble = {
       }
     });
     return maxWord;
+  },
+
+  TileBag : {
+    // draw tile function. returns a tile (letter) at RANDOM
+    drawTile() {
+      
+    }
+
+    // remainingTiles function. returns quantity left for each letter
+    // remainingTiles() {
+    //
+    // }
   }
 };
 
@@ -98,6 +110,9 @@ Scrabble.Player = class {
     }
   }
 };
+
+
+// Helper methods
 
 const checkWord = function checkWord(input){
   if (input.length === 0 || input.length > 7){
