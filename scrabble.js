@@ -41,14 +41,19 @@ const Scrabble = {
     }
 
   let regex = /^[a-zA-Z]+$/;
-
   if (!regex.test(word)) {
     throw 'Invalid characters';
   }
 
+  let wordScore = 0
+
+  // adds 50 points to words that are 7 letters
+  if (word.length === 7) {
+     wordScore += 50;
+   }
+
   let letterArray = word.split('');
 
-  let wordScore = 0
 
   for (let letter of letterArray) {
     for (let key in scoreChart) {
