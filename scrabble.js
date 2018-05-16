@@ -43,10 +43,11 @@ const Scrabble = {
   },
 
   highestScoreFrom(words) {
-    if (!(words instanceof Array) || words.length === 0 ) { throw new Error(`No words!`);}
+    if (!(words instanceof Array) || words.length === 0 ) { throw new Error(`No words!`); }
+    // let currHighest = (word, score) => ({ word, score });
     let highestScore = 0;
     let highestScoringWord = "";
-    words.forEach(word => {
+    words.forEach((word) => {
       let wordScore = this.score(word);
       if (wordScore === highestScore) {
         highestScoringWord = this.breakTie(highestScoringWord, word);
@@ -74,6 +75,10 @@ Scrabble.Player = class {
     }
   }
 
+  totalScore() {
+    return this.score;
+  }
+
   play(word) {
     let originalLength = this.plays.length;
     if (!this.hasWon()) {
@@ -83,8 +88,8 @@ Scrabble.Player = class {
     return this.plays.length > originalLength;
   }
 
-  hasWon(){
-    return this.score > 100;
+  hasWon() {
+    return this.score >= 100;
   }
 };
 
