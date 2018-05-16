@@ -229,13 +229,18 @@ describe('Player', () => {
 
   describe('highestWordScore', () => {
     test('returns the score of the highest scoring word played', () => {
+      const player = new Scrabble.Player('test player');
 
+      player.play('academy');
+      player.play('dog');
+
+      expect(player.highestWordScore()).toBe(65);
 
     });
 
     test('throws an error if no words have been played', () => {
-
-
+      const player = new Scrabble.Player('test player');
+      expect(() => { player.highestWordScore(); }).toThrow();
     });
   });
 });

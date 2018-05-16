@@ -126,12 +126,9 @@ Scrabble.Player = class {
   }
 
   highestWordScore() {
-    // return Scrabble.score(this.highestScoringWord());
+    return Scrabble.score(this.highestScoringWord());
   }
 };
 
 
 module.exports = Scrabble;
-// const player = new Scrabble.Player('meka')
-//
-// player.highestScoringWord()
