@@ -8,6 +8,7 @@ const SCORECHART = {
   "Y" : 4, "Z" : 10
 };
 
+const REGEX = /^[a-zA-Z]+$/;
 
 const Scrabble = {
   score(word) {
@@ -48,21 +49,64 @@ const Scrabble = {
 };
 
 Scrabble.Player = class {
+  // const wordsPlayed = [];
   constructor(name){
     if (name === undefined || name === null){
       throw 'Must provide name';
     } else {
       this.name = name;
     }
+    this.plays = [];
+  }
+
+  play(word){
+    // add check for win
+
+    if (this.hasWon()){
+      return false;
+    } else {
+      if (word === undefined || word === null || REGEX.test(word) === false){
+        throw 'Invalid word';
+      } else {
+        return this.plays.push(word);
+      }
+    }
+  }
+
+  totalScore(){
+    let total = 0;
+    this.plays.forEach( function(word){
+      total += Scrabble.score(word);
+    });
+    return total;
+  }
+
+  hasWon(){
+    return this.totalScore() >= 100 ? true : false;
+  }
+
+  highestScoringWord(){
+    if (this.plays.length === 0){
+      throw 'No words played';
+    } else {
+      return Scrabble.highestScoreFrom(this.plays)
+    }
+  }
+
+  highestWordScore(){
+    if (this.plays.length === 0){
+      throw 'No words played';
+    } else {
+      return Scrabble.score(Scrabble.highestScoreFrom(this.plays));
+    }
   }
 };
 
 const checkWord = function checkWord(input){
-  let regex = /^[a-zA-Z]+$/;
   if (input.length === 0 || input.length > 7){
     throw 'Invalid input length';
   }
-  if (regex.test(input) === false){
+  if (REGEX.test(input) === false){
     throw 'Only letters allowed';
   }
 }
@@ -79,7 +123,10 @@ const checkBonus = function checkBonus(word){
   }
 }
 
-const test = new Scrabble.Player('test')
-console.log(test);
+// const testPlayer = new Scrabble.Player('testPlayer');
+// console.log(`plays length: ${testPlayer.plays.length}`);
+// console.log(`play fn called: ${testPlayer.play('dog')}`);
+// console.log(`plays length: ${testPlayer.plays.length}`);
+// console.log(test);
 
 module.exports = Scrabble;

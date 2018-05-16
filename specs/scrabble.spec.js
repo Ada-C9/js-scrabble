@@ -142,7 +142,7 @@ describe('Player', () => {
       expect(player.plays.length).toBe(0);
     });
 
-    test.skip('Returns false and does not update plays if the player has already won', () => {
+    test('Returns false and does not update plays if the player has already won', () => {
       const player = new Scrabble.Player('test player');
 
       expect(player.play('zzzzzzz')).toBeTruthy(); // +120 pts
@@ -155,13 +155,13 @@ describe('Player', () => {
   });
 
   describe('totalScore', () => {
-    test.skip('Is zero if the player has not played anything', () => {
+    test('Is zero if the player has not played anything', () => {
       const player = new Scrabble.Player('test player');
 
       expect(player.totalScore()).toBe(0);
     });
 
-    test.skip('Is updated by play', () => {
+    test('Is updated by play', () => {
       // Arrange
       const player = new Scrabble.Player('test player');
       const words = [{word: 'dog', score: 5}, {word: 'cat', score: 5}, {word: 'goat', score: 5}];
@@ -181,44 +181,69 @@ describe('Player', () => {
   });
 
   describe('hasWon', () => {
-    test.skip('returns false when score < 100', () => {
-
-
+    test('returns false when score < 100', () => {
+      const word = 'dog';
+      const player = new Scrabble.Player('test player');
+      expect(player.play(word)).toBeTruthy();
+      expect(player.plays.length).toBe(1);
+      expect(player.hasWon()).toBe(false);
     });
 
-    test.skip('returns true when score == 100', () => {
-
-
+    test('returns true when score == 100', () => {
+      const player = new Scrabble.Player('test player');
+      const word = 'zzzzz';
+      const word2 = 'qqqqq';
+      expect(player.play(word)).toBeTruthy();
+      expect(player.play(word2)).toBeTruthy();
+      expect(player.plays.length).toBe(2);
+      expect(player.totalScore()).toBe(100);
+      expect(player.hasWon()).toBeTruthy();
     });
 
-    test.skip('returns true when score > 100', () => {
-
-
+    test('returns true when score > 100', () => {
+      const player = new Scrabble.Player('test player');
+      const word = 'jukebox';
+      const word2 = 'quizzes';
+      expect(player.play(word)).toBeTruthy();
+      expect(player.play(word2)).toBeTruthy();
+      expect(player.totalScore()).toBeGreaterThan(100);
+      expect(player.hasWon()).toBeTruthy();
     });
   });
 
   describe('highestScoringWord', () => {
     // Tie-breaking logic is already described in the tests
     // for highestWordFrom, so we will not repeat it here.
-    test.skip('returns the highest scoring word played', () => {
-
-
+    test('returns the highest scoring word played', () => {
+      const player = new Scrabble.Player('test player');
+      const word = 'jukebox';
+      const word2 = 'dog';
+      expect(player.play(word)).toBeTruthy();
+      expect(player.play(word2)).toBeTruthy();
+      expect(player.highestScoringWord()).toEqual(word);
     });
 
-    test.skip('throws an error if no words have been played', () => {
-
-
+    test('throws an error if no words have been played', () => {
+      const player = new Scrabble.Player('test player');
+      expect(player.plays.length).toBe(0);
+      expect(() => { player.highestScoringWord(); }).toThrow();
     });
   });
 
   describe('highestWordScore', () => {
-    test.skip('returns the score of the highest scoring word played', () => {
-
-
+    test('returns the score of the highest scoring word played', () => {
+      const player = new Scrabble.Player('test player');
+      const word = 'zzzzz';
+      const word2 = 'dog';
+      expect(player.play(word)).toBeTruthy();
+      expect(player.play(word2)).toBeTruthy();
+      expect(player.highestWordScore()).toEqual(50);
     });
 
-    test.skip('throws an error if no words have been played', () => {
-
+    test('throws an error if no words have been played', () => {
+      const player = new Scrabble.Player('test player');
+      expect(player.plays.length).toBe(0);
+      expect(() => { player.highestWordScore(); }).toThrow();
 
     });
   });
