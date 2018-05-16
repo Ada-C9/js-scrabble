@@ -120,11 +120,20 @@ Scrabble.Player = class {
     });
     return true
   }
+  totalScore() {
+    let score = 0
+    if (this.plays.length === 0) {
+      return score
+    } else {
+      for (const word of this.plays) {
+        score += Scrabble.score(word)
+      }
+      return score
+    }
+  }
 }
 module.exports = Scrabble;
-  // totalScore() {
-  //
-  // }
+
   //
   // hasWon() {
   //
