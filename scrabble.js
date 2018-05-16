@@ -92,7 +92,14 @@ const Scrabble = {
     }
 
     Scrabble.Player = class {
+      constructor(name) {
+        this.name = name;
+        this.plays = [];
+      }
+
     };
+
+
 
 
     module.exports = Scrabble;
