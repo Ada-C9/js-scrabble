@@ -85,6 +85,12 @@ const Scrabble = {
 };
 
 Scrabble.Player = class {
+  constructor(name) {
+    if (typeof name === 'undefined') {
+        throw new Error('You must provide a name.');
+    }
+    this.name = name;
+  }
 
 };
 
