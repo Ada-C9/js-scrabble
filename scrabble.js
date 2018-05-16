@@ -39,7 +39,7 @@ const Scrabble = {
 
     if (wordLetters.length > 7) {
       throw "Character is not a letter!";
-    } else if (wordLetters.length < 1) {
+    } else if (wordLetters.length === 0) {
       throw "Oops! This word is empty!";
     }
 
@@ -50,7 +50,7 @@ const Scrabble = {
         throw "Character is not a letter!";
       }
     });
-    
+
     if (wordLetters.length === 7) {
       score += 50
     }
@@ -62,10 +62,19 @@ const Scrabble = {
     return wordLetters;
   },
 
-  // highestScoreFrom(arrayOfWords) {
-  //
-  // },
-
+  highestScoreFrom(arrayOfWords) {
+    if (Array.isArray(arrayOfWords)) {
+      if (arrayOfWords.length === 0) {
+        throw "Oops! No words were given!";
+      } else if (arrayOfWords.length === 1) {
+        return arrayOfWords[0]
+      } else {
+        throw "not implemented"
+      }
+    } else {
+      throw "No array of words given!";
+    }
+  },
 
 };
 
