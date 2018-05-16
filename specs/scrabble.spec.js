@@ -239,3 +239,74 @@ describe('Player', () => {
     });
   });
 });
+
+describe('TileBag', () => {
+  test('is defined', () => {
+    expect(Scrabble.TileBag).toBeDefined();
+  });
+
+  describe('Constructor', () => {
+    test('Creates a new tile bag', () => {
+      const tileBag = new Scrabble.TileBag();
+
+      expect(tileBag.tiles.length).toEqual(98);
+    });
+  });
+
+  describe('drawTiles', () => {
+    test('returns a collection of random tiles', () => {
+      const tileBag = new Scrabble.TileBag();
+
+      let tiles = tileBag.drawTiles(7);
+
+      expect(tiles.length).toEqual(7);
+      expect(tiles.join('')).toMatch(/[A-Z]{7}/)
+    });
+
+    test('removes the tiles from the default set', () => {
+      const tileBag = new Scrabble.TileBag();
+
+      tileBag.drawTiles(7);
+
+      expect(tileBag.tiles.length).toEqual(91);
+    });
+
+    test('throws on bad arguments', () => {
+      const tileBag = new Scrabble.TileBag();
+
+      expect(() => { tileBag.drawTiles("1"); }).toThrow();
+      expect(() => { tileBag.drawTiles(-1); }).toThrow();
+      expect(() => { tileBag.drawTiles(100); }).toThrow();
+    });
+
+    test('throws when not enought tiles left in the bag', () => {
+      const tileBag = new Scrabble.TileBag();
+
+      for (let i = 0; i < 14; i++) {
+        tileBag.drawTiles(7);
+      }
+
+      expect(() => { tileBag.drawTiles(7); }).toThrow();
+    });
+  });
+
+  describe('tilesRemaining', () => {
+    test('returns the number of tiles remaining in the bag', () => {
+      const tileBag = new Scrabble.TileBag();
+
+      tileBag.drawTiles(5);
+
+      expect(tileBag.tilesRemaining()).toEqual(93);
+    });
+
+    test('returns 0 if no tiles left in the bag', () => {
+      const tileBag = new Scrabble.TileBag();
+
+      for (let i = 0; i < 14; i++) {
+        tileBag.drawTiles(7);
+      }
+
+      expect(tileBag.tilesRemaining()).toEqual(0);
+    });
+  });
+});

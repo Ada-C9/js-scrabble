@@ -85,6 +85,7 @@ Scrabble.Player = class {
       throw 'Error: no word was passed!';
     }
 
+    // TODO: refactor this code
     const scoreChart = {
       "A" : 1, "E" : 1, "I" : 1, "O" : 1 , "U" : 1, "L" : 1, "N" : 1, "R" : 1, "S" : 1, "T" : 1,
       "D" : 2, "G" : 2,
@@ -125,6 +126,34 @@ Scrabble.Player = class {
 
   highestWordScore() {
     return Scrabble.score(this.highestScoringWord());
+  }
+};
+
+Scrabble.TileBag = class {
+  constructor() {
+    this.tiles = 'AAAAAAAAABBCCDDDDEEEEEEEEEEEEFFGGGHHIIIIIIIIIJKLLLLMMNNNNNNOOOOOOOOPPQRRRRRRSSSSTTTTTTUUUUVVWWXYYZ'.split('');
+  }
+
+  drawTiles(number) {
+    if (typeof number !== 'number' || number < 0 || number > 7) {
+      throw 'Error: invalid argument!';
+    }
+
+    if (number > this.tilesRemaining()) {
+      throw 'Error: not enough tiles in the bag!';
+    }
+
+    let randomTiles = [];
+    for (let i = 0; i < number; i++) {
+      let index = [Math.floor(Math.random()*this.tiles.length)];
+      randomTiles.push(this.tiles[index]);
+      this.tiles.splice(index, 1);
+    }
+    return randomTiles;
+  }
+
+  tilesRemaining() {
+    return this.tiles.length;
   }
 };
 
