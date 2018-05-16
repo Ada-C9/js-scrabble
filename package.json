@@ -7,7 +7,7 @@
   "license": "ISC",
   "dependencies": {
     "fs": "0.0.1-security",
-    "npm": "^5.8.0"
+    "npm": "^5.10.0"
   },
   "scripts": {
     "test": "jest"
@@ -18,7 +18,8 @@
     "eslint": "^4.19.1",
     "eslint-plugin-jest": "^21.15.1",
     "eslint-plugin-react": "^7.7.0",
-    "jest": "^22.4.3"
+    "jest": "^22.4.3",
+    "pry": "^0.8.1"
   },
   "jest": {
     "verbose": true,
