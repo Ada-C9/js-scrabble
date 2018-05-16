@@ -20,40 +20,44 @@ const Scrabble =  {
       return wordScore;
 
     } else {
-      throw "Please enter a valid input. Word must only contain letters from A-Z";
+      throw "Word must only contain letters from A-Z and have less than or equal to 7 characters";
     }
   },
 
-  // highestScoreFrom(arrayOfWords) {
-  //   if (arrayOfWords.length === 0 || arrayOfWords.constructor !== Array) {
-  //     throw new Error('Array of words must not be empty');
-  //   } else if (arrayOfWords.length === 1) {
-  //     return arrayOfWords[0];
-  //   } else {
-  //     const winningWord = arrayOfWords.reduce((leftWord, rightWord) => {
-  //       const scoreLeft = Scrabble.score(leftWord);
-  //       const scoreRight = Scrabble.score(rightWord);
-  //
-  //       if (scoreLeft > scoreRight) {
-  //         return leftWord;
-  //       } else if (scoreRight > scoreLeft) {
-  //         return rightWord;
-  //       }
-  //
-  //       if (rightWord.length === 7) {
-  //         return rightWord;
-  //       } else if (leftWord.length === 7) {
-  //         return leftWord;
-  //       }
-  //
-  //       if (leftWord.length < rightWord.length || leftWord.length === rightWord.length) {
-  //         return leftWord;
-  //       } // else
-  //       return rightWord;
-  //     });
-  //     return winningWord;
-  //   }
-  // },
+  highestScoreFrom(arrayOfWords) {
+
+    if (arrayOfWords.length === 0 || arrayOfWords.constructor !== Array) {
+      
+      throw new Error('Array of words can not be empty');
+
+    } else if (arrayOfWords.length === 1) {
+
+      return arrayOfWords[0];
+
+    } else {
+
+      const winningWord = arrayOfWords.reduce((word1, word2) => {
+        const scoreWord1 = Scrabble.score(word1);
+        const scoreWord2 = Scrabble.score(word2);
+
+        if (scoreWord1 > scoreWord2 || word1.length === 7) {
+          return word1;
+
+        } else if (scoreWord2 > scoreWord1 || word2.length === 7) {
+          return word2;
+        }
+
+        if (word1.length === word2.length || word1.length < word2.length) {
+          return word1;
+        }
+
+        return word2;
+
+      });
+
+      return winningWord;
+    }
+  },
 };
 
 // Scrabble.Player = class {
@@ -65,3 +69,7 @@ module.exports = Scrabble;
 
 
 console.log(Scrabble.score("ZZzzZZ"));
+console.log(Scrabble.score("baby"));
+console.log(Scrabble.highestScoreFrom(["ZZzzZZ", "zzzzzzz", "pedro"]));
+console.log(Scrabble.highestScoreFrom(["QQQQQQQ", "zzzzzzz", "pedro"]));
+console.log(Scrabble.score("QQQQQQQ"));
