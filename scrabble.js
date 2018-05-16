@@ -75,9 +75,13 @@ Scrabble.Player = class {
 
   totalScore(){
     let total = 0;
-    this.plays.forEach( function(word){
+    this.plays.forEach( (word) => {
       total += Scrabble.score(word);
     });
+
+    // [1, 2, 3].forEach((num) => {
+    //   this.value += num;
+    // });
     return total;
   }
 
