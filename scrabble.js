@@ -31,35 +31,52 @@ const scrabbleTiles = {
 const Scrabble = {
   score(word) {
 
-    word = word.toLowerCase()
-    let totalScore = 0
+    word = word.toLowerCase();
+    let scrabbleWord = word.split('');
+    let totalScore = 0;
 
-    // if statement to check if the word has bad characters and space
-    if (/[[\W][\s]+?]/.match(word)) {
-      consol.log('invalid word');
-    }
-
-    // if word only has good character then the below will execute
-    let scrabbleWord = word.split('')
-
-    if (scrabbleWord.length > 7 || scrabbleWord.length == 0) {
-      console.log('null')
-    } else if (scrabbleWord.length == 7) {
-      console.log(totalScore += 50)
+    if (scrabbleWord.length > 7) {
+      throw 'Invalid word: too many tiles.';
+    } else if (scrabbleWord.length === 0) {
+      throw 'Invalid word: must provide tiles.';
+    } else if (scrabbleWord.length === 7) {
+      totalScore += 50;
     }
 
     // output the score of each letter in a word
-    scrabbleWord.forEach( function(letter) {
+    scrabbleWord.forEach(function(letter) {
+      if (scrabbleTiles[letter] > 0) {
+        totalScore += scrabbleTiles[letter];
+      } else {
+        throw 'Invalid word: word must include letters only.';
+      }
+    });
 
-
-    }
-
-    return totalScore
-
-
+    return totalScore;
   },
 
   highestScoreFrom(arrayOfWords) {
+    let topScore = 0;
+    let topWord = [];
+
+    if (typeof arrayOfWords !== 'object' || arrayOfWords.length === 0) {
+      throw 'Invalid array.';
+    } else if (arrayOfWords.length === 1) {
+      topWord = arrayOfWords[0];
+      return topWord;
+    }
+
+    arrayOfWords.forEach( function(word) {
+      if (Scrabble.score(word) > topScore) {
+        topScore = Scrabble.score(word);
+        topWord.push(word);
+      } else if (Scrabble.score(word) === topScore) {
+        topWord.push(word);
+      }
+    });
+
+    return topWord[0]
+
 
   },
 };
@@ -70,3 +87,7 @@ Scrabble.Player = class {
 
 
 module.exports = Scrabble;
+
+
+let myWord = Scrabble.score('apple');
+console.log(myWord); // "Ada says: 'Try again later.'"

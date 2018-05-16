@@ -1,6 +1,6 @@
 const Scrabble = require('../scrabble');
 
-describe('score', () => {
+describe.skip('score', () => {
   test('is defined', () => {
     expect(Scrabble.score).toBeDefined();
   });
@@ -11,46 +11,46 @@ describe('score', () => {
     expect(Scrabble.score('pig')).toBe(6);
   });
 
-  test.skip('adds 50 points for a 7-letter word', () => {
+  test('adds 50 points for a 7-letter word', () => {
     expect(Scrabble.score('academy')).toBe(65);
   });
 
-  test.skip('throws on bad characters', () => {
+  test('throws on bad characters', () => {
     expect(() => {
       Scrabble.score('char^');
     }).toThrow();
   });
 
-  test.skip('handles all upper- and lower-case letters', () => {
+  test('handles all upper- and lower-case letters', () => {
     expect(Scrabble.score('dog')).toBe(5);
     expect(Scrabble.score('DOG')).toBe(5);
     expect(Scrabble.score('DoG')).toBe(5);
   });
 
-  test.skip('does not allow words > 7 letters', () => {
+  test('does not allow words > 7 letters', () => {
     expect(() => { Scrabble.score('abcdefgh'); }).toThrow();
   });
 
-  test.skip('does not allow empty words', () => {
+  test('does not allow empty words', () => {
     expect(() => { Scrabble.score(''); }).toThrow();
   });
 });
 
 describe('highestScoreFrom', () => {
-  test.skip('is defined', () => {
+  test('is defined', () => {
     expect(Scrabble.highestScoreFrom).toBeDefined();
   });
 
-  test.skip('throws if no words were passed', () => {
+  test('throws if no words were passed', () => {
     expect(() => { Scrabble.highestScoreFrom([]); }).toThrow();
     expect(() => { Scrabble.highestScoreFrom('not array'); }).toThrow();
   });
 
-  test.skip('returns the only word in a length-1 array', () => {
+  test('returns the only word in a length-1 array', () => {
     expect(Scrabble.highestScoreFrom(['dog'])).toBe('dog');
   });
 
-  test.skip('returns the highest word if there are two words', () => {
+  test('returns the highest word if there are two words', () => {
     // Check score assumptions
     expect(Scrabble.score('dog')).toBe(5);
     expect(Scrabble.score('pig')).toBe(6);
