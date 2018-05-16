@@ -95,7 +95,14 @@ const Scrabble = {
 
 
 Scrabble.Player = class {
-
+  constructor(name) {
+    this.name = name;
+    this.plays = [];
+    this._totalScore = 0;
+    this._hasWon = false;
+    this._highestScoringWord;
+    this._highestWordScore = 0;
+  }
 };
 
 

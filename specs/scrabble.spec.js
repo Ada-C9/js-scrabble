@@ -73,7 +73,7 @@ describe('highestScoreFrom', () => {
     expect(Scrabble.highestScoreFrom([winner, loser])).toBe(winner);
   });
 
-  test.skip('if tied and no word has 7 letters, prefers the word with fewer letters', () => {
+  test('if tied and no word has 7 letters, prefers the word with fewer letters', () => {
     // Check score assumptions
     expect(Scrabble.score('dog')).toBe(5);
     expect(Scrabble.score('goat')).toBe(5);
@@ -83,7 +83,7 @@ describe('highestScoreFrom', () => {
     expect(Scrabble.highestScoreFrom(['goat', 'dog'])).toBe('dog');
   });
 
-  test.skip('returns the first word of a tie with same letter count', () => {
+  test('returns the first word of a tie with same letter count', () => {
     // Check score assumptions
     expect(Scrabble.score('i')).toBe(1);
     expect(Scrabble.score('dog')).toBe(5);
@@ -98,12 +98,12 @@ describe('highestScoreFrom', () => {
 });
 
 describe('Player', () => {
-  test.skip('is defined', () => {
+  test('is defined', () => {
     expect(Scrabble.Player).toBeDefined();
   });
 
   describe('Constructor', () => {
-    test.skip('Creates a new player', () => {
+    test('Creates a new player', () => {
       const name = 'test name';
       const player = new Scrabble.Player(name);
 
