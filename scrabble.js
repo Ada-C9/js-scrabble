@@ -6,7 +6,7 @@ const Scrabble =  {
     "M": 3, "N": 1, "O": 1, "P": 3, "Q": 10, "R": 1, "S": 1, "T": 1, "U": 1, "V": 4, "W": 4, "X": 8,
     "Y": 4, "Z": 10 };
 
-    if (/^[a-zA-Z]+$/.test(word)) {
+    if (/^[a-zA-Z]+$/.test(word) && word.length <= 7) {
 
       word = word.toUpperCase();
 
@@ -16,7 +16,7 @@ const Scrabble =  {
 
         wordScore += letterValues[word.charAt(i)];
       }
-      
+
       return wordScore;
 
     } else {
@@ -24,24 +24,36 @@ const Scrabble =  {
     }
   },
 
-
-// highestScoreFrom: function (arrayOfWords) {
-//   if (Array.isArray(arrayOfWords)) {
-//     let highestScore = 0,
-//     // iterate through words array
-//     arrayOfWords.forEach (function(word) {
-//       wordScore = this.score(word);
-//       if (wordScore > highestScore) {
-//         highestScore = wordScore;
-//         winner = word;
-//       } else if (wordScore == highestScore) {
-//         // winner = function to find the winner;
-//       }
-//     });
-//
-//     return winner;
-//   }
-// },
+  // highestScoreFrom(arrayOfWords) {
+  //   if (arrayOfWords.length === 0 || arrayOfWords.constructor !== Array) {
+  //     throw new Error('Array of words must not be empty');
+  //   } else if (arrayOfWords.length === 1) {
+  //     return arrayOfWords[0];
+  //   } else {
+  //     const winningWord = arrayOfWords.reduce((leftWord, rightWord) => {
+  //       const scoreLeft = Scrabble.score(leftWord);
+  //       const scoreRight = Scrabble.score(rightWord);
+  //
+  //       if (scoreLeft > scoreRight) {
+  //         return leftWord;
+  //       } else if (scoreRight > scoreLeft) {
+  //         return rightWord;
+  //       }
+  //
+  //       if (rightWord.length === 7) {
+  //         return rightWord;
+  //       } else if (leftWord.length === 7) {
+  //         return leftWord;
+  //       }
+  //
+  //       if (leftWord.length < rightWord.length || leftWord.length === rightWord.length) {
+  //         return leftWord;
+  //       } // else
+  //       return rightWord;
+  //     });
+  //     return winningWord;
+  //   }
+  // },
 };
 
 // Scrabble.Player = class {
