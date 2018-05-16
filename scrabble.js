@@ -100,6 +100,16 @@ Scrabble.Player = class {
     // after add hasWon(), return false if player has won
     this.plays.push(word);
   }
+
+  totalScore() {
+    let playerScores = 0
+
+    for (let word of this.plays) {
+      playerScores += Scrabble.score(word);
+    }
+    return playerScores;
+  }
+
 };
 
 
@@ -109,4 +119,4 @@ module.exports = Scrabble;
 let sam = new Scrabble.Player('Sam');
 console.log(sam.name);
 sam.play('academy');
-console.log(sam.plays);
+console.log(sam.totalScore());
