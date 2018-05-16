@@ -67,13 +67,17 @@ const Scrabble = {
 
 
   highestScoreFrom(arrayOfWords) {
+    if (!Array.isArray(arrayOfWords) || arrayOfWords.length === 0) {
+      throw 'No words have been given';
+    } else if (arrayOfWords.length === 1) {
+      return arrayOfWords[0];
+    }
 
-  },
-};
-
-Scrabble.Player = class {
-
-};
+  }
+}
+// Scrabble.Player = class {
+//
+// };
 
 // do not comment me out.
 module.exports = Scrabble;
