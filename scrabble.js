@@ -1,47 +1,34 @@
-const LETTERS = {
-  '1' : ['A', 'E', 'I', 'O', 'U', 'L', 'N', 'R', 'S', 'T'],
-  '2' : ['D', 'G'],
-  '3' : ['B', 'C', 'M', 'P'],
-  '4' : ['F', 'H', 'V', 'W', 'Y'],
-  '5' : ['K'],
-  '8' : ['J', 'X'],
-  '10' : ['Q', 'Z']
-};
 
 const TILEBAG = {
-  'a': { 'points':  1, 'tiles':  9 },
-  'b': { 'points':  3, 'tiles':  2 },
-  'c': { 'points':  3, 'tiles':  2 },
-  'd': { 'points':  2, 'tiles':  4 },
-  'e': { 'points':  1, 'tiles': 12 },
-  'f': { 'points':  4, 'tiles':  2 },
-  'g': { 'points':  2, 'tiles':  3 },
-  'h': { 'points':  4, 'tiles':  2 },
-  'i': { 'points':  1, 'tiles':  9 },
-  'j': { 'points':  8, 'tiles':  1 },
-  'k': { 'points':  5, 'tiles':  1 },
-  'l': { 'points':  1, 'tiles':  4 },
-  'm': { 'points':  3, 'tiles':  2 },
-  'n': { 'points':  1, 'tiles':  6 },
-  'o': { 'points':  1, 'tiles':  8 },
-  'p': { 'points':  3, 'tiles':  2 },
-  'q': { 'points': 10, 'tiles':  1 },
-  'r': { 'points':  1, 'tiles':  6 },
-  's': { 'points':  1, 'tiles':  4 },
-  't': { 'points':  1, 'tiles':  6 },
-  'u': { 'points':  1, 'tiles':  4 },
-  'v': { 'points':  4, 'tiles':  2 },
-  'w': { 'points':  4, 'tiles':  2 },
-  'x': { 'points':  8, 'tiles':  1 },
-  'y': { 'points':  4, 'tiles':  2 },
-  'z': { 'points': 10, 'tiles':  1 },
+  'a': { 'points':  1, 'tiles':  9, },
+  'b': { 'points':  3, 'tiles':  2, },
+  'c': { 'points':  3, 'tiles':  2, },
+  'd': { 'points':  2, 'tiles':  4, },
+  'e': { 'points':  1, 'tiles': 12, },
+  'f': { 'points':  4, 'tiles':  2, },
+  'g': { 'points':  2, 'tiles':  3, },
+  'h': { 'points':  4, 'tiles':  2, },
+  'i': { 'points':  1, 'tiles':  9, },
+  'j': { 'points':  8, 'tiles':  1, },
+  'k': { 'points':  5, 'tiles':  1, },
+  'l': { 'points':  1, 'tiles':  4, },
+  'm': { 'points':  3, 'tiles':  2, },
+  'n': { 'points':  1, 'tiles':  6, },
+  'o': { 'points':  1, 'tiles':  8, },
+  'p': { 'points':  3, 'tiles':  2, },
+  'q': { 'points': 10, 'tiles':  1, },
+  'r': { 'points':  1, 'tiles':  6, },
+  's': { 'points':  1, 'tiles':  4, },
+  't': { 'points':  1, 'tiles':  6, },
+  'u': { 'points':  1, 'tiles':  4, },
+  'v': { 'points':  4, 'tiles':  2, },
+  'w': { 'points':  4, 'tiles':  2, },
+  'x': { 'points':  8, 'tiles':  1, },
+  'y': { 'points':  4, 'tiles':  2, },
+  'z': { 'points': 10, 'tiles':  1, },
 }
 
 const Scrabble = {
-  getKeyByValue(object, value) {
-    return Object.keys(object).find(key => object[key].includes(value));
-  },
-
   validate(word) {
     let valid = /^[A-Za-z]+$/;
     return word.match(valid) && word.length <= 7 ? true : false
@@ -50,10 +37,10 @@ const Scrabble = {
   score(word) {
     let score = 0;
     if (this.validate(word)) {
-      let letters = word.toUpperCase().split('');
+      let letters = word.toLowerCase().split('');
       letters.forEach((char) => {
-        let current_score = this.getKeyByValue(LETTERS, char);
-        score += parseInt(current_score);
+        let current_score = TILEBAG[char].points;
+        score += current_score;
       })
       word.length === 7 ? score += 50 : ''
       return score;
@@ -92,58 +79,84 @@ const Scrabble = {
         })
         return max;
       }},
-    }
+
+      tilesCount() {
+        let tiles = Object.keys(TILEBAG)
+        let count = 0
+
+        tiles.forEach((tile) => {
+          count += TILEBAG[tile].tiles;
+        });
+        return count
+      }};
 
     Scrabble.Player = class {
       constructor(name) {
         if (name) {
-        this.name = name;
-        this.plays = [];
-      } else {
-        throw 'Player requires a name.'
-      }}
-
-      play(word) {
-        if (this.hasWon()) {
-          return false;
-        } else if (Scrabble.validate(word)) {
-          this.plays.push(word);
-          return (`${this.name} played the word ${word}`);
+          this.name = name;
+          this.plays = [];
+          this.hand = [];
         } else {
-          throw `${word} is not a valid play.`;
+          throw 'Player requires a name.'
         }}
 
-      totalScore() {
-        let total = 0
-        if (this.plays.length === 0) {
-          return total;
-        } else {
-        this.plays.forEach((play) => {
-          let score = Scrabble.score(play);
-          total += score;
-        }
-      )}
-      return total;
-      }
-      highestScoringWord() {
-        let plays = this.plays;
-        let max = Scrabble.highestScoreFrom(plays);
-        return max;
-      }
+        play(word) {
+          if (this.hasWon()) {
+            return false;
+          } else if (Scrabble.validate(word)) {
+            this.plays.push(word);
+            return (`${this.name} played the word ${word}`);
+          } else {
+            throw `${word} is not a valid play.`;
+          }}
 
-      highestWordScore() {
-        let max = this.highestScoringWord();
-        return Scrabble.score(max);
-      }
+          totalScore() {
+            let total = 0
+            if (this.plays.length === 0) {
+              return total;
+            } else {
+              this.plays.forEach((play) => {
+                let score = Scrabble.score(play);
+                total += score;
+              }
+            )}
+            return total;
+          }
+          highestScoringWord() {
+            let plays = this.plays;
+            let max = Scrabble.highestScoreFrom(plays);
+            return max;
+          }
 
-      hasWon() {
-        let won = false;
+          highestWordScore() {
+            let max = this.highestScoringWord();
+            return Scrabble.score(max);
+          }
 
-        let score = this.totalScore();
-        if (score >= 100) {
-          won = true;
-        }
-        return won;
-      }}
+          hasWon() {
+            let score = this.totalScore();
+            return score >= 100
+          }
 
-    module.exports = Scrabble;
+          drawTiles() {
+            let draw = 7 - this.hand.length;
+            if (this.hand.length === 0) {
+              let draw = 7;
+            }
+
+            let letters = Object.keys(TILEBAG)
+            let i = 0
+            while (i < draw) {
+              let letter = letters[Math.floor(Math.random() * letters.length)]
+              if (TILEBAG[letter].tiles > 0) {
+                this.hand.push(letter);
+                console.log(this.hand);
+                TILEBAG[letter].tiles -= 1;
+                i += 1;
+              } else {
+                this.drawTiles();
+              }
+            }}
+          };
+
+          module.exports = Scrabble;

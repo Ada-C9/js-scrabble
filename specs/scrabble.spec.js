@@ -243,4 +243,23 @@ describe('Player', () => {
       expect(() => { player.highestWordScore(); }).toThrow();
     });
   });
+
+  describe('drawTiles', () => {
+    test('draws tiles based on current hand size', () => {
+      const player = new Scrabble.Player('test player');
+
+      player.drawTiles();
+
+      expect(player.hand.length).toBe(7);
+    });
+
+    test('decrements available tiles in TILEBAG', () => {
+      const player = new Scrabble.Player('test player');
+      let oldTileCount = Scrabble.tilesCount();
+
+      player.drawTiles();
+
+      expect(Scrabble.tilesCount()).toBe(oldTileCount - player.hand.length)
+    });
+  });
 });
