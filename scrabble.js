@@ -2,11 +2,7 @@
 const Scrabble = {
 
   score(word) {
-
-    let letterScore = function letterScore(letter) {
-      let score = Object.keys(scoreBook).find(key => scoreBook[key].includes(letter));
-      return parseInt(score);
-    };
+    if (word == "") throw "Cannot allow empty words";
 
     const scoreBook = {
       1: ['a', 'e', 'i', 'o', 'u', 'l', 'n', 'r', 's', 't'],
@@ -18,8 +14,20 @@ const Scrabble = {
       10: ['q', 'z']
     };
 
+    let letterScore = function letterScore(letter) {
+      if (letter.match(/[a-z]/i)) {
+        let score = Object.keys(scoreBook).find(key => scoreBook[key].includes(letter));
+        return parseInt(score);  }
+
+      throw "Not a letter";
+    };
+
     let word_array = word.toLowerCase().split("");
     let total = 0
+
+    if (word.length > 7) throw "Word is too long";
+    else if (word.length == 7) {
+      total += 50 }
 
     word_array.forEach(function(letter) {
       total += letterScore(letter);
@@ -31,33 +39,36 @@ const Scrabble = {
 
 
   highestScoreFrom(arrayOfWords) {
+    if (arrayOfWords == []) throw "No words";
+
     let highestWord = arrayOfWords[0];
     let highestScore = Scrabble.score(arrayOfWords[0]);
 
-    arrayOfWords.forEach(function (word) {
+    for(let i = 1; i < arrayOfWords.length; i += 1) {
+      let word = arrayOfWords[i]
+
       let this_score = Scrabble.score(word);
 
       if (this_score > highestScore) {
         highestWord = word;
         highestScore = this_score;
-      } else if (this_score === highestScore) {
-
+      } else if (this_score === highestScore && highestWord.length < 7) {
         switch (true) {
           case word.length == 7:
-            highestWord = word;
-            highestScore = this_score;
-            break;
-          case word.length < highestWord.length:
-            highestWord = word;
-            highestScore = this_score;
-            break;
-        }
+          highestWord = word;
+          highestScore = this_score;
+          break;
+          case highestWord.length < 7:
+          highestWord = word;
+          highestScore = this_score;
+          break;
       }
-    });
-
-    return highestWord
+    }
   }
-};
+  console.log(`last return' ${highestWord}`)
+    return highestWord;
+  }
+}
 
 Scrabble.Player = class {
 
@@ -65,8 +76,3 @@ Scrabble.Player = class {
 
 
 module.exports = Scrabble;
-
-
-
-console.log(Scrabble.score("okay"))
-console.log(Scrabble.highestScoreFrom(['ok', 'fun', 'qzqz', 'jjjjjj' ]))
