@@ -94,9 +94,37 @@ const Scrabble = {
 
     return highestWord;
   }
+
 };
 
 Scrabble.Player = class {
+  constructor(name) {
+    if (name == null) {
+      throw 'Must have a name';
+    }
+
+    this.name = name;
+    this.plays= [];
+  }
+
+  hasWon() {
+    let total = 0;
+    this.plays.forEach(function(word) {
+      total += Scrabble.score(word);
+    });
+
+    return total >= 100;
+  }
+
+  play(word) {
+    let checkedWord = Scrabble.checkForValidWord(word);
+    if (this.hasWon()) {
+      return false;
+    } else {
+      this.plays.push(checkedWord);
+      return checkedWord; // not sure if this is the functionality wanted
+    }
+  }
 
 };
 
