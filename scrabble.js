@@ -22,7 +22,7 @@ const Scrabble = {
   },
 
   isLetter(char) {
-    return (/[A-Z]/.test(char))
+    return /[A-Z]/.test(char);
   },
 
   score(word) {
@@ -96,7 +96,6 @@ const Scrabble = {
     }
   },
 
-
   Player: class Player {
     constructor(name, words = []) {
       if (name == null) {
@@ -107,13 +106,13 @@ const Scrabble = {
     }
 
     hasWon() {
-     let totalScores = 0;
-     this.plays.forEach((word) => totalScores += Scrabble.score(word));
-     if (totalScores >= 100) {
-       return true;
-     } else {
-       return false;
-     }
+      let totalScores = 0;
+      this.plays.forEach((word) => totalScores += Scrabble.score(word));
+      if (totalScores >= 100) {
+        return true;
+      } else {
+        return false;
+      }
     }
 
     play(word) {
@@ -124,11 +123,11 @@ const Scrabble = {
       if (word == null) {
         throw 'Word can not be empty';
       } else {
-      for (let letter of word) {
-        if (Scrabble.isLetter(letter.toUpperCase) == false) {
-          throw 'Invalid input for a word';
+        for (let letter of word) {
+          if (Scrabble.isLetter(letter.toUpperCase) == false) {
+            throw 'Invalid input for a word';
+          }
         }
-      }
       }
       this.plays.push(word);
       return this.plays
@@ -162,29 +161,28 @@ const Scrabble = {
       return Scrabble.score(this.highestScoringWord());
     }
 
+  },
+
+  TileBag: {
+    remianingTiles: 45,
+    drawTiles(num) {
+      if (num > 7) {
+        throw 'Cannot draw more than 7 tiles at a time';
+      } else if (num > this.remianingTiles) {
+        num = this.remianingTiles;
+      }
+      this.remianingTiles -= num;
+    }
   }
+
+
+
 
 };
 
-
-const word = 'dog';
-const player = new Scrabble.Player('test player');
-
-console.log(player.plays.length);
-player.play(word);
-console.log(player.plays);
-console.log(player.totalScore());
-// console.log(player.play(word));
-// console.log(player.play('water'));
-// console.log(player.play('cdakda'));
-// console.log(player.plays);
-// console.log(Scrabble.score('COCO'));
-// console.log(Scrabble.getPoint('K'));
-// let testWords = ['iiiiddd','zzzzzz'];
-// console.log(Scrabble.highestScoreFrom(testWords));
-//
-// let tesWords = ['zzzzzz', 'iiiiddd'];
-// console.log(Scrabble.highestScoreFrom(tesWords));
-// console.log(Scrabble.score('43729dha'));
-
 module.exports = Scrabble;
+
+let bag = Scrabble.TileBag;
+console.log(bag.remianingTiles);
+bag.drawTiles(10);
+console.log(bag.remianingTiles);
