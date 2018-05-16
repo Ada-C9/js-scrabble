@@ -27,23 +27,43 @@ const LETTER ={
   "Z":10,
 
 }
+const UserException = function userException(message) {
+  this.message = message;
+  this.name = 'UserException';
+};
+
 const Scrabble ={
   score: function score(word){
-  let  letter_array = word.toUpperCase().split('');
 
-     let sum = 0;
-    letter_array.forEach(function (value)
-    {
+    if ((word.length>7)||(word == '')) {
+      throw new UserException('does not allow ');
+    }
+    else if(!(/^[a-zA-Z]+$/.test(word))){
+      throw new UserException('bad characters ')
 
-      sum+= LETTER[value];
+    }
+    else{
+    let  letter_array = word.toUpperCase().split('');
+    let sum = 0;
 
-    });
-    return sum;
+      letter_array.forEach(function (value)
+      {
 
+        sum+= LETTER[value];
+
+      });
+
+
+      if (letter_array.length == 7){
+        return sum + 50;
+      }
+
+      return sum;
 
 }
-}
-Scrabble.score("elephant");
+
+    }
+  }
 
 
 
@@ -52,14 +72,15 @@ Scrabble.score("elephant");
 
 
 
-//   highestScoreFrom(arrayOfWords) {
-//
-//   },
-// };
 
-// Scrabble.Player = class {
-//
-// };
-//
-//
- module.exports = Scrabble;
+  //   highestScoreFrom(arrayOfWords) {
+  //
+  //   },
+  // };
+
+  // Scrabble.Player = class {
+  //
+  // };
+  //
+  //
+  module.exports = Scrabble;
