@@ -110,10 +110,9 @@ Scrabble.Player = class {
   }
 
   play(word) {
-    // after add hasWon(), return false if player has won
-    // if (this.hasWon()) {
-    //   return false;
-    // }
+    if (this.hasWon()) {
+      return false;
+    }
     if ( !Scrabble.isValid(word) ) {
       throw new Error('Invalid word.');
     }
@@ -131,15 +130,24 @@ Scrabble.Player = class {
     return playerScores;
   }
 
+  hasWon() {
+    if (this.totalScore() >= 100) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
 };
 
 
 module.exports = Scrabble;
 // console.log(Scrabble.score("academia"));
 // console.log(Scrabble.highestScoreFrom(['dog', 'goat']))
-// let sam = new Scrabble.Player();
+// let sam = new Scrabble.Player('Sam');
 // console.log(sam.name);
 // sam.play('academy');
+// // console.log(sam.hasWon());
 // sam.play('academy');
 // console.log(sam.totalScore());
-// sam.play('academy');
