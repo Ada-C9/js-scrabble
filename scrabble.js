@@ -18,7 +18,7 @@ const Scrabble = {
 
   score(word) {
     let totalScore = 0;
-    // split our word into an array of characters
+    // split our word into an array of Uppercase characters
     let upcase_word = word.toUpperCase()
     let wordArray = upcase_word.split("");
     // if the word <= 7 in length proceed
@@ -26,10 +26,15 @@ const Scrabble = {
       // look at each letter in the array and scoreboard and then reassign value at index to value from scoreBoard wordArray[i] = scoreBoard[wordArray[i]]
       for (let i = 0; i < wordArray.length; i++) {
         wordArray[i] = Scrabble.scoreBoard[wordArray[i]]
-        // TODO: return a sum of this array now that values have been assigned
+        //gets a sum of this array now that values have been assigned
         totalScore = wordArray.reduce((x, y) => x + y);
       }
-      return totalScore
+      // Adds 50 points if you play a 7 letter word, else just returns your normal score
+      if (wordArray.length === 7) {
+        return totalScore + 50;
+      } else {
+        return totalScore;
+      }
     }
   },
 
