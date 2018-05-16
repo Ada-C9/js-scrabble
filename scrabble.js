@@ -55,21 +55,40 @@ const Scrabble = {
     return sum;
   },
 
+  // breakTie(tiedWords) {
+  //   for (let word of tiedWords) {
+  //     if (word.length === 7) {
+  //       return word;
+  //     }
+  //   }
+  // }
+
   highestScoreFrom(arrayOfWords) {
 
     if (arrayOfWords.length === 0) {
       throw Error('No words Played');
+    } else if (arrayOfWords.length === 1) {
+      return arrayOfWords[0];
     }
 
     let hiScore = 0;
-    let hiWord = '';
+    let bestScore = 0;
+    let hiWord = arrayOfWords[0];
     for (let word of arrayOfWords) {
-      if (this.score(word) > hiScore) {
-        hiScore = this.score(word);
+      hiScore = Scrabble.score(word)
+      if (hiScore > bestScore) {
         hiWord = word;
+        bestScore = hiScore;
+      } else if (hiScore === bestScore) {
+        if (hiWord.length != 7) {
+          if (word.length === 7 || word.length < hiWord.length) {
+            hiWord = word;
+            bestScore = hiScore
+          }
+        }
       }
     }
-
+    return hiWord
   },
 };
 
