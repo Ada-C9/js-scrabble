@@ -135,7 +135,7 @@ Scrabble.Player = class {
   }
 
   hasWon() {
-    if (this.totalScore() > 100) {
+    if (this.totalScore() >= 100) {
       return true;
     } else {
       return false;
@@ -149,6 +149,7 @@ Scrabble.Player = class {
 module.exports = Scrabble;
 
 
+// test the methods manually to ensure they work properly.
 let myWord = Scrabble.score('pig');
 console.log(myWord);
 let myArray = Scrabble.highestScoreFrom(['cat', 'pig']);

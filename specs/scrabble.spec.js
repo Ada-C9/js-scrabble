@@ -1,6 +1,6 @@
 const Scrabble = require('../scrabble');
 
-describe.skip('score', () => {
+describe('score', () => {
   test('is defined', () => {
     expect(Scrabble.score).toBeDefined();
   });
@@ -36,7 +36,7 @@ describe.skip('score', () => {
   });
 });
 
-describe.skip('highestScoreFrom', () => {
+describe('highestScoreFrom', () => {
   test('is defined', () => {
     expect(Scrabble.highestScoreFrom).toBeDefined();
   });
@@ -186,21 +186,34 @@ describe('Player', () => {
       const player = new Scrabble.Player('test player');
       const word1 = 'apple';
       const word2 = 'dog';
+
+      // Act
       player.play(word1);
       player.play(word2);
 
+      // Assert
       expect(player.totalScore()).toBe(14);
       expect(player.hasWon()).toBe(false);
     });
 
-    test.skip('returns true when score == 100', () => {
+    test('returns true when score == 100', () => {
+      const player = new Scrabble.Player('test player');
+      const word1 = 'zzzzz';
+      const word2 = 'zzzzz';
+      player.play(word1);
+      player.play(word2);
 
-
+      expect(player.totalScore()).toBe(100);
+      expect(player.hasWon()).toBe(true);
     });
 
-    test.skip('returns true when score > 100', () => {
+    test('returns true when score > 100', () => {
+      const player = new Scrabble.Player('test player');
+      const word1 = 'zzzzzzz';
+      player.play(word1);
 
-
+      expect(player.totalScore()).toBe(120);
+      expect(player.hasWon()).toBe(true);
     });
   });
 
