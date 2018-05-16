@@ -57,10 +57,7 @@ const Scrabble = {
   },
 
   highestScoreFrom(arrayOfWords) {
-
-    if (arrayOfWords.length === 0) {
-      throw "No words given";
-    }
+  
     let topWord = arrayOfWords[0];
     let topScore = score(topWord);
 
