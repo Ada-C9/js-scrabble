@@ -12,7 +12,7 @@ const Scrabble = {
     };
 
     if (word.length > 7 || word.length < 1){
-      throw new Error(`${word} has to have 1 to 7 letters`);
+      throw new Error(`Word must have 1 to 7 letters`);
     }
     let score = 0
 
@@ -44,7 +44,7 @@ const Scrabble = {
   },
   highestScoreFrom(arrayOfWords) {
     if (arrayOfWords.length < 1 || !(arrayOfWords instanceof Array) ){
-      throw new Error (`This is not an array of words.`)
+      throw new Error ('This is not an array of words.')
     }
     // go through the array and score each word if score of word is highest, keep word in varible
     let max = this.score(arrayOfWords[0]);
@@ -72,7 +72,12 @@ const Scrabble = {
 };
 
 Scrabble.Player = class {
-
+  constructor(name) {
+    if (name.length === 0) {
+      throw new Error ('Name required')
+    }
+    this.name = name;
+  }
 };
 
 

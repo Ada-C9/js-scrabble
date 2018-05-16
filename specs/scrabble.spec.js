@@ -103,14 +103,14 @@ describe('Player', () => {
   });
 
   describe('Constructor', () => {
-    test.skip('Creates a new player', () => {
+    test('Creates a new player', () => {
       const name = 'test name';
       const player = new Scrabble.Player(name);
 
       expect(player.name).toBe(name);
     });
 
-    test.skip('Requires a name', () => {
+    test('Requires a name', () => {
       expect(() => {
         new Scrabble.Player();
       }).toThrow();
