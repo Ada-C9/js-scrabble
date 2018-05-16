@@ -32,6 +32,13 @@ const Scrabble = {
 
   score(word) {
     word = word.toUpperCase();
+
+    let letterCheck = /^[a-zA-Z]+$/;
+
+    if (!letterCheck.test(word)) {
+      throw 'Invalid characters';
+    }
+
     let letters = word.split('');
 
     let wordScore = 0
