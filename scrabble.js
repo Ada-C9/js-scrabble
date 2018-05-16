@@ -1,3 +1,5 @@
+
+
 const Scrabble = {
 
   getPoint(letter) {
@@ -141,6 +143,25 @@ const Scrabble = {
       this.plays.forEach( word => total += Scrabble.score(word) );
       return total;
     }
+
+    highestScoringWord() {
+      if(this.plays.length == 0) {
+        throw 'No words have been played'
+      }
+      let wordsPlayed = this.plays;
+      let maxWord = wordsPlayed[0];
+      wordsPlayed.forEach( (word) => {
+        if (Scrabble.score(word) > Scrabble.score(maxWord)) {
+          maxWord = word;
+        }
+      })
+      return maxWord;
+    }
+
+    highestWordScore() {
+      return Scrabble.score(this.highestScoringWord());
+    }
+
   }
 
 };

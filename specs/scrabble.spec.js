@@ -225,14 +225,14 @@ describe('Player', () => {
 
       words.forEach( (word) => player.play(word) );
 
-      expect(player.highestScoringWord()).toBe(true);
+      expect(player.highestScoringWord()).toBe('tearing');
 
     });
 
     test('throws an error if no words have been played', () => {
       const player = new Scrabble.Player('player');
       expect(() => {
-        expect(player.highestScoringWord());
+        player.highestScoringWord();
       }).toThrow();
 
     });
@@ -251,12 +251,10 @@ describe('Player', () => {
 
     });
 
-
-
     test('throws an error if no words have been played', () => {
       const player = new Scrabble.Player('player');
       expect(() => {
-        expect(player.highestWordScore());
+        player.highestWordScore();
       }).toThrow();
     });
 
