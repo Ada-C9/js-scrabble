@@ -1,7 +1,7 @@
 
 const Scrabble = {
   score(word) {
-    let total_score = 0;
+    let totalScore = 0;
     if (typeof word !== 'string') {
       throw "Invalid input, please enter a word!";
     }
@@ -10,7 +10,7 @@ const Scrabble = {
     if (scrabbleWord.length > 7 || scrabbleWord.length === 0) {
       throw "Word need to have between 1-7 characters";
     }else if (scrabbleWord.length === 7) {
-      total_score += 50;
+      totalScore += 50;
     }
 
     scrabbleWord.forEach((letter) => {
@@ -25,41 +25,41 @@ const Scrabble = {
         case "r":
         case "s":
         case "t":
-        total_score += 1;
+        totalScore += 1;
         break;
         case "d":
         case "g":
-        total_score += 2;
+        totalScore += 2;
         break;
         case "b":
         case "c":
         case "m":
         case "p":
-        total_score += 3;
+        totalScore += 3;
         break;
         case "f":
         case "h":
         case "v":
         case "w":
         case "y":
-        total_score += 4;
+        totalScore += 4;
         break;
         case "k":
-        total_score += 5;
+        totalScore += 5;
         break;
         case "j":
         case "x":
-        total_score += 8;
+        totalScore += 8;
         break;
         case "q":
         case "z":
-        total_score += 10;
+        totalScore += 10;
         break;
         default:
         throw "Invalid characters"
       }
     });
-    return total_score;
+    return totalScore;
   },
 
   highestScoreFrom(arrayOfWords) {
