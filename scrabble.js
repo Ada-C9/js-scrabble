@@ -88,22 +88,43 @@ const Scrabble = {
       } //for loop
       return winWord;
     }
-  }
-
-
+  },
 };
 
 Scrabble.Player = class {
+  constructor(name) {
+    this.name = name;
+    this.plays = [];
+    if (name === undefined) {
+      throw 'Player must have a name';
+    }
+  }
+
+  play(word) {
+    if (word === undefined) {
+      throw 'Must play a word';
+    }
+    if (REGEX.test(word.toUpperCase)!== true){
+      throw 'Must play a real word';
+    }
+    this.plays.push(word);
+    return this.plays;
+  }
+
+  totalScore () {
+    let points = 0;
+    this.plays.forEach(function(word) {
+      let wScore = Scrabble.score(word);
+      points += wScore;
+    });
+    return points;
+  }
+
+  hasWon(){
+
+  }
 
 };
 
 
 module.exports = Scrabble;
-
-// else if (word_score[word] === highest_score && winWord.length === 7 && word.length !== 7) {
-//   return winWord;
-// } else if (word_score[word] === highest_score && winWord.length > word.length) {
-//   return word;
-// } else {
-//   return winWord;
-// }
