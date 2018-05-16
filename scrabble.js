@@ -29,28 +29,32 @@ const scrabbleTiles = {
 };
 
 const Scrabble = {
+  isLetter(letter) {
+    return /[a-z]/.test(letter)
+  },
+
   score(word) {
     word = word.toLowerCase();
-    let scrabbleWord = word.split('');
+    // let scrabbleWord = word.split('');
     let totalScore = 0;
 
-    if (scrabbleWord.length > 7) {
+    if (word.length > 7) {
       throw 'Invalid word: too many tiles.';
-    } else if (scrabbleWord.length === 0) {
+    } else if (word.length === 0) {
       throw 'Invalid word: must provide tiles.';
-    } else if (scrabbleWord.length === 7) {
+    } else if (word.length === 7) {
       totalScore += 50;
     }
 
     // output the score of each letter in a word
     // find the total score of the word
-    scrabbleWord.forEach((letter) => {
-      if (scrabbleTiles[letter] > 0) {
+    for (let letter of word) {
+      if (this.isLetter(letter) === true) {
         totalScore += scrabbleTiles[letter];
       } else {
-        throw 'Invalid word: word must include letters only.';
+        throw 'Invalid word: must include letters that are acceptable.';
       }
-    });
+    }
 
     return totalScore;
   },
@@ -88,6 +92,54 @@ const Scrabble = {
 };
 
 Scrabble.Player = class {
+  constructor(name) {
+    this.name = name;
+    this.plays = [];
+
+    if (this.name.length === 0) {
+      throw 'Invalid name: must provide a name';
+    }
+  }
+
+  plays() {
+    return this.plays;
+  }
+
+  play(word) {
+    if (this.hasWon()) {
+      return false;
+    }
+
+    if (word === '') {
+      throw 'Invalid word.';
+    }
+
+    for (let letter of word) {
+      if (!Scrabble.isLetter(letter)) {
+        throw 'Invalid word.';
+      }
+    }
+
+    this.plays.push(word);
+    return this.plays;
+  }
+
+  totalScore() {
+    let playerScore = 0;
+
+    this.plays.forEach((word) => {
+      playerScore += Scrabble.score(word);
+    });
+
+    return playerScore;
+  }
+
+  hasWon() {
+    if (this.totalScore() > 100) {
+      return true;
+    }
+  }
+
 
 };
 
@@ -96,6 +148,11 @@ module.exports = Scrabble;
 
 
 let myWord = Scrabble.score('pig');
-console.log(myWord); // "Ada says: 'Try again later.'"
+console.log(myWord);
 let myArray = Scrabble.highestScoreFrom(['cat', 'pig']);
 console.log(myArray)
+
+let player = new Scrabble.Player('test name');
+let word = 'dog';
+
+console.log(player.play(word));
