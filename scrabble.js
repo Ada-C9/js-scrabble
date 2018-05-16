@@ -33,7 +33,7 @@ const Scrabble = {
     }
 
     if (word.length > 7 || word.length < 1) {
-      throw "Word must be no more than 7 letters.";
+      throw new Error('Word must be no more than 7 letters.');
     }
 
     word = word.toUpperCase();
@@ -54,7 +54,7 @@ const Scrabble = {
 
   highestScoreFrom(arrayOfWords) {
     if (arrayOfWords.length === 0) {
-      throw "No words were passed";
+      throw new Error('No words were passed.');
     }
 
     let topScores = [];
@@ -92,12 +92,18 @@ const Scrabble = {
 
 Scrabble.Player = class {
   constructor(name) {
+    if (name == null) {
+      throw new Error('Name cannot be blank.');
+    }
     this.name = name;
-    this.plays = []
+    this.plays = [];
   }
 
   play(word) {
     // after add hasWon(), return false if player has won
+    // if (this.totalScore() >= 100) {
+    //   return false;
+    // }
     this.plays.push(word);
   }
 
@@ -116,7 +122,9 @@ Scrabble.Player = class {
 module.exports = Scrabble;
 // console.log(Scrabble.score("academia"));
 // console.log(Scrabble.highestScoreFrom(['dog', 'goat']))
-let sam = new Scrabble.Player('Sam');
-console.log(sam.name);
-sam.play('academy');
-console.log(sam.totalScore());
+// let sam = new Scrabble.Player();
+// console.log(sam.name);
+// sam.play('academy');
+// sam.play('academy');
+// console.log(sam.totalScore());
+// sam.play('academy');
