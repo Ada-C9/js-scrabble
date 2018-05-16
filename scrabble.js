@@ -43,10 +43,14 @@ const Scrabble = {
     return Object.keys(object).find(key => object[key].includes(value));
   },
 
+  validate(word) {
+    let valid = /^[A-Za-z]+$/;
+    return word.match(valid) && word.length <= 7 ? true : false
+  },
+
   score(word) {
     let score = 0;
-    let valid = /^[A-Za-z]+$/;
-    if (word.match(valid) && word.length <= 7) {
+    if (this.validate(word)) {
       let letters = word.toUpperCase().split('');
       letters.forEach((char) => {
         let current_score = this.getKeyByValue(LETTERS, char);
@@ -93,32 +97,49 @@ const Scrabble = {
 
     Scrabble.Player = class {
       constructor(name) {
+        if (name) {
         this.name = name;
         this.plays = [];
+      } else {
+        throw 'Player requires a name.'
       }
-    };
+      }
+
+      play(word) {
+        if (this.hasWon()) {
+          return false;
+        } else if (Scrabble.validate(word)) {
+          this.plays.push(word);
+          return (`${this.name} played the word ${word}`);
+        } else {
+          throw `${word} is not a valid play.`;
+        }
+      }
+
+      totalScore() {
+        let total = 0
+        if (this.plays.length === 0) {
+          return total;
+        } else {
+        this.plays.forEach((play) => {
+          let score = Scrabble.score(play);
+          total += score;
+        }
+      )}
+      return total;
+      }
+
+      hasWon() {
+        let won = false;
+
+        let score = this.totalScore() * 1;
+        if (score >= 100) {
+          won = true;
+        }
+        return won;
+      }};
 
     Scrabble.Player.prototype = {
-<<<<<<< Updated upstream
-      plays() {
-        let plays = ''
-        this.plays.forEach((play) => {
-          plays += ` ${play}`
-        })
-        return plays;
-      },
-      purr() {
-        return ('Prrrrr'); // use return instead of console.log
-      },
-      play() {
-        return (`${this.name} chases a ball of yarn!`);
-      },
-      speak() {
-        return (`${this.name} says meow!`);
-      },
-    };
-
-=======
       hasWon() {
         let won = false;
 
@@ -129,6 +150,5 @@ const Scrabble = {
         }
         return won;
       }}
->>>>>>> Stashed changes
 
     module.exports = Scrabble;
