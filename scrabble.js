@@ -111,12 +111,28 @@ const Scrabble = {
       let regex = /^[a-zA-Z]+$/;
 
       if (word === undefined || !regex.test(word)) {
-       throw 'Invalid word';
+        throw 'Invalid word';
       }
 
-    }
+      if (! this.hasWon()) {
+        if (this.plays.push(word)) {
+          return true;
+        }
+      } else {
+        return false;
+      }
+    } // end of play
 
 
+
+    hasWon() {
+      if (this.totalScore() >= 100) {
+        return true
+      }
+      else {
+        return false
+      }
+    } //end of hasWon
 
   };
 
