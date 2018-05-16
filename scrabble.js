@@ -41,25 +41,23 @@ const Scrabble = {
       if (Object.keys(scoringRubrik).includes(letter)) {
         wordScore += scoringRubrik[letter]
 
-        console.log(`letter is ${letter} and value is ${scoringRubrik[letter]}`)
+      } else {
+        throw new Error('Enter valid letter.')
       }
-      // else {
-      //   throw new Error('Enter valid letter.')
-      // }
-
+      // console.log(`letter is ${letter} and value is ${scoringRubrik[letter]}`)
+    }
       switch(true) {
         case (word.length == 7):
         return wordScore + 50;
+        break;
         case (word.length == 0):
         return null;
+        break;
         case (word.length <= 6 && word.length >= 1):
         return wordScore;
+        break;
       }
       // console.log('Length is ' + typeof(length) + ' and it is ' + length)
-
-
-      return wordScore;
-    }
   },
 
   highestScoreFrom(arrayOfWords) {
