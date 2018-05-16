@@ -262,9 +262,12 @@ describe('Player', () => {
       expect(player.highestWordScore()).toBe(65);
     });
 
-    test.skip('throws an error if no words have been played', () => {
-
-
+    test('throws an error if no words have been played', () => {
+      const player = new Scrabble.Player('test player');
+      expect(() => {
+        player.highestWordScore();
+      }).toThrow();
     });
+
   });
 });
