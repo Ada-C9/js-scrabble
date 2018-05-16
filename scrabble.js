@@ -30,9 +30,9 @@ const scoringRubrik = {
 
 const Scrabble = {
   score(w) {
-    // if(!w) { return null}
-    // if(typeof(w) !== String) { throw new Error('Enter valid letter.'); }
-    // new Error('Name cannot be blank.')
+    if (w == "" || w == null || typeof(w) !== 'string') {
+      throw 'Must provide a sentence with valid characters'
+    }
 
     let word = w.toLowerCase();
 
@@ -40,24 +40,22 @@ const Scrabble = {
     for (let letter of word) {
       if (Object.keys(scoringRubrik).includes(letter)) {
         wordScore += scoringRubrik[letter]
-
       } else {
         throw new Error('Enter valid letter.')
       }
       // console.log(`letter is ${letter} and value is ${scoringRubrik[letter]}`)
     }
-      switch(true) {
-        case (word.length == 7):
-        return wordScore + 50;
-        break;
-        case (word.length == 0):
-        return null;
-        break;
-        case (word.length <= 6 && word.length >= 1):
-        return wordScore;
-        break;
-      }
-      // console.log('Length is ' + typeof(length) + ' and it is ' + length)
+    switch(true) {
+      case (word.length == 7):
+      return wordScore + 50;
+      case (word.length == 0):
+      return null;
+      case (word.length <= 6 && word.length >= 1):
+      return wordScore;
+      case (word.length > 7):
+      throw 'Must be less than or equal to 7 letters';
+    }
+    // console.log('Length is ' + typeof(length) + ' and it is ' + length)
   },
 
   highestScoreFrom(arrayOfWords) {
