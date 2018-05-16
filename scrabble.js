@@ -4,28 +4,42 @@ const LETTERVALUES = {
 
 const Scrabble = {
   score(word) {
+    if (word.length > 7) {
+      throw "InvalidWord";
+    }
     let wordPlayed = word.toUpperCase();
-    let letters = wordPlayed.split("");
-    let letterScores = [];
-    letters.forEach(function(letter) {
-      let num = LETTERVALUES[letter];
-      letterScores.push(num);
-    });
-    let wordScore = letterScores.reduce(function(acc, val) { return acc + val; });
-    return wordScore
+    let pattern = /[A-Z]/
+    if (pattern.test(wordPlayed)) {
+      let letters = wordPlayed.split("");
+      let letterScores = [];
+      letters.forEach(function(letter) {
+        let num = LETTERVALUES[letter];
+        if (num === undefined) {
+          throw "InvalidWord";
+        }
+        letterScores.push(num);
+        if (letterScores.length === 7) {
+          letterScores.push(50);
+        }
+      });
+      let wordScore = letterScores.reduce(function(acc, val) { return acc + val; });
+      return wordScore
+    } else {
+      throw "InvalidWord";
+    }
   },
   highestScoreFrom(arrayOfWords) {
 
   },
 };
 
+
+
 Scrabble.Player = class {
 
 };
 
-
 module.exports = Scrabble;
-
 
 
 // TESTING
@@ -34,7 +48,10 @@ module.exports = Scrabble;
 // console.log(LETTERVALUES.Z + LETTERVALUES.X);
 // console.log(Object.keys(LETTERVALUES));
 
-console.log(Scrabble.score("hello"));
+// console.log(Scrabble.score("hello"));
+// console.log(Scrabble.score(""));
+// console.log(Scrabble.score("!$%^&"));
+
 
 
 
