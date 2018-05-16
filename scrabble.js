@@ -73,16 +73,18 @@ const Scrabble = {
 
 Scrabble.Player = class {
   constructor(name) {
+    if (!name) {
+      throw 'Name required';
+    }
+
     this.name = name;
     this.plays = [];
-
   }
 
    play(word) {
      if (word.match(LETTERS_ONLY)) {
 
        if (this.totalScore() < 100) {
-        console.log(this.name)
         this.plays.push(word);
         return word;
       } else {
@@ -124,10 +126,3 @@ Scrabble.Player = class {
 
 
 module.exports = Scrabble;
-
-let steffany = new Scrabble.Player
-steffany.play("hello")
-steffany.play("zzzzzz")
-steffany.totalScore()
-steffany.hasWon()
-console.log(steffany.highestScoringWord())
