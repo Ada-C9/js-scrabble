@@ -128,12 +128,14 @@ Scrabble.TileBag = class {
       throw 'invalid num of tiles';
     } else {
       let drawnTiles = [];
+
       for ( let i = 0; i < num; i++ ){
         let randNum = Math.floor(Math.random() * this.bag.length);
         let randLetter = this.bag[randNum];
         drawnTiles.push(randLetter)
         this.bag.splice(this.bag.indexOf(randLetter), 1);
       }
+
       return drawnTiles;
     }
   }
@@ -144,11 +146,11 @@ Scrabble.TileBag = class {
 }
 
 // Helper methods
-
 const checkWord = function checkWord(input){
   if (input.length === 0 || input.length > 7){
     throw 'Invalid input length';
   }
+  
   if (REGEX.test(input) === false){
     throw 'Only letters allowed';
   }

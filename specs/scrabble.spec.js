@@ -270,7 +270,6 @@ describe('TileBag', () => {
       const myBag = new Scrabble.TileBag();
       const num = 5;
       expect(myBag.remainingTiles()).toEqual(98);
-      // expect(myBag.drawTile()).toMatch(/\w{1}/);
       expect(myBag.drawTile(num).length).toEqual(num);
       expect(myBag.remainingTiles()).toEqual(98 - num);
     });
@@ -280,13 +279,11 @@ describe('TileBag', () => {
       expect(() => { myBag.drawTile(); }).toThrow();
     });
 
-    // throws error for more than 7 letters
     test('throws error for more than 7 letters', () => {
       const myBag = new Scrabble.TileBag();
       expect(() => { myBag.drawTile(8); }).toThrow();
     });
 
-    // throws error if there are no more tiles to draw
     test('throws error if there are no more tiles to draw', () => {
       const myBag = new Scrabble.TileBag();
       const num = 7;
@@ -303,7 +300,6 @@ describe('TileBag', () => {
       expect(myBag.remainingTiles).toBeDefined();
     });
 
-    // returns 0 when there are no more tiles
     test('returns 0 if there are no more tiles', () => {
       const myBag = new Scrabble.TileBag();
       const num = 7;
