@@ -76,7 +76,12 @@ const Scrabble = {
 };
 
 Scrabble.Player = class {
-
+  constructor(name) {
+    this.name = name;
+    if (name === null || name === undefined) {
+      throw "every player must have a name";
+    }
+  }
 };
 
 

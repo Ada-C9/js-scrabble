@@ -98,19 +98,19 @@ describe('highestScoreFrom', () => {
 });
 
 describe('Player', () => {
-  test.skip('is defined', () => {
+  test('is defined', () => {
     expect(Scrabble.Player).toBeDefined();
   });
 
   describe('Constructor', () => {
-    test.skip('Creates a new player', () => {
+    test('Creates a new player', () => {
       const name = 'test name';
       const player = new Scrabble.Player(name);
 
       expect(player.name).toBe(name);
     });
 
-    test.skip('Requires a name', () => {
+    test('Requires a name', () => {
       expect(() => {
         new Scrabble.Player();
       }).toThrow();
@@ -211,13 +211,13 @@ describe('Player', () => {
     });
   });
 
-  describe('highestWordScore', () => {
-    test.skip('returns the score of the highest scoring word played', () => {
+  xdescribe('highestWordScore', () => {
+    test('returns the score of the highest scoring word played', () => {
 
 
     });
 
-    test.skip('throws an error if no words have been played', () => {
+    test('throws an error if no words have been played', () => {
 
 
     });
