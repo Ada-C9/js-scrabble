@@ -209,11 +209,11 @@ Scrabble.Player = class {
 
 
 module.exports = Scrabble;
-console.log(Scrabble.scores);
-let sam = new Scrabble.Player('Sam');
-console.log(sam.name);
+// console.log(Scrabble.scores);
+// let sam = new Scrabble.Player('Sam');
+// console.log(sam.name);
 // sam.play('cat');
 // sam.play('octopus');
 // console.log(sam.highestScoringWord());
 // console.log(sam.hasWon());
-console.log(sam.drawTiles(2));
+// console.log(sam.drawTiles(5));

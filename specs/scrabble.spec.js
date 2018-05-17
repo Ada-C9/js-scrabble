@@ -117,6 +117,18 @@ describe('Player', () => {
     });
   });
 
+  describe('drawTiles', () => {
+    test('Adds the appropriate number of letters to the player\'s tile bag', () => {
+      const num = 2;
+      const player = new Scrabble.Player('test player');
+      expect(player.tiles.length).toBe(0);
+
+      player.drawTiles(num);
+
+      expect(player.tiles.length).toBe(num);
+    });
+  });
+
   describe('play', () => {
     test('Records the played word', () => {
       const word = 'dog';
