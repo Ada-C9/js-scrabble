@@ -95,24 +95,18 @@ Scrabble.Player = class {
   }
 
   hasWon() {
-    // returns true if the player has over 100 points, otherwise returns false
-    // if (this.totalScore() >= 100 ) {
-    //   return true;
-    // }
-    // return false;
+
     let won = (this.totalScore() >= 100) ? true:false;
     return won;
   }
 
   highestScoringWord() {
 
-    // returns the highest scoring word the user has played
     return Scrabble.highestScoreFrom(this.plays);
   }
 
   highestWordScore() {
 
-    // returns the highestScoringWord score
     return Scrabble.score(this.highestScoringWord());
   }
 
