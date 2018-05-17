@@ -112,11 +112,11 @@ Scrabble.Player = class {
       totalScore += Scrabble.score(word);
     });
 
-    if (totalScore > 100) {
-      return true;
+    if (totalScore < 100) {
+      return false;
     }
 
-    return false;
+    return true;
   }
 };
 

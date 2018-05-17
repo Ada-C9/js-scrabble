@@ -181,19 +181,32 @@ describe('Player', () => {
   });
 
   describe('hasWon', () => {
-    test.skip('returns false when score < 100', () => {
+    test('returns false when score < 100', () => {
+      const player = new Scrabble.Player('test player');
+      expect(player.hasWon()).toBe(false);
+      // 30 points
+      expect(player.play('zzz')).toBeTruthy();
+      expect(player.plays.length).toBe(1);
 
-
+      expect(player.hasWon()).toBe(false);
     });
 
-    test.skip('returns true when score == 100', () => {
+    test('returns true when score == 100', () => {
+      const player = new Scrabble.Player('test player');
 
+      expect(player.play('zzzkkkk')).toBeTruthy();
+      expect(player.plays.length).toBe(1);
 
+      expect(player.hasWon()).toBe(true);
     });
 
-    test.skip('returns true when score > 100', () => {
+    test('returns true when score > 100', () => {
+      const player = new Scrabble.Player('test player');
+      /// 130 pts
+      expect(player.play('zzzzzzz')).toBeTruthy();
+      expect(player.plays.length).toBe(1);
 
-
+      expect(player.hasWon()).toBe(true);
     });
   });
 
