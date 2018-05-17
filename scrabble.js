@@ -71,39 +71,81 @@ const Scrabble = {
   },
 
   highestScoreFrom(arrayOfWords) {
-    // if (arrayOfWords === undefined || arrayOfWords.length == 0) {
-    //   throw 'No words passed!';
-    // }
-      // let wordScores = {};
+    if (arrayOfWords === undefined || arrayOfWords.length == 0) {
+      throw 'No words passed!';
+    }
 
-      let maxWord = arrayOfWords[0];
-      let maxScore = this.score(arrayOfWords[0]);
+    let maxWord = arrayOfWords[0];
+    let maxScore = this.score(arrayOfWords[0]);
 
-      for (let word of arrayOfWords) {
-        let score = this.score(word);
-        // {'banana': 7}
-        // wordScores[word] = score;
-        if (score > maxScore) {
-          maxScore = score;
-          maxWord = word
-        } else if (score == maxScore) {
-          maxWord = this.breakTie(maxWord, word)
-          maxScore = this.score(maxWord)
-        }
+    for (let word of arrayOfWords) {
+      let score = this.score(word);
+      if (score > maxScore) {
+        maxScore = score;
+        maxWord = word
+      } else if (score == maxScore) {
+        maxWord = this.breakTie(maxWord, word)
+        maxScore = this.score(maxWord)
       }
-    return maxScore
+    }
+    return maxWord
   }
 }
 
-// accessing player as a property of scrabble
 Scrabble.Player = class {
+  constructor(name) {
+    if (name.null) {
+      throw 'Name required!';
+    }
+    this.name = name;
+    this.plays = [];
+  }
+
+  totalScore() {
+    // wordScores = wordsPlayed.map to each word and get score ; have new array in end
+    let wordsPlayed = this.plays;
+    let total = 0;
+
+    for (let word of wordsPlayed) {
+      total += Scrabble.score(word);
+    }
+    return total;
+  }
+
+  hasWon() {
+    // no explicit returns here
+    return this.totalScore > 100 ? true: false;
+  }
+
+  play(word) {
+    // returns false if player has already won
+    // else allows you to play word
+    // push word into plays array
+    if (this.hasWon == true) {
+      return false;
+    } else {
+      this.plays.push(word);
+      return true;
+    }
+  }
 };
 
 module.exports = Scrabble;
 
 // console.log(Scrabble.score('qfc'));
 // console.log(Scrabble.score(999));
-console.log(Scrabble.highestScoreFrom(['zzzzzzz', 'zzzzzzq', 'jog']));
+// console.log(Scrabble.highestScoreFrom(['zzzzzzz', 'zzzzzzq', 'jog']));
+
+let player1 = new Scrabble.Player('slim');
+console.log(player1.play('karma'));
+console.log(player1.totalScore());
+
+
+// console.log(player1.hasWon());
+
+
+
+
 
 // word.split().forEach(function(letter){
 //   if (Object.keys(scoringRubrik).includes(letter)) {
