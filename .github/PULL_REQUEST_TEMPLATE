@@ -4,6 +4,6 @@ Congratulations! You're submitting your assignment!
 ## Comprehension Questions
 Question | Answer
 :------------- | :-------------
-What patterns were you able to use from your Ruby knowledge to apply to JavaScript? |
-What was a challenge you faced in this assignment? |
-Do you have any recommendations on how we could improve this project for the next cohort? |
+What patterns were you able to use from your Ruby knowledge to apply to JavaScript? | I would say the logic part is similar. However, translating code from Ruby to JavaScript is challenging. Ruby has so many methods which are not available in JavaScript, so I have to search a lot to find an equivalent one. Or I have to write the logic from scratch.
+What was a challenge you faced in this assignment? | Write JavaScript codes with right syntax.
+Do you have any recommendations on how we could improve this project for the next cohort? | No, it's a good practice. I just realized that your comments for our Ruby Scrabble project are very useful here. :)
