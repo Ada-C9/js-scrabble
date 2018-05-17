@@ -35,7 +35,7 @@ const Scrabble = {
 
     // check to see if word is a string then raise error if not
     if (typeof word !== 'string' || word.length > 7 || word.length < 1) {
-      throw 'Error! You must enter a word that is 1-7 letters long'
+      throw 'Nope! You must enter a word that is 1-7 letters long'
     }
 
     let regex = /^[a-zA-Z]+$/;
