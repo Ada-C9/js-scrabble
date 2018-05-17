@@ -59,18 +59,49 @@ const Scrabble = {
   },
 
   highestScoreFrom(arrayOfWords) {
+    // return word in the array with the highest score.
+    // if the top score is tied between multiple words, pick the one with the fewest letters.
+    // Note that there is a bonus (50 points) for using all seven letters. If the top score is tied between multiple words and one used all seven letters, choose the one with seven letters over the one with fewer tiles.
+    // If the there are multiple words that are the same score and same length, pick the first one in supplied list.
+    // if (arrayOfWords === undefined || arrayOfWords.length == 0) {
+    //   throw 'No words passed!';
+    // }
+      let max = arrayOfWords[0];
 
-    //TODO:
+      arrayOfWords.forEach(function(challengerScore) {
+        if (challengerScore > max) {
+          max = challengerScore;
+        }
+      });
+    return max
   }
 }
+
+// breakTie(incumbent, challenger) {
+//   if (incumbent.length == 7) {
+//     return incumbent;
+//   } else if (challenger.length == 7) {
+//     return challenger;
+//   }
+//
+//   if (challenger.length > incumbent.length) {
+//     return incumbent;
+//   } else if (challenger.length < incumbent.length) {
+//     return  challenger
+//   } else if (incumbent.length == challenger.length) {
+//     return incumbent
+//   }
+// }
 
 Scrabble.Player = class {
 };
 
 module.exports = Scrabble;
 
-console.log(Scrabble.score('qfc'));
+// console.log(Scrabble.score('qfc'));
 // console.log(Scrabble.score(999));
+console.log(Scrabble.highestScoreFrom([7,13,2]));
+
 // word.split().forEach(function(letter){
 //   if (Object.keys(scoringRubrik).includes(letter)) {
 //     wordScore += scoringRubrik[letter]
