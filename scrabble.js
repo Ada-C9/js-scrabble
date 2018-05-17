@@ -150,10 +150,16 @@ Scrabble.Player = class {
   }
 
   drawTiles(num) {
+    let numAvailable =  7 - this.tiles.length;
+
     if (num > 7) {
       throw new Error('Cannot draw more than 7 tiles');
     }
-    
+
+    if (num > numAvailable) {
+      throw new Error(`Can draw a maximum of ${numAvailable} tiles.`);
+    }
+
     for (let i = 1; i <= num; i++) {
       let randomNum = Math.floor(Math.random() * letters.length) + 1;
       this.tiles.push(letters[randomNum]);

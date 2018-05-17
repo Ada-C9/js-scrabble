@@ -146,6 +146,15 @@ describe('Player', () => {
       }).toThrow();
     });
 
+    test('throws an error if a player tries to draw tiles that will result in more than 7', () => {
+      const player = new Scrabble.Player('test player');
+      player.drawTiles(7);
+
+      expect(() => {
+        player.drawTiles(7);
+      }).toThrow();
+    });
+
   });
 
   describe('play', () => {
