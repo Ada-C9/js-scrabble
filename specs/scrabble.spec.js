@@ -117,8 +117,8 @@ describe('Player', () => {
     });
   });
 
-  xdescribe('play', () => {
-    test.skip('Records the played word', () => {
+  describe('play', () => {
+    test('Records the played word', () => {
       const word = 'dog';
       const player = new Scrabble.Player('test player');
 
@@ -130,7 +130,7 @@ describe('Player', () => {
       expect(player.plays[0]).toBe(word);
     });
 
-    test.skip('Requires a real word', () => {
+    test('Requires a real word', () => {
       const player = new Scrabble.Player('test player');
 
       expect(player.plays.length).toBe(0);
@@ -142,7 +142,7 @@ describe('Player', () => {
       expect(player.plays.length).toBe(0);
     });
 
-    test.skip('Returns false and does not update plays if the player has already won', () => {
+    test('Returns false and does not update plays if the player has already won', () => {
       const player = new Scrabble.Player('test player');
 
       expect(player.play('zzzzzzz')).toBeTruthy(); // +120 pts
@@ -154,7 +154,7 @@ describe('Player', () => {
     });
   });
 
-  xdescribe('totalScore', () => {
+  describe('totalScore', () => {
     test('Is zero if the player has not played anything', () => {
       const player = new Scrabble.Player('test player');
 
@@ -181,7 +181,18 @@ describe('Player', () => {
   });
 
   describe('hasWon', () => {
-    test.skip('returns false when score < 100', () => {
+    test('returns false when score < 100', () => {
+      //Arrange
+      const player = new Scrabble.Player('a player');
+      let nintyninePointword = 'xdzzzxa';
+
+      //Act
+      expect(Scrabble.score(nintyninePointword)).toBe(99)
+      player.play(nintyninePointword);
+
+      //Assert
+      expect(player.hasWon()).toBe(false)
+      expect(player.totalScore()).toBe(99)
 
 
     });
