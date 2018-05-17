@@ -114,10 +114,13 @@ Scrabble.Player = class {
   }
 
   play(word) {
+    if (this.hasWon() === true) {
+      return false;
+    }
     if (word.length === 0 || word === null || word === "") {
       throw 'Please enter a word to play';
     } else {
-        Scrabble.score(word);
+        this.playerTotal += Scrabble.score(word);
         this.plays.push(word);
         return this.plays;
     }
@@ -129,15 +132,15 @@ Scrabble.Player = class {
   }
 
   totalScore() {
-
     if (this.plays.length === 0) {
       return 0;
     } else {
+        let totalScore = 0;
         for (let word of this.plays) {
-          this.playerTotal += Scrabble.score(word);
-          console.log(this.playerTotal);
+          totalScore += Scrabble.score(word);
         }
-    } return this.playerTotal;
+      return totalScore;  
+    }
   }
 
   hasWon() {
