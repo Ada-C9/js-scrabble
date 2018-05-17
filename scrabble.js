@@ -34,19 +34,20 @@ const Scrabble = {
   validate(word) {
     let valid = /^[A-Za-z]+$/;
     let match = word.match(valid) && word.length <= 7 ? true : false;
-    let check = this.wordCheck(word)
-    return match && check;
+    return match
   },
 
   score(word) {
     let score = 0;
     if (this.validate(word)) {
       word = word.toLowerCase();
+      if (this.wordCheck(word)) {
       for (let letter of word) {
         let current_score = TILEBAG[letter].points;
         score += current_score;
       }
       word.length === 7 ? score += 50 : '';
+    }
       return score;
     } else {
       throw 'Word contains invalid character';
