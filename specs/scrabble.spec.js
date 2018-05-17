@@ -1,6 +1,6 @@
 const Scrabble = require('../scrabble');
 
-xdescribe('score', () => {
+describe('score', () => {
   test('is defined', () => {
     expect(Scrabble.score).toBeDefined();
   });
@@ -15,7 +15,7 @@ xdescribe('score', () => {
     expect(Scrabble.score('academy')).toBe(65);
   });
 
-  test.skip('throws on bad characters', () => {
+  test('throws on bad characters', () => {
     expect(() => {
       Scrabble.score('char^');
     }).toThrow();
@@ -110,14 +110,14 @@ describe('Player', () => {
       expect(player.name).toBe(name);
     });
 
-    test.skip('Requires a name', () => {
+    test('Requires a name', () => {
       expect(() => {
         new Scrabble.Player();
       }).toThrow();
     });
   });
 
-  describe('play', () => {
+  xdescribe('play', () => {
     test.skip('Records the played word', () => {
       const word = 'dog';
       const player = new Scrabble.Player('test player');
@@ -154,7 +154,7 @@ describe('Player', () => {
     });
   });
 
-  describe('totalScore', () => {
+  xdescribe('totalScore', () => {
     test('Is zero if the player has not played anything', () => {
       const player = new Scrabble.Player('test player');
 
