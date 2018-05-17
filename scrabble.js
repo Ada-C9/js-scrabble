@@ -51,8 +51,30 @@ const Scrabble = {
   },
 
   highestScoreFrom(arrayOfWords) {
+    // throw if no words are passed
+    if (arrayOfWords.length === 0 || Array.isArray(arrayOfWords) !== true) {
+      throw "No played words.";
+    }
 
-  },
+    let bestWord = arrayOfWords[0];
+    let bestScore = this.score(bestWord);
+    let tiedWords = []
+
+    // Need FXN for time break on tiedWords array
+    // tieBreak()
+
+
+    arrayOfWords.forEach((word) => {
+      if (this.score(word) > bestScore) {
+        bestWord = word;
+        bestScore = this.score(word);
+        // } else if (this.score(word) === bestScore) {
+        //   bestWord = tieBreak(bestWord, word)
+        // }
+      }
+    })
+    return bestWord
+  }
 };
 
 Scrabble.Player = class {
