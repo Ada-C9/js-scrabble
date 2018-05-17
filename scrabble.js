@@ -74,8 +74,6 @@ Scrabble.Player = class {
   }
 
   play(word) {
-    //adds the input words to the plays Array
-    // return false if player has already won
 
     if (word === " "|| typeof word !== 'string') {
       throw new Error('Please enter a valid word');
@@ -90,8 +88,11 @@ Scrabble.Player = class {
 
   totalScore() {
 
-    //sums up and returns the score of the players words
-
+    let total = 0;
+    for (let word of this.plays) {
+      total += Scrabble.score(word);
+    }
+    return total;
   }
 
   hasWon() {
