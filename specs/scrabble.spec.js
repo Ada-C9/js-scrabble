@@ -217,8 +217,24 @@ describe('Player', () => {
 
     });
 
-    test.skip('returns true when score == 100', () => {
+    test('returns true when score == 100', () => {
+      const player = new Scrabble.Player('best player');
+      const words = [{word: 'academy', score: 65}, {word: 'cat', score: 5}, {word: 'zzz', score: 30}];
+      let totalScore = 0;
 
+      expect(player.totalScore()).toBe(0);
+      words.forEach((testWords) => {
+        // Act
+        player.play(testWords.word);
+        totalScore += testWords.score;
+        console.log(totalScore);
+        console.log(player.playerTotal);
+
+        // Assert
+        expect(player.totalScore()).toBe(totalScore);
+
+      });
+      expect(player.hasWon()).toBe(true);
     });
 
     test.skip('returns true when score > 100', () => {
