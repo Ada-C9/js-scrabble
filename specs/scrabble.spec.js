@@ -259,4 +259,28 @@ describe('Player', () => {
     });
 
   });
+
+
+
 });
+
+describe('TileBag', () => {
+  test('is defined', () => {
+    expect(Scrabble.TileBag).toBeDefined();
+  });
+
+  describe('remainingTiles', () => {
+
+    test('the tile bag has 0 tiles after 45 tiles drawn', () => {
+      const bag = Scrabble.TileBag;
+      for (let i = 0; i < 13; i++) {
+        bag.drawTiles(7);
+      }
+      expect(bag.remainingTiles.length).toBe(0);
+    });
+
+  })
+
+
+
+})

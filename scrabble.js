@@ -163,26 +163,96 @@ const Scrabble = {
 
   },
 
+  Tile: class Tile {
+    constructor(letter) {
+      this.letter = letter;
+    }
+  },
+
   TileBag: {
-    remianingTiles: 45,
+    startBag() {
+      let bag = [];
+      const TILE1 = ['J', 'K', 'Q', 'X', 'Z'];
+      const TILE2 = ['B', 'C', 'F', 'H', 'M', 'P', 'V', 'W', 'Y'];
+      const TILE3 = ['G'];
+      const TILE4 = ['D', 'L', 'S', 'U'];
+      const TILE6 = ['N', 'R', 'T'];
+      const TILE8 = ['O'];
+      const TILE9 = ['A', 'I'];
+      const TILE12 = ['E'];
+
+      for (let letter of TILE1) {
+        bag.push(new Scrabble.Tile(letter));
+      }
+
+      for (let i = 0; i < 2; i++) {
+        TILE2.forEach((letter) => {
+          bag.push(new Scrabble.Tile(letter));
+        })
+      }
+
+      for (let i = 0; i < 3; i++) {
+        TILE3.forEach((letter) => {
+          bag.push(new Scrabble.Tile(letter));
+        })
+      }
+
+      for (let i = 0; i < 4; i++) {
+        TILE4.forEach((letter) => {
+          bag.push(new Scrabble.Tile(letter));
+        })
+      }
+
+      for (let i = 0; i < 6; i++) {
+        TILE6.forEach((letter) => {
+          bag.push(new Scrabble.Tile(letter));
+        })
+      }
+
+      for (let i = 0; i < 8; i++) {
+        TILE8.forEach((letter) => {
+          bag.push(new Scrabble.Tile(letter));
+        })
+      }
+
+      for (let i = 0; i < 9; i++) {
+        TILE9.forEach((letter) => {
+          bag.push(new Scrabble.Tile(letter));
+        })
+      }
+
+      for (let i = 0; i < 12; i++) {
+        TILE12.forEach((letter) => {
+          bag.push(new Scrabble.Tile(letter));
+        })
+      }
+
+      return bag;
+    },
+
+    remainingTiles() {
+      return this.startBag() - this.tilesDrawn;
+    },
+
+    tilesDrawn: [],
+
     drawTiles(num) {
       if (num > 7) {
         throw 'Cannot draw more than 7 tiles at a time';
-      } else if (num > this.remianingTiles) {
-        num = this.remianingTiles;
+      } else if (num > this.remainingTiles.length) {
+        num = this.remainingTiles.length;
       }
-      this.remianingTiles -= num;
+
+      let tiles = [];
+      for (let i = 0; i < num; i++) {
+        tiles.push(this.remainingTiles.pop());
+      }
+
+      this.tilesDrawn += tiles;
+
+      return tiles
     }
   }
 
-
-
-
 };
-
 module.exports = Scrabble;
-
-let bag = Scrabble.TileBag;
-console.log(bag.remianingTiles);
-bag.drawTiles(10);
-console.log(bag.remianingTiles);
