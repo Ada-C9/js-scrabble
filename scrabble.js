@@ -122,6 +122,14 @@ Scrabble.Player = class {
 
     return total;
   }
+
+  highestScoringWord() {
+    if (this.plays.length === 0) {
+      throw "you must play at least one word";
+    }
+    return Scrabble.highestScoreFrom(this.plays);
+
+  }
 };
 
 
