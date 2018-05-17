@@ -1,5 +1,3 @@
-
-
 const Scrabble = {
   score(word) {
     const scoreChart = {
@@ -81,17 +79,8 @@ Scrabble.Player = class {
   }
 
   play(word) {
-    if (!word) {
+    if (!word || typeof word !== 'string') {
       throw 'Error: no word was passed!';
-    }
-
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
-
-    let letters = word.toUpperCase().split('');
-    for (let letter of letters) {
-      if (!chars.includes(letter)) {
-        throw 'Error: invalid word!';
-      }
     }
 
     if (this.hasWon()) {
@@ -108,7 +97,7 @@ Scrabble.Player = class {
   }
 
   hasWon() {
-    return this.score >= 100 ? true : false;
+    return this.score >= 100;
   }
 
   highestScoringWord() {
@@ -136,10 +125,11 @@ Scrabble.TileBag = class {
 
     let randomTiles = [];
     for (let i = 0; i < number; i++) {
-      let index = [Math.floor(Math.random()*this.tiles.length)];
+      let index = Math.floor(Math.random()*this.tiles.length);
       randomTiles.push(this.tiles[index]);
       this.tiles.splice(index, 1);
     }
+    
     return randomTiles;
   }
 

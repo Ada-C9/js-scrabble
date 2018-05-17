@@ -185,6 +185,7 @@ describe('Player', () => {
       const player = new Scrabble.Player('test player');
       player.play('dog');
 
+      expect(player.totalScore()).toBeLessThan(100);
       expect(player.hasWon()).toBe(false);
     });
 
@@ -192,14 +193,16 @@ describe('Player', () => {
       const player = new Scrabble.Player('test player');
       player.play('zzzkkkk');
 
-      expect(player.hasWon()).toBeTruthy();
+      expect(player.totalScore()).toEqual(100);
+      expect(player.hasWon()).toBe(true);
     });
 
     test('returns true when score > 100', () => {
       const player = new Scrabble.Player('test player');
       player.play('zzzzzzz');
 
-      expect(player.hasWon()).toBeTruthy();
+      expect(player.totalScore()).toBeGreaterThan(100);
+      expect(player.hasWon()).toBe(true);
     });
   });
 
