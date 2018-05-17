@@ -87,11 +87,36 @@ const Scrabble = {
 Scrabble.Player = class {
   constructor(name) {
     if (typeof name === 'undefined') {
-        throw new Error('You must provide a name.');
+      throw new Error('You must provide a name.');
     }
     this.name = name;
+    this.plays = [];
   }
-
+  hasWon() {
+    if (this.totalScore() >= 100) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  totalScore() {
+    let sum = 0;
+    for (let i = 0; i < this.plays.length; i++) {
+      sum += Scrabble.score(this.plays[i]);
+    }
+    return sum;
+  }
+  play(word) {
+    if (typeof word !== "string" || word.length === 0) {
+      throw new Error('Invalid word.');
+    }
+    if (this.hasWon()) {
+      return false;
+    } else {
+      this.plays.push(word);
+      return true;
+    }
+  }
 };
 
 module.exports = Scrabble;
@@ -100,6 +125,7 @@ module.exports = Scrabble;
 // TESTING
 // words = ['i', 'dog', 'cat']
 // console.log(Scrabble.highestScoreFrom(words));
-//
-
+const word = 'dog';
+const player = new Scrabble.Player('test player');
+player.play(word);
 //
