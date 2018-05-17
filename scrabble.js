@@ -33,17 +33,20 @@ const TILEBAG = {
 const Scrabble = {
   validate(word) {
     let valid = /^[A-Za-z]+$/;
-    return word.match(valid) && word.length <= 7 ? true : false;
+    let match = word.match(valid) && word.length <= 7 ? true : false;
+    // let check = this.wordCheck(word)
+    // return match && check;
+    return match
   },
 
   score(word) {
     let score = 0;
     if (this.validate(word)) {
-      let letters = word.toLowerCase().split('');
-      letters.forEach((char) => {
-        let current_score = TILEBAG[char].points;
+      word = word.toLowerCase();
+      for (let letter of word) {
+        let current_score = TILEBAG[letter].points;
         score += current_score;
-      })
+      }
       word.length === 7 ? score += 50 : '';
       return score;
     } else {
@@ -71,7 +74,7 @@ const Scrabble = {
       return arrayOfWords[0];
     } else {
       let max = arrayOfWords[0]
-      arrayOfWords.forEach((word) => {
+      for (let word of arrayOfWords) {
         let word_score = this.score(word);
         let max_score = this.score(max);
         if (max_score < word_score) {
@@ -79,7 +82,7 @@ const Scrabble = {
         } else if (max_score === word_score) {
           max = this.breakTie(max, word);
         }
-      })
+      }
       return max;
     }
   },
@@ -120,7 +123,7 @@ Scrabble.Player = class {
   play(word) {
     if (this.hasWon()) {
       return false;
-    } else if (Scrabble.validate(word)) {
+    } else if (Scrabble.validate(word) && this.lettersInHand(word)) {
       this.plays.push(word);
       return (`${this.name} played the word ${word}`);
     } else {
@@ -128,16 +131,30 @@ Scrabble.Player = class {
     }
   }
 
+  lettersInHand(word) {
+    let currentHand = this.hand;
+    let letters = {}
+    for (let tile of currentHand) {
+      letters[tile] ? letters[tile] += 1 : letters[tile] = 1;
+    }
+
+    let hasTiles = true
+    for (let letter of word) {
+      letters[letter] >= 1 ? letters[letter] -= 1 : hasTiles = false;
+    }
+    return hasTiles;
+  }
+
   totalScore() {
     let total = 0
     if (this.plays.length === 0) {
       return total;
     } else {
-      this.plays.forEach((play) => {
+    for (let play of  this.plays) {
         let score = Scrabble.score(play);
         total += score;
       }
-    )}
+    }
     return total;
   }
 
@@ -160,10 +177,10 @@ Scrabble.Player = class {
   rageQuit() {
     let tileBag = this.tileBag.tiles
     let keys = Object.keys(tileBag);
-    keys.forEach((key) => {
+    for (let key of keys) {
       let count = tileBag[key].qty;
       tileBag[key].qty -= count;
-    })
+    }
   }
 
   drawTiles() {

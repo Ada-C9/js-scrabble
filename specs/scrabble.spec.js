@@ -120,6 +120,11 @@ describe('Player', () => {
       const word = 'dog';
       const player = new Scrabble.Player('test player');
 
+      for (let letter of word) {
+        player.hand.push(letter);
+        expect(player.hand.includes(letter)).toBe(true);
+      }
+
       expect(player.plays.length).toBe(0);
 
       expect(player.play(word)).toBeTruthy();
@@ -142,13 +147,28 @@ describe('Player', () => {
 
     test('Returns false and does not update plays if the player has already won', () => {
       const player = new Scrabble.Player('test player');
+      let word = 'quartzy';
 
-      expect(player.play('zzzzzzz')).toBeTruthy(); // +120 pts
-      expect(player.plays.length).toBe(1);
+      for (let letter of word) {
+        player.hand.push(letter);
+        expect(player.hand.includes(letter)).toBe(true);
+      }
+
+      player.play(word);
+
+      word = 'sygyzy'
+      for (let letter of word) {
+        player.hand.push(letter);
+        expect(player.hand.includes(letter)).toBe(true);
+      }
+
+      player.play(word);
+
+      expect(player.plays.length).toBe(2);
       expect(player.hasWon()).toBeTruthy();
 
       expect(player.play('dog')).toBe(false);
-      expect(player.plays.length).toBe(1);
+      expect(player.plays.length).toBe(2);
     });
   });
 
@@ -161,15 +181,33 @@ describe('Player', () => {
 
     test('Is updated by play', () => {
       const player = new Scrabble.Player('test player');
+      let word = 'dog'
+
+      for (let letter of word) {
+        player.hand.push(letter);
+        expect(player.hand.includes(letter)).toBe(true);
+      }
 
       expect(player.totalScore()).toBe(0);
-      player.play('dog');
+      player.play(word);
+
+      word = 'cat'
+      for (let letter of word) {
+        player.hand.push(letter);
+        expect(player.hand.includes(letter)).toBe(true);
+      }
 
       expect(player.totalScore()).toBe(5);
-      player.play('cat');
+      player.play(word);
+
+      word = 'goat'
+      for (let letter of word) {
+        player.hand.push(letter);
+        expect(player.hand.includes(letter)).toBe(true);
+      }
 
       expect(player.totalScore()).toBe(10);
-      player.play('goat');
+      player.play(word);
 
       expect(player.totalScore()).toBe(15);
     });
@@ -182,20 +220,46 @@ describe('Player', () => {
       expect(player.totalScore()).toBe(0);
       expect(player.hasWon()).toBe(false);
 
-      player.play('zzzzz');
+      let word = 'quartzy'
 
-      expect(player.totalScore()).toBe(50);
+      for (let letter of word) {
+        player.hand.push(letter);
+        expect(player.hand.includes(letter)).toBe(true);
+      }
+
+      player.play(word);
+
+      expect(player.totalScore()).toBe(78);
       expect(player.hasWon()).toBe(false);
 
-      player.play('zzzzji');
+      word = 'jejune'
+      for (let letter of word) {
+        player.hand.push(letter);
+        expect(player.hand.includes(letter)).toBe(true);
+      }
 
-      expect(player.totalScore()).toBe(99);
+      player.play(word);
+
+      expect(player.totalScore()).toBe(98);
       expect(player.hasWon()).toBe(false);
     });
 
     test('returns true when score == 100', () => {
       const player = new Scrabble.Player('test player');
-      player.play('zzzzbbf');
+      let word = 'jejunal'
+      for (let letter of word) {
+        player.hand.push(letter);
+        expect(player.hand.includes(letter)).toBe(true);
+      }
+
+      player.play(word);
+
+      word = 'mizzly'
+      for (let letter of word) {
+        player.hand.push(letter);
+        expect(player.hand.includes(letter)).toBe(true);
+      }
+      player.play(word);
 
       expect(player.totalScore()).toBe(100);
       expect(player.hasWon()).toBe(true);
@@ -203,9 +267,26 @@ describe('Player', () => {
 
     test('returns true when score > 100', () => {
       const player = new Scrabble.Player('test player');
-      player.play('zzzzzzz');
 
-      expect(player.totalScore()).toBe(120);
+      let word = 'quartzy';
+
+      for (let letter of word) {
+        player.hand.push(letter);
+        expect(player.hand.includes(letter)).toBe(true);
+      }
+
+      player.play(word);
+
+      word = 'sygyzy'
+
+      for (let letter of word) {
+        player.hand.push(letter);
+        expect(player.hand.includes(letter)).toBe(true);
+      }
+
+      player.play(word);
+
+      expect(player.totalScore()).toBe(103);
       expect(player.hasWon()).toBe(true);
     });
   });
@@ -215,10 +296,21 @@ describe('Player', () => {
     // for highestWordFrom, so we will not repeat it here.
     test('returns the highest scoring word played', () => {
       const player = new Scrabble.Player('test player');
-      player.play('cat');
-      player.play('zzzz');
+      let word = 'cat'
+      for (let letter of word) {
+        player.hand.push(letter);
+        expect(player.hand.includes(letter)).toBe(true);
+      }
+      player.play(word);
 
-      expect(player.highestScoringWord()).toBe('zzzz');
+      word = 'quartzy'
+      for (let letter of word) {
+        player.hand.push(letter);
+        expect(player.hand.includes(letter)).toBe(true);
+      }
+      player.play(word);
+
+      expect(player.highestScoringWord()).toBe('quartzy');
     });
 
     test('throws an error if no words have been played', () => {
@@ -231,10 +323,21 @@ describe('Player', () => {
   describe('highestWordScore', () => {
     test('returns the score of the highest scoring word played', () => {
       const player = new Scrabble.Player('test player');
-      player.play('cat');
-      player.play('qqqq');
+      let word = 'cat'
+      for (let letter of word) {
+        player.hand.push(letter);
+        expect(player.hand.includes(letter)).toBe(true);
+      }
+      player.play(word);
 
-      expect(player.highestWordScore()).toBe(40);
+      word = 'quartzy'
+      for (let letter of word) {
+        player.hand.push(letter);
+        expect(player.hand.includes(letter)).toBe(true);
+      }
+      player.play(word);
+
+      expect(player.highestWordScore()).toBe(78);
     });
 
     test('throws an error if no words have been played', () => {
@@ -317,6 +420,36 @@ describe('Player', () => {
 
     test('checks dictionary to see if a valid word is valid', () => {
       expect(Scrabble.wordCheck('cat')).toBe(true);
+    });
+  });
+
+  describe('Scrabble.Player.lettersInHand()', () => {
+    test('is defined', () => {
+      let player = new Scrabble.Player('test player');
+      expect(Scrabble.wordCheck()).toBeDefined();
+    });
+
+    test('checks hand to see if play is valid with current tiles', () => {
+      let player = new Scrabble.Player('test player');
+      let word = 'cat'
+      for (let letter of word) {
+        player.hand.push(letter);
+        expect(player.hand.includes(letter)).toBe(true);
+      }
+
+      expect(Scrabble.wordCheck(word)).toBe(true);
+      expect(player.lettersInHand('cat')).toBe(true);
+    });
+
+    test('checks hand to see if play is valid with current tiles', () => {
+      let player = new Scrabble.Player('test player');
+      let word = 'glob'
+      for (let letter of word) {
+        player.hand.push(letter);
+        expect(player.hand.includes(letter)).toBe(true);
+      }
+
+      expect(player.lettersInHand('global')).toBe(false);
     });
   });
 
