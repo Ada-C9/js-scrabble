@@ -1,7 +1,4 @@
-
-
 const Scrabble = {
-
 
   score(word) {
     let wordArray = word.split('')
@@ -11,13 +8,13 @@ const Scrabble = {
     if (length === 7) {
       sum = 50;
     } else if (length > 7)  {
-      throw 'word length must be less than 7';
+      throw 'Word length must be less than 7';
     } else if (length === 0) {
-      throw 'word cannot be empty';
+      throw 'Word cannot be empty';
     }
 
     if (/[*&^$%#@!?]/.test(word)) {
-      throw 'word cannot have symbols';
+      throw 'Word cannot have symbols';
     }
 
     for( let letter of wordArray ) {
@@ -49,31 +46,33 @@ const Scrabble = {
   },
 
   highestScoreFrom(arrayOfWords) {
-    let highestScore = 0;
-    let highestWords = [];
-    let bestWord = null;
-
     if ((!Array.isArray(arrayOfWords) || !arrayOfWords.length)) {
-      throw 'no words were passed'
+      throw 'No words were passed'
     }
 
-    arrayOfWords.forEach((word) => {
-      if (this.score(word) >= highestScore) {
-        highestScore = this.score(word);
-        highestWords.push(word);
-      }
-    });
+    let bestWord = arrayOfWords[0]
 
-    highestWords.forEach(function(word) {
-      let min = 7;
-      if (word.length === 7) {
-        return word;
-      } else if (word.length < min) {
-        min = word.length;
+    arrayOfWords.forEach((word) => {
+      let score = this.score(word)
+      if (score > this.score(bestWord)) {
         bestWord = word;
+      } else if (score == this.score(bestWord)) {
+        bestWord = this.tieBreaker(bestWord, word);
       }
     });
-    return bestWord
+    return bestWord;
+  },
+
+  tieBreaker(first, second) {
+    if (first.length == 7) {
+      return first;
+    } else if (second.length == 7) {
+      return second;
+    } else if (second.length < first.length) {
+      return second;
+    } else {
+      return first;
+    }
   },
 
   catch(e) {
@@ -84,6 +83,32 @@ const Scrabble = {
 
 
 Scrabble.Player = class {
+  constructor(name, plays) {
+    this.name = name;
+    this.plays = plays;
+    if (!name || !name.length) {
+      throw 'Player must have a name'
+    }
+  }
+
+  play(word) {
+    Scrabble.score(word)
+    if (Scrabble.score(word)) {
+      this.plays.push(word);
+    }
+  }
+
+  hasWon() {
+
+  }
+
+  highestScoringWord() {
+
+  }
+
+  highestWordScore() {
+
+  }
 
 };
 
