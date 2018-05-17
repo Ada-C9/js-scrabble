@@ -127,6 +127,25 @@ describe('Player', () => {
 
       expect(player.tiles.length).toBe(num);
     });
+
+// @instructors: Why doesn't this test work? Lint says letters is undefined, but I can call console.log(letters.length) when I run the program
+    // test('Removes the appropriate number of letters from the letters array', () => {
+    //   const num = 2;
+    //   const player = new Scrabble.Player('test player');
+    //   expect(letters.length).toBe(98);
+    //
+    //   player.drawTiles(num);
+    //
+    //   expect(letters.length).toBe(96);
+    // });
+    test('throws an error if a player tries to draw more than 7 tiles', () => {
+      const player = new Scrabble.Player('test player');
+
+      expect(() => {
+        player.drawTiles(8);
+      }).toThrow();
+    });
+
   });
 
   describe('play', () => {

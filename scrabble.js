@@ -150,7 +150,10 @@ Scrabble.Player = class {
   }
 
   drawTiles(num) {
-    // check num of tiles
+    if (num > 7) {
+      throw new Error('Cannot draw more than 7 tiles');
+    }
+    
     for (let i = 1; i <= num; i++) {
       let randomNum = Math.floor(Math.random() * letters.length) + 1;
       this.tiles.push(letters[randomNum]);
@@ -209,7 +212,7 @@ Scrabble.Player = class {
 
 
 module.exports = Scrabble;
-// console.log(Scrabble.scores);
+console.log(letters.length);
 // let sam = new Scrabble.Player('Sam');
 // console.log(sam.name);
 // sam.play('cat');
