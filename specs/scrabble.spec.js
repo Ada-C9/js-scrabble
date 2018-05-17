@@ -193,16 +193,35 @@ describe('Player', () => {
       //Assert
       expect(player.hasWon()).toBe(false)
       expect(player.totalScore()).toBe(99)
+    });
 
+    test('returns true when score == 100', () => {
+      //Arrange
+      const player = new Scrabble.Player('a player');
+      let hundredPointword = 'zzzxgxg';
+
+      //Act
+      expect(Scrabble.score(hundredPointword)).toBe(100)
+      player.play(hundredPointword);
+
+      //Assert
+      expect(player.hasWon()).toBe(true)
+      expect(player.totalScore()).toBe(100)
 
     });
 
-    test.skip('returns true when score == 100', () => {
+    test('returns true when score > 100', () => {
+      //Arrange
+      const player = new Scrabble.Player('a player');
+      let overhundredPointword = 'zzzzzzz';
 
+      //Act
+      expect(Scrabble.score(overhundredPointword)).toBe(120)
+      player.play(overhundredPointword);
 
-    });
-
-    test.skip('returns true when score > 100', () => {
+      //Assert
+      expect(player.hasWon()).toBe(true)
+      expect(player.totalScore()).toBe(120)
 
 
     });
