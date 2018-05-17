@@ -75,16 +75,34 @@ const Scrabble = {
       if (word == undefined || !isNaN(word)) {
         throw "Real word is required"
       }
+
       this.plays.push(word)
+
       return word
       /// will return false if player has already won
+    }
+    totalScore() {
+      if (this.plays.length == 0) {
+        return 0
+      }
+
+      let scores = []
+      this.plays.forEach(function(word) {
+        let score = Scrabble.score(word);
+        scores.push(score)
+      })
+      const reducer = (accumulator, currentValue) => accumulator + currentValue;
+      return scores.reduce(reducer);
     }
   };
 
 
   module.exports = Scrabble;
 
-// let player = new Scrabble.Player('test')
-// console.log(player);
-// console.log(player.play(33));
-// console.log(player.play('hello'));
+  let player = new Scrabble.Player('test')
+  // console.log(player);
+  // console.log(player.play(33));
+  console.log(player.play('hello'));
+  console.log(player.play('hello'));
+  console.log(player.play('hello'));
+  console.log(player.totalScore());
