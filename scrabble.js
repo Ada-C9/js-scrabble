@@ -90,11 +90,16 @@ const Scrabble ={
 };
 
 Scrabble.Player = class {
-  constructor(name,plays){
+  constructor(name){
+    if (name== undefined){
+      throw new UserException('You must provide a name');
+    }
     this.name = name;
     this.plays = [];
+    this.score = 0;
+
   }
-  plays(word){
+  play(word){
 
     if (word === undefined || !(/^[a-zA-Z]+$/.test(word))) {
       throw new UserException('You must provide a word');
@@ -108,21 +113,27 @@ Scrabble.Player = class {
 
   totalScore(){
     let total = 0;
-    this.plays.forEach(function (word) {
+    this.plays.forEach(function (word){
       total += Scrabble.score(word)
     });
     return total;
   }
-
-
   hasWon()
   {
-    return this.total >= 100 ? ( true) : (false);
+    if(this.totalScore() >=100){
+      return true;
+    }
+    else {
+
+      return false;
+    }
   }
+
+
+  highestScoringWord(){
 }
 
-
-
+}
 
 
 
