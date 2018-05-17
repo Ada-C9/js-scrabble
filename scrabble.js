@@ -98,7 +98,14 @@ Scrabble.Player = class {
 
   totalScore() {
     return this.currentScore;
-}
+  }
+
+  highestScoringWord() {
+    if (this.plays === []){
+      throw new Error ('No words played')
+    }
+    return Scrabble.highestScoreFrom(this.plays);
+  }
 };
 
 
