@@ -1,4 +1,4 @@
-const scoreChart = {
+const SCORECHART = {
   "A": 1,
   "E": 1,
   "I": 1,
@@ -31,13 +31,33 @@ const Scrabble = {
   score(word) {
     this.word = word;
 
-  },
-  highestScoreFrom(arrayOfWords) {
-    if (this.word) {
-      return true;
+    // Need to check input to be consistent to uppercase
+    // Then need to increment through each letter to tally score.
+    // if statement for when word is 7 characters exact long
+    // else statement for >7 that word cannot be that long
+
+    let uppercaseWord = word.toUpperCase();
+    let wordArray = uppercaseWord.split("");
+    let score = 0
+
+    for (let i = 0; i < uppercaseWord.length; i++) {
+      if (SCORECHART.hasOwnProperty(wordArray[i])) {
+        score += SCORECHART[wordArray[i]];
+      }
     }
 
+  if (wordArray.length ===7) {
+    score += 50;
+  }
+    return score
   },
+  
+  // highestScoreFrom(arrayOfWords) {
+  //   if (this.word) {
+  //     return true;
+  //   }
+  //
+  // },
 };
 
 Scrabble.Player = class {
