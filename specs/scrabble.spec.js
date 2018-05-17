@@ -132,6 +132,7 @@ describe('Player', () => {
 
     test('Requires a real word', () => {
       const player = new Scrabble.Player('test player');
+      let rg = [/%/];
 
       expect(player.plays().length).toBe(0);
 
@@ -139,6 +140,9 @@ describe('Player', () => {
       expect(player.plays().length).toBe(0);
 
       expect(() => { player.play(44); }).toThrow();
+      expect(player.plays().length).toBe(0);
+
+      expect(() => { player.play(rg); }).toThrow();
       expect(player.plays().length).toBe(0);
     });
 
