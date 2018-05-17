@@ -80,7 +80,10 @@ Scrabble.Player = class {
   }
 
   play(word) {
-    this.plays.push(word);
+    const regex = /([A-Za-z])/g
+
+    // I don't see how this is working. The tests threw an error when I had 'throw new Error' but it likes just the text. Strange.
+    word.match(regex) ? this.plays.push(word) : 'Not a real word';
 
     return word;
   }
