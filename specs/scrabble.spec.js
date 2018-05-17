@@ -161,7 +161,7 @@ describe('Player', () => {
       expect(player.totalScore()).toBe(0);
     });
 
-    test.skip('Is updated by play', () => {
+    test('Is updated by play', () => {
       // Arrange
       const player = new Scrabble.Player('test player');
       const words = [{word: 'dog', score: 5}, {word: 'cat', score: 5}, {word: 'goat', score: 5}];
@@ -181,17 +181,17 @@ describe('Player', () => {
   });
 
   describe('hasWon', () => {
-    test.skip('returns false when score < 100', () => {
+    test('returns false when score < 100', () => {
+      
+
+    });
+
+    test('returns true when score == 100', () => {
 
 
     });
 
-    test.skip('returns true when score == 100', () => {
-
-
-    });
-
-    test.skip('returns true when score > 100', () => {
+    test('returns true when score > 100', () => {
 
 
     });

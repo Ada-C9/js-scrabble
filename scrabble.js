@@ -13,7 +13,6 @@ const Scrabble = {
     let letterArray = []
     if (word.match(validLetters)) {
       letterArray = word.toLowerCase().split("");
-      console.log(letterArray);
     } else {
       throw 'Please enter valid input';
     }
@@ -110,6 +109,7 @@ Scrabble.Player = class {
     } else {
         this.name = name;
         this.plays = [];
+        this.playerTotal = 0;
     }
   }
 
@@ -129,20 +129,22 @@ Scrabble.Player = class {
   }
 
   totalScore() {
+
     if (this.plays.length === 0) {
       return 0;
     } else {
-      //
-    }
+        for (let word of this.plays) {
+          this.playerTotal += Scrabble.score(word);
+          console.log(this.playerTotal);
+        }
+    } return this.playerTotal;
   }
+
+  hasWon() {
+    return this.playerTotal >= 100;
+  }
+
 };
 
 
 module.exports = Scrabble;
-
-// Driver code
-let words = ['ate','academy']
-console.log(Scrabble.highestScoreFrom(words))
-
-let anne = new Scrabble.Player('Anne');
-console.log(anne.play('apple'));
