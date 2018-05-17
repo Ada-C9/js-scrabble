@@ -30,6 +30,15 @@ const SCORECHART = {
 const Scrabble = {
   score(word) {
     this.word = word;
+    // Need to test for invalid 'word'
+    // if (!/^[a-zA-Z]+$/.test(word)) {
+    if (!word.match(/^[a-zA-z]+$/)) {
+      throw 'Input is not a word';
+    }
+
+
+
+
 
     // Need to check input to be consistent to uppercase
     // Then need to increment through each letter to tally score.
@@ -51,7 +60,7 @@ const Scrabble = {
   }
     return score
   },
-  
+
   // highestScoreFrom(arrayOfWords) {
   //   if (this.word) {
   //     return true;
