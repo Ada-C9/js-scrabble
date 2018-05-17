@@ -232,7 +232,7 @@ describe('Player', () => {
     test('returns the score of the highest scoring word played', () => {
       const player = new Scrabble.Player('test player');
       player.play('cat');
-      player.play('zzzz');
+      player.play('qqqq');
 
       expect(player.highestWordScore()).toBe(40);
     });
@@ -244,9 +244,23 @@ describe('Player', () => {
     });
   });
 
+  describe('rageQuit', () => {
+    test('empties the tile bag of all tiles', () => {
+      const player = new Scrabble.Player('test player');
+
+      player.rageQuit();
+
+      expect(player.tileBag.tilesCount()).toBe(0);
+    });
+  });
+
+
   describe('drawTiles', () => {
     test('draws tiles based on current hand size', () => {
       const player = new Scrabble.Player('test player');
+
+      let availableTiles = player.tileBag.tilesCount();
+      expect(availableTiles).toBe(98);
 
       player.drawTiles();
 
@@ -255,11 +269,55 @@ describe('Player', () => {
 
     test('decrements available tiles in TILEBAG', () => {
       const player = new Scrabble.Player('test player');
-      let oldTileCount = Scrabble.tilesCount();
+      let oldTileCount = player.tileBag.tilesCount();
 
       player.drawTiles();
 
-      expect(Scrabble.tilesCount()).toBe(oldTileCount - player.hand.length)
+      expect(player.tileBag.tilesCount()).toBe(oldTileCount - player.hand.length)
+    });
+
+    test('only returns tiles if there are tiles available', () => {
+      const player = new Scrabble.Player('test player');
+      let times = player.tileBag.tilesCount() / 7 ;
+      for (let i = 0; i < times; i++) {
+        player.hand.length = 0;
+        expect(player.hand.length).toBe(0);
+
+        player.drawTiles();
+        expect(player.hand.length).toBe(7);
+      }
+      expect(player.tileBag.tilesCount()).toBe(0);
     });
   });
+
+
+  // describe('checkHand', () => {
+  //   test('only allows plays if tiles are in hand', () => {
+  //     const player = new Scrabble.Player('test player');
+  //
+  //     player.drawTiles();
+  //
+  //     expect(player.hand.length).toBe(7);
+  //   });
+  //
+  //   test('decrements available tiles in TILEBAG', () => {
+  //     const player = new Scrabble.Player('test player');
+  //     let oldTileCount = player.tileBag.tilesCount();
+  //
+  //     player.drawTiles();
+  //
+  //     expect(player.tileBag.tilesCount()).toBe(oldTileCount - player.hand.length)
+  //   });
+  // });
+
+  describe('Scrabble.wordCheck()', () => {
+    test('is defined', () => {
+      expect(Scrabble.wordCheck()).toBeDefined();
+    });
+
+    test('checks dictionary to see if a valid word is valid', () => {
+      expect(Scrabble.wordCheck('cat')).toBe(true);
+    });
+  });
+
 });
