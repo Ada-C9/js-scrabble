@@ -122,35 +122,35 @@ describe('Player', () => {
       const word = 'dog';
       const player = new Scrabble.Player('test player');
 
-      expect(player.plays.length).toBe(0);
+      expect(player.plays().length).toBe(0);
 
       expect(player.play(word)).toBeTruthy();
 
-      expect(player.plays.length).toBe(1);
-      expect(player.plays[0]).toBe(word);
+      expect(player.plays().length).toBe(1);
+      expect(player.plays()[0]).toBe(word);
     });
 
     test('Requires a real word', () => {
       const player = new Scrabble.Player('test player');
 
-      expect(player.plays.length).toBe(0);
+      expect(player.plays().length).toBe(0);
 
       expect(() => { player.play(); }).toThrow();
-      expect(player.plays.length).toBe(0);
+      expect(player.plays().length).toBe(0);
 
       expect(() => { player.play(44); }).toThrow();
-      expect(player.plays.length).toBe(0);
+      expect(player.plays().length).toBe(0);
     });
 
     test('Returns false and does not update plays if the player has already won', () => {
       const player = new Scrabble.Player('test player');
 
       expect(player.play('zzzzzzz')).toBeTruthy(); // +120 pts
-      expect(player.plays.length).toBe(1);
+      expect(player.plays().length).toBe(1);
       expect(player.hasWon()).toBeTruthy();
 
       expect(player.play('dog')).toBe(false);
-      expect(player.plays.length).toBe(1);
+      expect(player.plays().length).toBe(1);
     });
   });
 
@@ -220,14 +220,24 @@ describe('Player', () => {
   describe('highestScoringWord', () => {
     // Tie-breaking logic is already described in the tests
     // for highestWordFrom, so we will not repeat it here.
-    test.skip('returns the highest scoring word played', () => {
+    test('returns the highest scoring word played', () => {
+      const player = new Scrabble.Player('test player');
+      const word1 = 'apple';
+      const word2 = 'dog';
 
+      player.play(word1);
+      player.play(word2);
 
+      expect(player.highestScoringWord()).toBe('apple');
     });
 
-    test.skip('throws an error if no words have been played', () => {
+    test('throws an error if no words have been played', () => {
+      const player = new Scrabble.Player('test player');
 
-
+      expect(() => {
+        player.play('').highestScoringWord();
+      }).toThrow();
+      expect(player.plays.length).toBe(0);
     });
   });
 

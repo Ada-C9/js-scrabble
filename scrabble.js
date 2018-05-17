@@ -94,7 +94,7 @@ const Scrabble = {
 Scrabble.Player = class {
   constructor(name) {
     this.name = name;
-    this.plays = [];
+    this.playsArray = [];
 
     if (this.name.length === 0) {
       throw 'Invalid name: must provide a name';
@@ -102,32 +102,32 @@ Scrabble.Player = class {
   }
 
   plays() {
-    return this.plays;
+    return this.playsArray;
   }
 
   play(word) {
-    if (this.hasWon()) {
-      return false;
-    }
-
     if (word === '') {
-      throw 'Invalid word.';
+      throw 'Invalid word, can\'t be empty.';
     }
-
+    
     for (let letter of word) {
       if (!Scrabble.isLetter(letter)) {
-        throw 'Invalid word.';
+        throw 'Invalid word';
       }
     }
 
-    this.plays.push(word);
-    return this.plays;
+    if (this.hasWon()) {
+      return false;
+    } else {
+      this.plays().push(word);
+      return Scrabble.score(word);
+    }
   }
 
   totalScore() {
     let playerScore = 0;
 
-    this.plays.forEach((word) => {
+    this.plays().forEach((word) => {
       playerScore += Scrabble.score(word);
     });
 
@@ -142,6 +142,9 @@ Scrabble.Player = class {
     }
   }
 
+  highestScoringWord() {
+    return Scrabble.highestScoreFrom(this.plays());
+  }
 
 };
 
