@@ -106,17 +106,21 @@ Scrabble.Player = class {
   }
 
   hasWon() {
-    let totalScore = 0;
-
-    this.plays.forEach(function(word) {
-      totalScore += Scrabble.score(word);
-    });
-
-    if (totalScore < 100) {
+    if (this.totalScore() < 100) {
       return false;
     }
 
     return true;
+  }
+
+  totalScore() {
+    let total = 0;
+
+    this.plays.forEach(function(word) {
+      total += Scrabble.score(word);
+    });
+
+    return total;
   }
 };
 
