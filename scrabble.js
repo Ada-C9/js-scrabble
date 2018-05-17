@@ -34,9 +34,8 @@ const Scrabble = {
   validate(word) {
     let valid = /^[A-Za-z]+$/;
     let match = word.match(valid) && word.length <= 7 ? true : false;
-    // let check = this.wordCheck(word)
-    // return match && check;
-    return match
+    let check = this.wordCheck(word)
+    return match && check;
   },
 
   score(word) {
