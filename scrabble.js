@@ -101,15 +101,19 @@ Scrabble.Player = class {
   }
 
   play(word) {
-    const wordUp = word.toUpperCase();
-    let wordLetters = wordUp.split('');
-    if (wordLetters.length === 0) {
-      throw "No word was given!";
-    }
-    if (this.wordPrep(wordLetters)) {
-      this.plays.push(word);
-      return `You successfully played ${word}!`;
+    if (this.hasWon()) {
+      return false;
+    } else {
+      const wordUp = word.toUpperCase();
+      let wordLetters = wordUp.split('');
+      if (wordLetters.length === 0) {
+        throw "No word was given!";
       }
+      if (this.wordPrep(wordLetters)) {
+        this.plays.push(word);
+        return `You successfully played ${word}!`;
+      }
+    }
   }
 
   wordPrep (wordLetters) {
@@ -136,20 +140,34 @@ Scrabble.Player = class {
     if (this.totalScore() < 100) {
       return false;
     } else {
-      return true
+      return true;
     }
   }
 
+  highestScoringWord() {
+    if (this.plays.length === 0) {
+      throw 'No words have been played!';
+    }
+    let bestWord = this.plays[0];
+    for (let i = 1; i <= this.plays.length -1; i += 1) {
+      if (Scrabble.score(this.plays[i]) > Scrabble.score(bestWord)) {
+        bestWord = this.plays[i];
+      }
+    }
+    return bestWord;
+  }
+
+  highestWordScore() {
+    return Scrabble.score(this.highestScoringWord())
+  }
 }
 module.exports = Scrabble;
 
 
 
-  //
-  // highestScoringWord() {
-  //
-  // }
-  //
-  // highestWordScore() {
-  //
-  // }
+// const player = new Scrabble.Player('test player');
+// player.play('hi');
+// player.play('koala');
+// player.play('quick');
+// player.play('to');
+// console.log(player.highestScoringWord());
