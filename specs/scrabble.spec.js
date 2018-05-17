@@ -234,22 +234,28 @@ describe('Player', () => {
     test('throws an error if no words have been played', () => {
       const player = new Scrabble.Player('test player');
 
-      expect(() => {
-        player.play('').highestScoringWord();
-      }).toThrow();
+      expect(() => { player.play('').highestScoringWord(); }).toThrow();
       expect(player.plays.length).toBe(0);
     });
   });
 
   describe('highestWordScore', () => {
-    test.skip('returns the score of the highest scoring word played', () => {
+    test('returns the score of the highest scoring word played', () => {
+      const player = new Scrabble.Player('test player');
+      const word1 = 'apple';
+      const word2 = 'dog';
 
+      player.play(word1);
+      player.play(word2);
 
+      expect(player.highestWordScore()).toBe(9);
     });
 
-    test.skip('throws an error if no words have been played', () => {
+    test('throws an error if no words have been played', () => {
+      const player = new Scrabble.Player('test player');
 
-
+      expect(() => { player.play('').highestWordScore(); }).toThrow();
+      expect(player.plays.length).toBe(0);
     });
   });
 });

@@ -35,7 +35,6 @@ const Scrabble = {
 
   score(word) {
     word = word.toLowerCase();
-    // let scrabbleWord = word.split('');
     let totalScore = 0;
 
     if (word.length > 7) {
@@ -46,10 +45,8 @@ const Scrabble = {
       totalScore += 50;
     }
 
-    // output the score of each letter in a word
-    // find the total score of the word
     for (let letter of word) {
-      if (this.isLetter(letter) === true) {
+      if (this.isLetter(letter)) {
         totalScore += scrabbleTiles[letter];
       } else {
         throw 'Invalid word: must include letters that are acceptable.';
@@ -77,7 +74,6 @@ const Scrabble = {
     return topWord;
   },
 
-
   breakTie(originWinner, challenger) {
     if (originWinner.length === 7) {
       return originWinner;
@@ -93,12 +89,12 @@ const Scrabble = {
 
 Scrabble.Player = class {
   constructor(name) {
-    this.name = name;
-    this.playsArray = [];
-
-    if (this.name.length === 0) {
+    if (!name) {
       throw 'Invalid name: must provide a name';
     }
+
+    this.name = name;
+    this.playsArray = [];
   }
 
   plays() {
@@ -109,7 +105,7 @@ Scrabble.Player = class {
     if (word === '') {
       throw 'Invalid word, can\'t be empty.';
     }
-    
+
     for (let letter of word) {
       if (!Scrabble.isLetter(letter)) {
         throw 'Invalid word';
@@ -135,15 +131,15 @@ Scrabble.Player = class {
   }
 
   hasWon() {
-    if (this.totalScore() >= 100) {
-      return true;
-    } else {
-      return false;
-    }
+    return this.totalScore() >= 100
   }
 
   highestScoringWord() {
     return Scrabble.highestScoreFrom(this.plays());
+  }
+
+  highestWordScore() {
+    return Scrabble.score(this.highestScoringWord());
   }
 
 };
