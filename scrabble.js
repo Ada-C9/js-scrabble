@@ -1,3 +1,4 @@
+// Start Scores Object
 const scores = {
   'A': 1,
   'E': 1,
@@ -26,8 +27,22 @@ const scores = {
   'Q': 10,
   'Z': 10
 }
+
+// Start Scrabble Object
 const Scrabble = {
+  // helper method will return true if input word is valid
+  isValid(word) {
+    if (typeof word !== 'string') {
+      return false;
+    }
+
+    if ( /^[a-zA-Z]+$/.test(word) ) {
+      return true;
+    }
+  },
+
   score(word) {
+    // validations on word input
     if ( !Scrabble.isValid(word) ) {
       throw new Error('Please enter valid letters.');
     }
@@ -36,6 +51,7 @@ const Scrabble = {
       throw new Error('Word must be no more than 7 letters.');
     }
 
+    // begin scoring word functionality
     word = word.toUpperCase();
     let wordScore = [];
 
@@ -53,10 +69,12 @@ const Scrabble = {
   },
 
   highestScoreFrom(arrayOfWords) {
+    // validation on array of words
     if (arrayOfWords.length === 0) {
       throw new Error('No words were passed.');
     }
 
+    // begin highest score functionality
     let topScores = [];
     let maxScore = 0;
 
@@ -87,19 +105,11 @@ const Scrabble = {
       return shortestWord;
     }
     return topScores[0]
-  },
-
-  isValid(word) {
-    if (typeof word !== 'string') {
-      return false;
-    }
-
-    if ( /^[a-zA-Z]+$/.test(word) ) {
-      return true;
-    }
   }
+
 };
 
+// Begin player Class
 Scrabble.Player = class {
   constructor(name) {
     if (name == null) {
@@ -156,8 +166,53 @@ Scrabble.Player = class {
 
 };
 
+// Begin player Class
+Scrabble.TileBag = class {
+  constructor() {
+    this.tiles = [];
+    this.letters = [
+      'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A',
+      'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E',
+      'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I',
+      'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O',
+      'U', 'U', 'U', 'U',
+      'L', 'L', 'L', 'L',
+      'N', 'N', 'N', 'N', 'N', 'N',
+      'R', 'R', 'R', 'R', 'R', 'R',
+      'S', 'S', 'S', 'S',
+      'T', 'T', 'T', 'T', 'T', 'T',
+      'D', 'D', 'D', 'D',
+      'G', 'G', 'G',
+      'B', 'B',
+      'C', 'C',
+      'M', 'M',
+      'P', 'P',
+      'F', 'F',
+      'H', 'H',
+      'V', 'V',
+      'W', 'W',
+      'Y', 'Y',
+      'K',
+      'J',
+      'X',
+      'Q',
+      'Z'
+     ]
+  }
+
+  drawTiles(num) {
+    // check num of tiles
+    for (let i = 1; i <= num; i++) {
+      let random_num = Math.floor(Math.random() * this.letters.length) + 1;
+      this.tiles.push(this.letters[random_num]);
+      this.letters.splice(random_num, 1);
+    }
+  }
+};
+
 
 module.exports = Scrabble;
+console.log(Scrabble.scores);
 // let sam = new Scrabble.Player('Sam');
 // console.log(sam.name);
 // sam.play('cat');
