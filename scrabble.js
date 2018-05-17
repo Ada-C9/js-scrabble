@@ -44,7 +44,7 @@ const Scrabble = {
   },
   highestScoreFrom(arrayOfWords) {
     if (arrayOfWords.length < 1 || !(arrayOfWords instanceof Array) ){
-      throw new Error ('This is not an array of words.')
+      throw new Error('This is not an array of words.')
     }
     // go through the array and score each word if score of word is highest, keep word in varible
     let max = this.score(arrayOfWords[0]);
@@ -73,7 +73,7 @@ const Scrabble = {
 Scrabble.Player = class {
   constructor(name) {
     if (name.length === 0) {
-      throw new Error ('Name required')
+      throw new Error('Name required')
     }
     this.name = name;
     this.plays = [];
@@ -101,10 +101,15 @@ Scrabble.Player = class {
   }
 
   highestScoringWord() {
-    if (this.plays === []){
-      throw new Error ('No words played')
+    if (this.plays == []){
+      throw new Error('No words played')
+    } else {
+      return Scrabble.highestScoreFrom(this.plays);
     }
-    return Scrabble.highestScoreFrom(this.plays);
+  }
+
+  highestWordScore() {
+    return Scrabble.score(this.highestScoringWord());
   }
 };
 
