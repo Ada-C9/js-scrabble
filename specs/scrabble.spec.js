@@ -225,8 +225,10 @@ describe('Player', () => {
 
   describe('highestWordScore', () => {
     test.skip('returns the score of the highest scoring word played', () => {
-
-
+      let player = new Scrabble.Player('test player');
+      player.play('cat');
+      player.play('zzzz');
+      expect(player.highestWordScore()).toBe(40);
     });
 
     test.skip('throws an error if no words have been played', () => {

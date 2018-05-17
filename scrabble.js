@@ -105,16 +105,15 @@ const Scrabble = {
     } // end of constructor
 
     play(word) {
-      let regex = /^[a-zA-Z]+$/;
 
-      if (word === undefined || !regex.test(word)) {
+      if (word === undefined || typeof(word) !== 'string') {
         throw 'Invalid word';
       }
 
       if (!this.hasWon()) {
         this.plays.push(word);
         return true;
-        }
+      }
       else {
         return false;
       }
@@ -139,9 +138,14 @@ const Scrabble = {
     } //end of hasWon
 
     highestScoringWord() {
-     let bestWord = Scrabble.highestScoreFrom(this.plays);
-     return bestWord;
-   }
+      let bestWord = Scrabble.highestScoreFrom(this.plays);
+      return bestWord;
+    }
+
+    highestWordScore() {
+      let bestWord = this.highestScoringWord();
+      return Scrabble.score(bestWord);
+    }
 
 
   }; // end of Player class
