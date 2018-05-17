@@ -150,7 +150,7 @@ const checkWord = function checkWord(input){
   if (input.length === 0 || input.length > 7){
     throw 'Invalid input length';
   }
-  
+
   if (REGEX.test(input) === false){
     throw 'Only letters allowed';
   }
@@ -168,9 +168,9 @@ const checkBonus = function checkBonus(word){
   }
 }
 
-const bag = new Scrabble.TileBag();
-console.log(`My tilebag is: ${bag.bag}`);
-console.log(`My letter: ${bag.drawTile(4)}`);
-console.log(`My tilebag is: ${bag.bag}`);
+// const bag = new Scrabble.TileBag();
+// console.log(`My tilebag is: ${bag.bag}`);
+// console.log(`My letter: ${bag.drawTile(4)}`);
+// console.log(`My tilebag is: ${bag.bag}`);
 
 module.exports = Scrabble;
