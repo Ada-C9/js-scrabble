@@ -110,13 +110,16 @@ Scrabble.Player = class {
   }
 
   highestScoringWord(){
-    if (this.plays.length == 0) {
-      throw new Error('No words have been played yet.')
+    if (this.plays.length === 0) {
+      throw new Error('No word has been played yet.')
     }
     return Scrabble.highestScoreFrom(this.plays);
   }
 
   highestWordScore(){
+    if (this.plays.length === 0) {
+      throw new Error('No word has been played yet.')
+    }
     return Scrabble.score(this.highestScoringWord())
   }
 

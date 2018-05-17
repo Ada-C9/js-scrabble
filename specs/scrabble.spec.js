@@ -252,7 +252,7 @@ describe('Player', () => {
 
       // expect(player.highestScoringWord()).toThrow();
 
-    expect(() => player.highestScoringWord()).toThrow('No words have been played yet.');
+    expect(() => player.highestScoringWord()).toThrow('No word has been played yet.');
     });
   });
 
@@ -272,8 +272,10 @@ describe('Player', () => {
 
     });
 
-    test.skip('throws an error if no words have been played', () => {
+    test('throws an error if no words have been played', () => {
+        const player = new Scrabble.Player('a player');
 
+      expect(() => player.highestWordScore()).toThrow('No word has been played yet.');
 
     });
   });
