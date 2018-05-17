@@ -38,8 +38,8 @@ const Scrabble = {
 
     let score = 0;
 
-    letters.forEach(function(letter) {
-      if ( LETTER_VALUES[letter] === undefined ) {
+    letters.forEach((letter) => {
+      if (!LETTER_VALUES[letter]) {
         throw new Error('Invalid input: word may only contain letters');
       }
       score += LETTER_VALUES[letter];
@@ -58,33 +58,33 @@ const Scrabble = {
 
     let maxWord = arrayOfWords[0]
 
-    arrayOfWords.forEach(function(word) {
+    arrayOfWords.forEach((word) => {
       if (Scrabble.score(word) > Scrabble.score(maxWord)) {
         maxWord = word;
       }
       else if (Scrabble.score(word) === Scrabble.score(maxWord)) {
-        maxWord = Scrabble.tieBreaker(word, maxWord);
+        maxWord = Scrabble.tieBreaker(maxWord, word);
       }
     });
     return maxWord;
   },
 
-  tieBreaker(word, maxWord) {
-    if (word.length === 7 && maxWord.length !== 7) {
-      return word;
-    } else if (maxWord.length === 7 && word.length !== 7) {
-      return maxWord;
-    } else if (word.length < maxWord.length) {
-      return word;
+  tieBreaker(first, second) {
+    if (first.length === 7) {
+      return first
+    } else if (second.length === 7) {
+      return second;
+    } else if (second.length < first.length) {
+      return second;
     } else {
-      return maxWord;
+      return first;
     }
   }
 };
 
 Scrabble.Player = class {
   constructor(name) {
-    if (name === undefined) {
+    if (!name) {
       throw new Error('A name must be provided for each player.');
     }
 
@@ -104,7 +104,7 @@ Scrabble.Player = class {
 
   totalScore() {
     let totalScore = 0;
-    this.plays.forEach(function(word) {
+    this.plays.forEach((word) => {
       totalScore += Scrabble.score(word)
     });
     return totalScore;
@@ -118,10 +118,10 @@ Scrabble.Player = class {
     if (this.plays.length === 0) {
       throw new Error('Player has not played any words yet');
     }
-    
+
     let maxWord = this.plays[0];
 
-    this.plays.forEach(function(word) {
+    this.plays.forEach((word) => {
       if (Scrabble.score(word) > Scrabble.score(maxWord)) {
         maxWord = word;
       }
