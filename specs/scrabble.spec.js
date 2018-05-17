@@ -200,24 +200,24 @@ describe('Player', () => {
   describe('highestScoringWord', () => {
     // Tie-breaking logic is already described in the tests
     // for highestWordFrom, so we will not repeat it here.
-    test.skip('returns the highest scoring word played', () => {
+    test('returns the highest scoring word played', () => {
 
 
     });
 
-    test.skip('throws an error if no words have been played', () => {
+    test('throws an error if no words have been played', () => {
 
 
     });
   });
 
   describe('highestWordScore', () => {
-    test.skip('returns the score of the highest scoring word played', () => {
+    test('returns the score of the highest scoring word played', () => {
 
 
     });
 
-    test.skip('throws an error if no words have been played', () => {
+    test('throws an error if no words have been played', () => {
 
 
     });

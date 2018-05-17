@@ -69,7 +69,7 @@ const Scrabble ={
     return maxWord;
   },
 
-  highestScoreFrom: function highestScoreFrom(words) {
+  highestScoreFrom(words) {
     let maxScore = 0;
     let maxWord = '';
     if (words.length === 0) {
@@ -120,21 +120,22 @@ Scrabble.Player = class {
   }
   hasWon()
   {
-    if(this.totalScore() >=100){
+    if(this.totalScore() >= 100){
       return true;
     }
     else {
-
       return false;
     }
   }
 
-
   highestScoringWord(){
+    return Scrabble.highestScoreFrom(this.plays)
 }
+ highestWordScore(){
+  return Scrabble.score(this.highestScoringWord)
 
 }
-
+}
 
 
   module.exports = Scrabble;
