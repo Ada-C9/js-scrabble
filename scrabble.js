@@ -36,7 +36,7 @@ const Scrabble = {
       } else if ((ScoreChart.ten).includes(letter)){
         score += 10;
       } else {
-        throw new Error(`${letter} is not a letter`);
+        throw new Error(`${letter} is not a letter. Word must be a valid word.`);
       }
     });
     return score
@@ -77,16 +77,28 @@ Scrabble.Player = class {
     }
     this.name = name;
     this.plays = [];
+    this.currentScore = 0
   }
 
   play(word) {
-    const regex = /([A-Za-z])/g
 
-    // I don't see how this is working. The tests threw an error when I had 'throw new Error' but it likes just the text. Strange.
-    word.match(regex) ? this.plays.push(word) : 'Not a real word';
+    if(this.hasWon() === true){
+      return false;
+    } else {
+      this.currentScore += Scrabble.score(word);
+      this.plays.push(word);
+    }
 
     return word;
   }
+
+  hasWon() {
+    return this.currentScore >= 100;
+  }
+
+  totalScore() {
+    return this.currentScore;
+}
 };
 
 
