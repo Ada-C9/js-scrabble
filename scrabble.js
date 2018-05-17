@@ -81,6 +81,42 @@ Scrabble.Player = class {
     if (name === null || name === undefined) {
       throw "every player must have a name";
     }
+
+    this.plays = [];
+  }
+
+  play(word) {
+    if (word === null || word === undefined) {
+      throw "every word must letters";
+    } else {
+      const regex_key = /^[a-z]+$/i;
+      const splitWord = word.split('');
+
+      splitWord.forEach(function (char) {
+        if (!regex_key.test(char)) {
+          throw "word can only contain letters";
+        }
+      });
+    }
+
+    if (this.hasWon()) return false;
+
+    this.plays.push(word);
+    return true;
+  }
+
+  hasWon() {
+    let totalScore = 0;
+
+    this.plays.forEach(function(word) {
+      totalScore += Scrabble.score(word);
+    });
+
+    if (totalScore > 100) {
+      return true;
+    }
+
+    return false;
   }
 };
 
