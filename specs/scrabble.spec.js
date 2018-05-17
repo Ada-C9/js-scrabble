@@ -182,7 +182,20 @@ describe('Player', () => {
 
   describe('hasWon', () => {
     test('returns false when score < 100', () => {
+      const player = new Scrabble.Player('test player');
+      const words = [{word: 'academy', score: 65}, {word: 'cat', score: 5}, {word: 'goat', score: 5}];
+      let totalScore = 0;
 
+      expect(player.totalScore()).toBe(0);
+      words.forEach((testWords) => {
+        // Act
+        player.play(testWords.word);
+        totalScore += testWords.score;
+
+        // Assert
+        expect(totalScore).toBeLessThan(100);
+        expect(player.hasWon()).toBe(false);
+      });
 
     });
 

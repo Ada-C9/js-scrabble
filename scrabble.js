@@ -127,7 +127,6 @@ Scrabble.Player = class {
   }
 
   plays() {
-    //this should return an array of the words that a player has played so far
     return this.plays;
   }
 
@@ -139,7 +138,7 @@ Scrabble.Player = class {
         for (let word of this.plays) {
           totalScore += Scrabble.score(word);
         }
-      return totalScore;  
+      return totalScore;
     }
   }
 
