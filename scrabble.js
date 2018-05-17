@@ -30,16 +30,20 @@ const letters = {
 const Scrabble = {
   score(word) {
     let valid = /^[a-zA-Z]+$/;
+
     if (word === "" || word.length > 7 || !word.match(valid)) {
       throw "Not allowed";
     }
+
     let word_split = word.toUpperCase().split('');
     let word_value = 0;
+
     word_split.forEach((letter) => {
       if (letters[letter]) {
         word_value += letters[letter];
       }
     });
+
     if (word_split.length === 7) {
       word_value += 50;
     }
@@ -48,30 +52,96 @@ const Scrabble = {
   breakTie(incumbent, challenger){
     if (incumbent.length === 7) {
       return incumbent;
-    } else {
+    } else if (challenger.length === 7) {
       return challenger;
+    } else if (challenger.length < incumbent.length) {
+      return challenger;
+    } else {
+      return incumbent;
     }
   },
   highestScoreFrom(arrayOfWords) {
     if (arrayOfWords === []) {
       return null;
-    } else if (arrayOfWords.length == 1) {
+    }
+
+    if (arrayOfWords.length == 1) {
       return arrayOfWords[0];
-    } else {
-      let best_word = arrayOfWords[0]; 
-      arrayOfWords.forEach((word) => {
-        if (score(word) > score(best_word)) {
-          best_word = word;
-        } else if (score(word) === score(best_word)) {
-          breakTie(best_word, word);
-        }
-      });
+    }
+
+    let best_word = arrayOfWords[0];
+    let best_score = this.score(best_word);
+
+    for (let i = 1; i < arrayOfWords.length; i+= 1) {
+      word = arrayOfWords[i]
+      score = this.score(word)
+      if (score > best_score) {
+        best_word = word;
+        best_score = score;
+      }
+      if (score === best_score) {
+        best_word = this.breakTie(best_word, word);
+      }
     }
     return best_word;
-  },
+  }
 };
 
 Scrabble.Player = class {
+  constructor(name){
+    if (!name) {
+      throw "You must enter a name";
+    }
+    this.name = name;
+    this.plays = [];
+    this.score = 0;
+  }
+
+  name() {
+    return this.name;
+  }
+
+  plays() {
+    return this.plays;
+  }
+
+  wordValidator(word) {
+    let valid = /^[a-zA-Z]+$/;
+    if (word === "" || word.length > 7 || !word.match(valid)) {
+      throw "Not allowed";
+    }
+  }
+
+  play(word) {
+    if (this.hasWon()) {
+      return false;
+    }
+    this.wordValidator(word);
+
+    let word_score = 0;
+    if (this.plays.includes(word)) {
+      throw "You have already played this word";
+    } else {
+      this.plays.push(word);
+      word_score = Scrabble.score(word);
+      this.score += word_score;
+    }
+    return word_score;
+  }
+
+  totalScore(){
+    return this.score;
+  }
+  hasWon(){
+    return this.score >= 100;
+  }
+  highestScoringWord() {
+    return Scrabble.highestWordScore(this.plays);
+  }
+  highestWordScore() {
+    best_word = highestScoringWord();
+    return Scrabble.score(best_word);
+  }
 
 };
 
