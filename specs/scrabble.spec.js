@@ -180,6 +180,23 @@ describe('Player', () => {
     });
   });
 
+  describe('plays', () => {
+    test('returns array of played words'), () => {
+      const player = new Scrabble.Player('test player');
+      const words = [{word: 'academy', score: 65}, {word: 'cat', score: 5}, {word: 'goat', score: 5}];
+
+      expect(player.totalScore()).toBe(0);
+      words.forEach((testWords) => {
+        // Act
+        player.play(testWords.word);
+
+        // Assert
+        expect(player.plays()).toHaveLength(3);
+        //kind of array??
+      });
+    };
+  });
+
   describe('hasWon', () => {
     test('returns false when score < 100', () => {
       const player = new Scrabble.Player('test player');
@@ -193,19 +210,18 @@ describe('Player', () => {
         totalScore += testWords.score;
 
         // Assert
+        expect(player.totalScore()).toBe(totalScore);
         expect(totalScore).toBeLessThan(100);
         expect(player.hasWon()).toBe(false);
       });
 
     });
 
-    test('returns true when score == 100', () => {
-
+    test.skip('returns true when score == 100', () => {
 
     });
 
-    test('returns true when score > 100', () => {
-
+    test.skip('returns true when score > 100', () => {
 
     });
   });
@@ -214,24 +230,53 @@ describe('Player', () => {
     // Tie-breaking logic is already described in the tests
     // for highestWordFrom, so we will not repeat it here.
     test('returns the highest scoring word played', () => {
+      const player = new Scrabble.Player('test player');
+      const words = [{word: 'academy', score: 65}, {word: 'cat', score: 5}, {word: 'goat', score: 5}];
 
 
+      expect(player.totalScore()).toBe(0);
+      words.forEach((testWords) => {
+        // Act
+        player.play(testWords.word);
+
+        expect(player.highestScoringWord()).toEqual('academy');
+      });
     });
 
     test('throws an error if no words have been played', () => {
+      const player = new Scrabble.Player('test player');
 
+      expect(player.plays.length).toEqual(0);
+      expect(() => {
+        player.highestScoringWord();
+      }).toThrow();
 
     });
   });
 
   describe('highestWordScore', () => {
     test('returns the score of the highest scoring word played', () => {
+      const player = new Scrabble.Player('test player');
+      const words = [{word: 'academy', score: 65}, {word: 'cat', score: 5}, {word: 'goat', score: 5}];
 
+
+      expect(player.totalScore()).toBe(0);
+      words.forEach((testWords) => {
+        // Act
+        player.play(testWords.word);
+
+        expect(player.highestWordScore()).toEqual(65);
+      });
 
     });
 
     test('throws an error if no words have been played', () => {
+      const player = new Scrabble.Player('test player');
 
+      expect(player.plays.length).toEqual(0);
+      expect(() => {
+        player.highestWordScore();
+      }).toThrow();
 
     });
   });

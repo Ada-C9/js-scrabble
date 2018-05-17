@@ -146,6 +146,14 @@ Scrabble.Player = class {
     return this.playerTotal >= 100;
   }
 
+  highestScoringWord() {
+    return Scrabble.highestScoreFrom(this.plays);
+  }
+
+  highestWordScore() {
+    return Scrabble.score(this.highestScoringWord());
+  }
+
 };
 
 
