@@ -72,16 +72,53 @@ const Scrabble = {
 };
 
 // console.log(Scrabble.score('nicolet'));
-//
-// Scrabble.Player = class {
-//   constructor(name) {
-//     if (!name) {
-//       throw ('player must have a name');
-//     }
-//
-//     this.name = name;
-//     this.plays = [];
-//   }
 
-// };
+Scrabble.Player = class {
+  constructor(name) {
+    if (!name) {
+      throw ('player must have a name');
+    } else {
+      this.name = name;
+    }
+
+    this.plays = [];
+
+  }
+
+  play(word) {
+    if (word === undefined || (typeof word !== 'string')) {
+      throw ('not a real word');
+    } else if (this.hasWon()) {
+      return false;
+    } else {
+      this.plays.push(word);
+      return true;
+    }
+  }
+
+  plays() {
+    return this.plays;
+  }
+
+  hasWon() {
+    return this.totalScore() >= 100 ? true : false;
+  }
+
+  totalScore() {
+    let points = 0;
+    this.plays.forEach(function (word) {
+      points += Scrabble.score(word);
+    });
+
+    return points;
+  }
+
+  highestScoringWord() {
+    return Scrabble.highestScoreFrom(this.plays);
+  }
+
+  highestWordScore() {
+    return Scrabble.score(this.highestScoringWord());
+  }
+};
 module.exports = Scrabble;
