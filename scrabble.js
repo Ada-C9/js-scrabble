@@ -34,8 +34,6 @@ const Scrabble = {
     word = word.toUpperCase();
 
     // check to see if word is a string then raise error if not
-
-
     if (typeof word !== 'string' || word.length > 7 || word.length < 1) {
       throw 'Error! You must enter a word that is 1-7 letters long'
     }
@@ -54,7 +52,7 @@ const Scrabble = {
 
     let letterArray = word.split('');
 
-
+    // if letter is in letterArray, add it's value to wordScore
     for (let letter of letterArray) {
       for (let key in scoreChart) {
         if (letter === key) {
@@ -99,13 +97,12 @@ const Scrabble = {
 
   Scrabble.Player = class {
     constructor(name) {
-      if (name === undefined) {
+      if (name === undefined || name === null) {
         throw 'Player needs a name.';
       }
       this.name = name;
       this.plays = []
-
-    }
+    } // end of constructor
 
     play(word) {
       let regex = /^[a-zA-Z]+$/;
@@ -114,16 +111,23 @@ const Scrabble = {
         throw 'Invalid word';
       }
 
-      if (! this.hasWon()) {
-        if (this.plays.push(word)) {
-          return true;
+      if (!this.hasWon()) {
+        this.plays.push(word);
+        return true;
         }
-      } else {
+      else {
         return false;
       }
     } // end of play
 
+    totalScore() {
+      let total = 0;
 
+      for (let i = 0; i < this.plays.length; i++) {
+        total += Scrabble.score(this.plays[i]);
+      }
+      return total;
+    } // end of total score
 
     hasWon() {
       if (this.totalScore() >= 100) {
@@ -134,7 +138,18 @@ const Scrabble = {
       }
     } //end of hasWon
 
-  };
+    highestScoringWord() {
+     let bestWord = Scrabble.highestScoreFrom(this.plays);
+     return bestWord;
+   }
+
+
+  }; // end of Player class
+
+
+
+
+
 
   // do not comment me out.
   module.exports = Scrabble;
