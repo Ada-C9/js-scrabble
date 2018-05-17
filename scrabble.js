@@ -40,10 +40,10 @@ const Scrabble = {
     for (let letter of word) {
       if (Object.keys(scoringRubrik).includes(letter)) {
         wordScore += scoringRubrik[letter]
-      } else {
-        throw new Error('Enter valid letter.')
       }
-      // console.log(`letter is ${letter} and value is ${scoringRubrik[letter]}`)
+      // else {
+      //   throw new Error('Enter valid letter.')
+      // }
     }
     switch(true) {
       case (word.length == 7):
@@ -58,41 +58,44 @@ const Scrabble = {
     // console.log('Length is ' + typeof(length) + ' and it is ' + length)
   },
 
+  breakTie(incumbent, challenger) {
+    if (incumbent.length == 7) {
+      return incumbent;
+    } else if (challenger.length == 7) {
+      return challenger;
+    } else if (challenger.length < incumbent.length) {
+      return challenger;
+    } else {
+      return incumbent;
+    }
+  },
+
   highestScoreFrom(arrayOfWords) {
-    // return word in the array with the highest score.
-    // if the top score is tied between multiple words, pick the one with the fewest letters.
-    // Note that there is a bonus (50 points) for using all seven letters. If the top score is tied between multiple words and one used all seven letters, choose the one with seven letters over the one with fewer tiles.
-    // If the there are multiple words that are the same score and same length, pick the first one in supplied list.
     // if (arrayOfWords === undefined || arrayOfWords.length == 0) {
     //   throw 'No words passed!';
     // }
-      let max = arrayOfWords[0];
+      // let wordScores = {};
 
-      arrayOfWords.forEach(function(challengerScore) {
-        if (challengerScore > max) {
-          max = challengerScore;
+      let maxWord = arrayOfWords[0];
+      let maxScore = this.score(arrayOfWords[0]);
+
+      for (let word of arrayOfWords) {
+        let score = this.score(word);
+        // {'banana': 7}
+        // wordScores[word] = score;
+        if (score > maxScore) {
+          maxScore = score;
+          maxWord = word
+        } else if (score == maxScore) {
+          maxWord = this.breakTie(maxWord, word)
+          maxScore = this.score(maxWord)
         }
-      });
-    return max
+      }
+    return maxScore
   }
 }
 
-// breakTie(incumbent, challenger) {
-//   if (incumbent.length == 7) {
-//     return incumbent;
-//   } else if (challenger.length == 7) {
-//     return challenger;
-//   }
-//
-//   if (challenger.length > incumbent.length) {
-//     return incumbent;
-//   } else if (challenger.length < incumbent.length) {
-//     return  challenger
-//   } else if (incumbent.length == challenger.length) {
-//     return incumbent
-//   }
-// }
-
+// accessing player as a property of scrabble
 Scrabble.Player = class {
 };
 
@@ -100,7 +103,7 @@ module.exports = Scrabble;
 
 // console.log(Scrabble.score('qfc'));
 // console.log(Scrabble.score(999));
-console.log(Scrabble.highestScoreFrom([7,13,2]));
+console.log(Scrabble.highestScoreFrom(['zzzzzzz', 'zzzzzzq', 'jog']));
 
 // word.split().forEach(function(letter){
 //   if (Object.keys(scoringRubrik).includes(letter)) {
