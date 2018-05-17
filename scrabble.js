@@ -53,7 +53,24 @@ const Scrabble = {
 
 
   highestScoreFrom(arrayOfWords) {
+    scores = {}
 
+    if ((arrayOfWords.length == 0) || (Array.isArray(arrayOfWords) == false)) {
+      throw `No words were passed`;
+    } else {
+      for (word of arrayOfWords) {
+        scores[word] = Scrabble.score(word);
+      }
+    }
+
+    let maxScore = Math.max(...Object.values(scores));
+
+    let winningWord = arrayOfWords[0];
+      // for (word of arrayOfWords) {
+      //
+      // }
+
+    return scores
   },
 };
 
@@ -62,8 +79,37 @@ Scrabble.Player = class {
 };
 
 
-module.exports = Scrabble;
+
 
 // Scratch paper
-let myword = Scrabble.score(`Pickles`);
-console.log(myword);
+let myWord = Scrabble.score(`Pickles`);
+console.log(myWord);
+
+// Don't touch!
+module.exports = Scrabble;
+
+let arrayOfWords = [`Pickles`, `Pete`, `Petunia`];
+let scores = {};
+
+for (word of arrayOfWords) {
+  scores[word] = Scrabble.score(word);
+}
+
+console.log(arrayOfWords);
+// console.log(scores);
+
+let myWords = [`Pickles`, `Pete`, `Petunia`];
+console.log(myWords);
+console.log((myWords));
+let myWordsScores = Scrabble.highestScoreFrom(myWords);
+console.log((myWordsScores));
+
+let maxScore = Math.max(...Object.values(myWordsScores));
+console.log((maxScore));
+
+let winningWord = arrayOfWords[0];
+for (word of arrayOfWords) {
+  scores[word] = Scrabble.score(word);
+}
+
+console.log((myWordsScores[winningWord]));
