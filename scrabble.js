@@ -40,10 +40,9 @@ const Scrabble = {
     for (let letter of word) {
       if (Object.keys(scoringRubrik).includes(letter)) {
         wordScore += scoringRubrik[letter]
+      } else {
+        throw new Error('Enter valid letter.')
       }
-      // else {
-      //   throw new Error('Enter valid letter.')
-      // }
     }
     switch(true) {
       case (word.length == 7):
@@ -102,7 +101,6 @@ Scrabble.Player = class {
   }
 
   totalScore() {
-    // wordScores = wordsPlayed.map to each word and get score ; have new array in end
     let wordsPlayed = this.plays;
     let total = 0;
 
@@ -113,14 +111,10 @@ Scrabble.Player = class {
   }
 
   hasWon() {
-    // no explicit returns here
     return this.totalScore > 100 ? true: false;
   }
 
   play(word) {
-    // returns false if player has already won
-    // else allows you to play word
-    // push word into plays array
     if (this.hasWon == true) {
       return false;
     } else {
@@ -128,22 +122,30 @@ Scrabble.Player = class {
       return true;
     }
   }
+
+  highestScoringWord() {
+    let wordsPlayed = this.plays;
+    let highestScoringWord = Scrabble.highestScoreFrom(wordsPlayed);
+
+    return highestScoringWord;
+  }
+
+  highestWordScore() {
+    // returns highest scoring word score
+    let wordsPlayed = this.plays;
+    let highestWord = this.highestScoringWord(wordsPlayed)
+    return highestWord;
+  }
 };
 
 module.exports = Scrabble;
 
-// console.log(Scrabble.score('qfc'));
-// console.log(Scrabble.score(999));
-// console.log(Scrabble.highestScoreFrom(['zzzzzzz', 'zzzzzzq', 'jog']));
-
 let player1 = new Scrabble.Player('slim');
-console.log(player1.play('karma'));
+console.log(player1.play('zzz'));
+console.log(player1.play('zzzz'));
 console.log(player1.totalScore());
-
-
-// console.log(player1.hasWon());
-
-
+// console.log(player1.highestScoringWord());
+console.log(player1.highestWordScore());
 
 
 
