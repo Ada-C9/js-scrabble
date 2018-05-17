@@ -193,7 +193,7 @@ describe('Player', () => {
 
     test('returns true when score == 100', () => {
       const player = new Scrabble.Player('test player');
-      player.play('qqqqbfh');
+      player.play('qqqqdfh');
       expect(player.totalScore()).toBe(100);
       expect(player.hasWon()).toBe(true);
     });

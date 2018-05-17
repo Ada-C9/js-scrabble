@@ -47,8 +47,46 @@ const scoreChart = {
   };
 
   Scrabble.Player = class {
+    constructor(name) {
+      if (name.null || name == "") {
+        throw 'Require name!';
+      }
+      this.name = name;
+      this.plays = [];
+    }
+
+    play(word) {
+      if (!word.match(/^[a-zA-Z]{0,7}$/) || word == '') {
+        throw 'Invalid parameter!';
+      }
+
+      if (this.hasWon()) {
+        return false;
+      } else {
+        this.plays.push(word);
+        return Scrabble.score(word);
+      }
+    }
+
+    totalScore() {
+      return this.plays.map( word => Scrabble.score(word) ).reduce(function(acc, val) { return acc + val; }, 0);
+    }
+
+    hasWon() {
+      return this.totalScore() >= 100;
+    }
+
+    highestScoringWord() {
+      return Scrabble.highestScoreFrom(this.plays);
+    }
+
+    highestWordScore() {
+      return Scrabble.score(this.highestScoringWord());
+    }
 
   };
+
+
 
 
   module.exports = Scrabble;
