@@ -30,7 +30,7 @@ const scrabbleTiles = {
 
 const Scrabble = {
   isLetter(letter) {
-    return /[a-z]/.test(letter)
+    return /[a-z]/.test(letter);
   },
 
   score(word) {
@@ -108,14 +108,14 @@ Scrabble.Player = class {
 
     for (let letter of word) {
       if (!Scrabble.isLetter(letter)) {
-        throw 'Invalid word';
+        throw 'Invalid word: must include letters that are acceptable.';
       }
     }
 
     if (this.hasWon()) {
       return false;
     } else {
-      this.plays().push(word);
+      this.playsArray.push(word);
       return Scrabble.score(word);
     }
   }
@@ -141,20 +141,19 @@ Scrabble.Player = class {
   highestWordScore() {
     return Scrabble.score(this.highestScoringWord());
   }
-
 };
 
 
 module.exports = Scrabble;
 
 
-// test the methods manually to ensure they work properly.
-let myWord = Scrabble.score('pig');
-console.log(myWord);
-let myArray = Scrabble.highestScoreFrom(['cat', 'pig']);
-console.log(myArray)
-
-let player = new Scrabble.Player('test name');
-let word = 'dog';
-
-console.log(player.play(word));
+// // test the methods manually to ensure they work properly.
+// let myWord = Scrabble.score('pig');
+// console.log(myWord);
+// let myArray = Scrabble.highestScoreFrom(['cat', 'pig']);
+// console.log(myArray)
+//
+// let player = new Scrabble.Player('test name');
+// let word = 'dog';
+//
+// console.log(player.play(word));
