@@ -28,6 +28,35 @@ const scores = {
   'Z': 10
 }
 
+const letters = [
+  'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A',
+  'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E',
+  'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I',
+  'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O',
+  'U', 'U', 'U', 'U',
+  'L', 'L', 'L', 'L',
+  'N', 'N', 'N', 'N', 'N', 'N',
+  'R', 'R', 'R', 'R', 'R', 'R',
+  'S', 'S', 'S', 'S',
+  'T', 'T', 'T', 'T', 'T', 'T',
+  'D', 'D', 'D', 'D',
+  'G', 'G', 'G',
+  'B', 'B',
+  'C', 'C',
+  'M', 'M',
+  'P', 'P',
+  'F', 'F',
+  'H', 'H',
+  'V', 'V',
+  'W', 'W',
+  'Y', 'Y',
+  'K',
+  'J',
+  'X',
+  'Q',
+  'Z'
+];
+
 // Start Scrabble Object
 const Scrabble = {
   // helper method will return true if input word is valid
@@ -117,6 +146,17 @@ Scrabble.Player = class {
     }
     this.name = name;
     this.plays = [];
+    this.tiles = [];
+  }
+
+  drawTiles(num) {
+    // check num of tiles
+    for (let i = 1; i <= num; i++) {
+      let randomNum = Math.floor(Math.random() * letters.length) + 1;
+      this.tiles.push(letters[randomNum]);
+      letters.splice(randomNum, 1);
+    }
+    return this.tiles;
   }
 
   play(word) {
@@ -166,56 +206,14 @@ Scrabble.Player = class {
 
 };
 
-// Begin player Class
-Scrabble.TileBag = class {
-  constructor() {
-    this.tiles = [];
-    this.letters = [
-      'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A', 'A',
-      'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E',
-      'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I', 'I',
-      'O', 'O', 'O', 'O', 'O', 'O', 'O', 'O',
-      'U', 'U', 'U', 'U',
-      'L', 'L', 'L', 'L',
-      'N', 'N', 'N', 'N', 'N', 'N',
-      'R', 'R', 'R', 'R', 'R', 'R',
-      'S', 'S', 'S', 'S',
-      'T', 'T', 'T', 'T', 'T', 'T',
-      'D', 'D', 'D', 'D',
-      'G', 'G', 'G',
-      'B', 'B',
-      'C', 'C',
-      'M', 'M',
-      'P', 'P',
-      'F', 'F',
-      'H', 'H',
-      'V', 'V',
-      'W', 'W',
-      'Y', 'Y',
-      'K',
-      'J',
-      'X',
-      'Q',
-      'Z'
-     ]
-  }
-
-  drawTiles(num) {
-    // check num of tiles
-    for (let i = 1; i <= num; i++) {
-      let random_num = Math.floor(Math.random() * this.letters.length) + 1;
-      this.tiles.push(this.letters[random_num]);
-      this.letters.splice(random_num, 1);
-    }
-  }
-};
 
 
 module.exports = Scrabble;
 console.log(Scrabble.scores);
-// let sam = new Scrabble.Player('Sam');
-// console.log(sam.name);
+let sam = new Scrabble.Player('Sam');
+console.log(sam.name);
 // sam.play('cat');
 // sam.play('octopus');
 // console.log(sam.highestScoringWord());
 // console.log(sam.hasWon());
+console.log(sam.drawTiles(2));
