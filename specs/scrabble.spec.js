@@ -232,11 +232,11 @@ describe('Player', () => {
             player.play('ZZZ');
             expect(player.highestScoringWord()).toBe('ZZZ');
           });
+
+   test('throws an error if no words have been played', () => {let player = new Scrabble.Player('testing');
+      expect(() => { player.highestScoringWord() }).toThrow();
     });
 
-  //   test.skip('throws an error if no words have been played', () =>
-  //
-  //
   // describe('highestWordScore', () => {
   //   test.skip('returns the score of the highest scoring word played', () => {
   //
@@ -245,4 +245,4 @@ describe('Player', () => {
   //
   //   test.skip('throws an error if no words have been played', () => {
 
-// });
+});
