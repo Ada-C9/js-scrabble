@@ -53,24 +53,33 @@ const Scrabble = {
 
 
   highestScoreFrom(arrayOfWords) {
-    scores = {}
+    // scores = {}
 
     if ((arrayOfWords.length == 0) || (Array.isArray(arrayOfWords) == false)) {
       throw `No words were passed`;
-    } else {
-      for (word of arrayOfWords) {
-        scores[word] = Scrabble.score(word);
+    }
+    // } else {
+    //   for (word of arrayOfWords) {
+    //     scores[word] = Scrabble.score(word);
+    //   }
+    // }
+    //
+    // let maxScore = Math.max(...Object.values(scores));
+
+    let winningWord = arrayOfWords[0];
+    for (word of arrayOfWords) {
+      if (this.score(winningWord) < this.score(word)) {
+        winningWord = word;
+      } else if (this.score(winningWord) === this.score(word)){
+        if (winningWord.length === 7) {
+          winningWord;
+        } else if ((word.length === 7) || (winningWord.length > word.length)) {
+          winningWord = word;
+        }
       }
     }
 
-    let maxScore = Math.max(...Object.values(scores));
-
-    let winningWord = arrayOfWords[0];
-      // for (word of arrayOfWords) {
-      //
-      // }
-
-    return scores
+    return winningWord
   },
 };
 
@@ -78,38 +87,50 @@ Scrabble.Player = class {
 
 };
 
-
-
-
-// Scratch paper
-let myWord = Scrabble.score(`Pickles`);
-console.log(myWord);
-
 // Don't touch!
 module.exports = Scrabble;
-
-let arrayOfWords = [`Pickles`, `Pete`, `Petunia`];
-let scores = {};
-
-for (word of arrayOfWords) {
-  scores[word] = Scrabble.score(word);
-}
-
-console.log(arrayOfWords);
-// console.log(scores);
-
-let myWords = [`Pickles`, `Pete`, `Petunia`];
-console.log(myWords);
-console.log((myWords));
-let myWordsScores = Scrabble.highestScoreFrom(myWords);
-console.log((myWordsScores));
-
-let maxScore = Math.max(...Object.values(myWordsScores));
-console.log((maxScore));
-
-let winningWord = arrayOfWords[0];
-for (word of arrayOfWords) {
-  scores[word] = Scrabble.score(word);
-}
-
-console.log((myWordsScores[winningWord]));
+let myWordz = Scrabble.score(`zzzzzz`);
+let myWordid = Scrabble.score(`iiiiddd`);
+console.log(myWordz);
+console.log(myWordid);
+// Scratch paper
+// let myWord = Scrabble.score(`Pickles`);
+// console.log(myWord);
+//
+// let arrayOfWords = [`Petunia`, `Pete`, `Pickles`];
+// let scores = {};
+//
+// for (word of arrayOfWords) {
+//   scores[word] = Scrabble.score(word);
+// }
+//
+// console.log(arrayOfWords);
+// // console.log(scores);
+//
+// let myWords = [`Petunia`, `Pete`, `Pickles`];
+// console.log(myWords);
+// console.log((myWords));
+// let winningWord = arrayOfWords[0];
+// console.log(winningWord);
+// for (word of arrayOfWords) {
+//   console.log(word);
+//   if (Scrabble.score(winningWord) < Scrabble.score(word)) {
+//     winningWord = word;
+//   }
+//
+// }
+//
+// console.log((Scrabble.score(winningWord)));
+// console.log(winningWord);
+// let myWordsScores = Scrabble.highestScoreFrom(myWords);
+// console.log((myWordsScores));
+//
+// let maxScore = Math.max(...Object.values(myWordsScores));
+// console.log((maxScore));
+//
+// let winningWord = arrayOfWords[0];
+// for (word of arrayOfWords) {
+//   scores[word] = Scrabble.score(word);
+// }
+//
+// console.log((myWordsScores[winningWord]));
