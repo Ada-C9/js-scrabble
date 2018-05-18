@@ -10,6 +10,22 @@ const add = function add(a, b) {
     return a + b;
 }
 
+const getScores = function getScores(letters) {
+  let scores = [];
+  letters.forEach(function(letter) {
+    let num = LETTERVALUES[letter];
+    if (num === undefined) {
+      throw "Invalid word";
+    }
+    // if it exists, push the num (aka value from hash) to letterScores array
+    scores.push(num);
+    if (scores.length === 7) {
+      scores.push(50);
+    }
+  });
+  return scores;
+}
+
 const Scrabble = {
    // TOTAL: O(n)
   score(word) {
@@ -24,19 +40,8 @@ const Scrabble = {
     if (pattern.test(wordPlayed)) {
       // split input into an array of letters
       let letters = wordPlayed.split("");
-      let letterScores = [];
-      // iterate through letters array and check if it exists as a key in the LETTERVALUES object (note: dot notation (LETTERVALUES.letter) does NOT work.)
-      letters.forEach(function(letter) {
-        let num = LETTERVALUES[letter];
-        if (num === undefined) {
-          throw "Invalid word";
-        }
-        // if it exists, push the num (aka value from hash) to letterScores array
-        letterScores.push(num);
-        if (letterScores.length === 7) {
-          letterScores.push(50);
-        }
-      });
+      // checks if letter exists as a key in the LETTERVALUES object & returns value
+      let letterScores = getScores(letters);
       // sum up the values in the lettersScores array using arrow function
       let wordScore = letterScores.reduce(add, 0);
       return wordScore
