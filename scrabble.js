@@ -1,5 +1,3 @@
-
-
 const Scrabble = {
 
   getPoint(letter) {
@@ -108,11 +106,8 @@ const Scrabble = {
     hasWon() {
       let totalScores = 0;
       this.plays.forEach((word) => totalScores += Scrabble.score(word));
-      if (totalScores >= 100) {
-        return true;
-      } else {
-        return false;
-      }
+
+      return totalScores >= 100 ? true : false;
     }
 
     play(word) {
