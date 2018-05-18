@@ -103,7 +103,7 @@ Scrabble.Player = class {
 
   play(word) {
     Scrabble.isRealWord(word);
-    
+
     if (this.hasWon()) {
       return false;
     } else {
@@ -123,7 +123,7 @@ Scrabble.Player = class {
 
   hasWon() {
     let score = this.totalScore();
-    if (score > 100) {
+    if (score >= 100) {
       return true;
     } else {
       return false;

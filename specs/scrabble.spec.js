@@ -182,17 +182,27 @@ describe('Player', () => {
 
   describe('hasWon', () => {
     test('returns false when score < 100', () => {
+      const player = new Scrabble.Player('test player');
+      player.play("hello");
 
-
+      expect(player.hasWon()).toBeFalsy();
     });
 
     test('returns true when score == 100', () => {
+      const player = new Scrabble.Player('test player');
+      player.play("zzzzz");
+      player.play("zzzzz");
 
+      expect(player.hasWon()).toBeTruthy();
 
     });
 
     test('returns true when score > 100', () => {
+      const player = new Scrabble.Player('test player');
+      player.play("zzzzzs");
+      player.play("zzzzzx");
 
+      expect(player.hasWon()).toBeTruthy();
 
     });
   });
