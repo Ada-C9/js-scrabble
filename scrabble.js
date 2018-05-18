@@ -92,18 +92,72 @@ const Scrabble = {
   },
 };
 
-
-
 Scrabble.Player = class {
-  constructor(name) {
+
+  constructor(name = isRequired('name')) {
     this.name = name;
     this.plays = [];
-    this._totalScore = 0;
-    this._hasWon = false;
-    this._highestScoringWord;
-    this._highestWordScore = 0;
+    // this._totalScore = 0;
+    // this._hasWon = false;
+    // this._highestScoringWord;
+    // this._highestWordScore = 0;
   }
+
+  plays(arrayOfWords) {
+    return this.plays
+  }
+
+
+  play(word) {
+    if (!word || typeof word !== 'string'){
+      throw 'Please enter valid word.'
+    }
+
+    if (this.hasWon() === true) {
+      return false;
+    }
+
+    this.plays.push(word);
+    return this.plays;
+  }
+
+  highestScoringWord() {
+    return Scrabble.highestScoreFrom(this.plays);
+  }
+
+  hasWon() {
+      if (this.totalScore() >= 100) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+  highestWordScore() {
+    if (Scrabble.score(this.highestScoringWord()) < 1) {
+      throw 'No Words to score.'
+    }
+
+    return Scrabble.score(this.highestScoringWord());
+  }
+
+  totalScore() {
+      let total = 0;
+      if (this.plays.length === 0) {
+        return total;
+      } else {
+          this.plays.forEach(function (word) {
+          total += Scrabble.score(word)
+        });
+          return total;
+        }
+    }
 };
+
+
+
+
+
 
 
 
