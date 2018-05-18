@@ -29,7 +29,7 @@ const tileBag =
 } // ends 'let tileBag'
 
 const Scrabble = {
-  score: function (word) {
+  score(word) {
     // set total to 0
     let total = 0;
 
@@ -58,35 +58,106 @@ const Scrabble = {
   }, // ends 'score: function (word)'
 
   ////////////////////////////////////////////////////////////
+  // can't do a constructor here because it's not a class???
+  // "this" can be used because it's part of the scrabble object
+  // score and highestScore from are both functions???
+
 
   highestScoreFrom(arrayOfWords) {
     if (arrayOfWords.length === 0) {
       throw "It's empty! Why????";
     }
 
-    let scoredWordsHash = {}
-    let winnerHash = {}
-    let highestScore = 0
+    let bestWord = arrayOfWords[0];
 
-    arrayOfWords.forEach(function(providedWord) {
-      highestScore = Scrabble.highestScore(providedWord);
-      scoredWordsHash[providedWord] = highestScore;
+    arrayOfWords.forEach((word) => {
+      if (this.score(word) > this.score(bestWord)) {
+        bestWord = word;
+      } else if (this.score(word) === this.score(bestWord)) {
+        bestWord = this.breakTie(bestWord, word);
+      } // ends 'arrayOfWords'
     });
-
+    return bestWord;
   }, // ends 'highestScoreFrom'
 
+  breakTie(incumbent, challenger) {
+    if (incumbent.length === 7) {
+      return incumbent;
+    } else if (challenger.length === 7) {
+      return challenger;
+    } else if ((challenger.length) < (incumbent.length)) {
+      return challenger;
+    } else {
+      return incumbent;
+    }
+  }, // ends 'breakTie'
 };// const Scrabble
 
-
-
-
-
-
-
-
+// Player is a property of the Scrabble object
 Scrabble.Player = class {
+  constructor(name) {
+    this.name = name;
+    this.plays = [];
+    if (name === undefined) {
+      throw "No name given!";
+    }
+  } // ends constructor
+  play(word) {
+    if (this.hasWon()) {
+      return false;
+    }
 
-}; // ends 'const Scrabble'
+    word = word.toLowerCase();
+    let testWord = /^[a-z]+$/;
+
+    if ( (word === undefined) || (word === "")  || (!testWord.test(word)) ) {
+      throw "Invalid entry!";
+    } else {
+      this.plays.push(word);
+      return `You played the word ${word}!`
+    }  // ends if (( word...
+
+  } // ends play(word)
+
+  totalScore() {
+    let score = 0;
+
+    for (let word of this.plays) {
+    score += Scrabble.score(word);
+    } //
+  return score;
+  } // ends totalScore
+
+  hasWon() {
+    if (this.totalScore() < 100) {
+      return false;
+    } else {
+      return true;
+    }
+  } // ends hasWon
+
+
+// highestScoringWord(): method which returns the highest scoring word the user has played
+  highestScoringWord() {
+    if (this.plays.length === 0) {
+      throw "You haven't made any plays!!!!";
+    }
+
+    let winningWord = this.plays[0];
+    for (let i = 1; i <= this.plays.length - 1; i += 1) {
+      if (Scrabble.score(this.plays[i]) > Scrabble.score(winningWord) ) {
+        winningWord = this.plays[i];
+      }
+    }
+    return winningWord;
+  } // ends highestScoringWord
+
+
+  highestWordScore() {
+    return Scrabble.score(this.highestScoringWord())
+  } // ends highestWordScore
+
+}; // ends 'Scrabble.Player' class
 
 
 module.exports = Scrabble;
