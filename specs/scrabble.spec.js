@@ -264,3 +264,76 @@ describe('Player', () => {
     });
   });
 });
+
+// optional enchancements tests
+describe('TileBag', () => {
+  test('is defined', () => {
+    expect(Scrabble.TilesBag).toBeDefined();
+  });
+
+  describe('constructor', () => {
+    test('creates a new tile bag', () => {
+      const tileBag = new Scrabble.TilesBag();
+
+      expect(tileBag.tiles.length).toEqual(98);
+    });
+
+  });
+
+  describe('drawTiles', () => {
+    test('returns a collection of tiles', () => {
+      const tileBag = new Scrabble.TilesBag();
+      let tiles = tileBag.drawTiles(5);
+
+      expect(tiles.length).toEqual(5);
+
+    });
+
+    test('throws error if not enough tiles', () => {
+      const tileBag = new Scrabble.TilesBag();
+
+      // a loop to use tiles
+      for (let i = 0; i < 10; i+=1) {
+        tileBag.drawTiles(9);
+      }
+
+      // try to get more tiles than the amount available
+      expect(() => { tileBag.drawTiles(10); }).toThrow();
+    });
+
+    test('removes the tile from the array of tiles', () => {
+      const tileBag = new Scrabble.TilesBag();
+
+      tileBag.drawTiles(2);
+
+      expect(tileBag.tiles.length).toEqual(96);
+    });
+
+
+  });
+
+  describe('tilesRemaining', () => {
+    test('returns the amount of tiles remaining in the tiles bag', () => {
+      const tileBag = new Scrabble.TilesBag();
+
+      tileBag.drawTiles(4);
+
+      expect(tileBag.tilesRemaining()).toEqual(94);
+    });
+
+    test('returns "No more tiles in the bag" if no tiles left in the bag', () => {
+      const tileBag = new Scrabble.TilesBag();
+
+      // a loop to use all the tiles
+      for (let i = 0; i < 14; i++) {
+        tileBag.drawTiles(7);
+      }
+
+      expect(tileBag.tilesRemaining()).toEqual('No more tiles in the bag');
+    });
+
+
+  });
+
+
+});

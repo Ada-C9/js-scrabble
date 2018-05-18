@@ -113,12 +113,45 @@ Scrabble.Player = class {
 
 };
 
+// optional enhancements
 
+Scrabble.TilesBag = class {
+  constructor() {
+    this.tiles = ['A','A','A','A','A','A','A','A','A','B','B','C','C','D','D','D','D',
+    'E','E','E','E','E','E','E','E','E','E','E','E','F','F','G','G','G','H','H','I','I','I','I','I','I',
+    'I','I','I','J','K','L','L','L','L','M','M','N','N','N','N','N','N,','O','O','O','O','O','O','O','O',
+    'P','P','Q','R','R','R','R','R','R','S','S','S','S','T','T','T','T','T','T','U','U','U','U','V','V',
+    'W','W','X','Y','Y','Z'];
+  }
+
+  drawTiles(number) {
+
+    if (number > this.tilesRemaining()) {
+      throw new Error('No enough tiles');
+    }
+    let hand = [];
+    for (let i = 0; i < number; i+=1) {
+      let rand = Math.floor(Math.random() * this.tiles.length);
+      hand.push(this.tiles[rand]);
+      this.tiles.splice(rand, 1);
+      // splice removes items from an array. changes the original array
+    }
+    return hand;
+  }
+
+  tilesRemaining() {
+    if (this.tiles.length === 0) {
+      return 'No more tiles in the bag'
+    }
+    return this.tiles.length;
+  }
+
+};
 module.exports = Scrabble;
 
 
-console.log(Scrabble.score("ZZzzZZ"));
-console.log(Scrabble.score("baby"));
-console.log(Scrabble.highestScoreFrom(["ZZzzZZ", "zzzzzzz", "pedro"]));
-console.log(Scrabble.highestScoreFrom(["QQQQQQQ", "zzzzzzz", "pedro"]));
-console.log(Scrabble.score("QQQQQQQ"));
+// console.log(Scrabble.score("ZZzzZZ"));
+// console.log(Scrabble.score("baby"));
+// console.log(Scrabble.highestScoreFrom(["ZZzzZZ", "zzzzzzz", "pedro"]));
+// console.log(Scrabble.highestScoreFrom(["QQQQQQQ", "zzzzzzz", "pedro"]));
+// console.log(Scrabble.score("QQQQQQQ"));
