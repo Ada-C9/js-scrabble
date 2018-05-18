@@ -142,7 +142,7 @@ describe('Player', () => {
       expect(player.plays.length).toBe(0);
     });
 
-    test.skip('Returns false and does not update plays if the player has already won', () => {
+    test('Returns false and does not update plays if the player has already won', () => {
       const player = new Scrabble.Player('test player');
 
       expect(player.play('zzzzzzz')).toBeTruthy(); // +120 pts
@@ -181,18 +181,27 @@ describe('Player', () => {
   });
 
   describe('hasWon', () => {
-    test.skip('returns false when score < 100', () => {
-
-
-    });
-
-    test.skip('returns true when score == 100', () => {
-
+    test('returns false when score < 100', () => {
+      const player = new Scrabble.Player('test player');
+      player.play('pig')
+      expect(player.hasWon()).toBe(false);
 
     });
 
-    test.skip('returns true when score > 100', () => {
+    test('returns true when score == 100', () => {
+      const player = new Scrabble.Player('test player');
 
+      player.plays = ['zzzzz', 'zzzzz' ]
+
+      expect(player.hasWon()).toBe(true);
+    });
+
+    test('returns true when score > 100', () => {
+      const player = new Scrabble.Player('test player');
+
+      player.plays = ['zzzzz', 'zzzzz', 'zzzzz' ]
+
+      expect(player.hasWon()).toBe(true);
 
     });
   });
@@ -200,25 +209,61 @@ describe('Player', () => {
   describe('highestScoringWord', () => {
     // Tie-breaking logic is already described in the tests
     // for highestWordFrom, so we will not repeat it here.
-    test.skip('returns the highest scoring word played', () => {
+    test('returns the highest scoring word played', () => {
+      const player = new Scrabble.Player('test player');
 
+      player.plays = ['dog', 'pig', 'zzzzz'];
+      expect(player.highestScoringWord()).toBe('zzzzz');
 
     });
 
-    test.skip('throws an error if no words have been played', () => {
-
-
+    test('throws an error if no words have been played', () => {
+      const player = new Scrabble.Player('test player');
+      expect(() => { player.highestScoringWord(); }).toThrow();
     });
   });
 
   describe('highestWordScore', () => {
-    test.skip('returns the score of the highest scoring word played', () => {
+    test('returns the score of the highest scoring word played', () => {
+      const player = new Scrabble.Player('test player');
 
+      player.plays = ['dog', 'pig', 'zzzzz'];
+      expect(player.highestWordScore()).toBe(50);
 
     });
 
-    test.skip('throws an error if no words have been played', () => {
+    test('throws an error if no words have been played', () => {
+      const player = new Scrabble.Player('test player');
+      expect(() => { player.highestScoringWord(); }).toThrow();
 
+    });
+  });
+
+  describe('drawTiles', () => {
+    test('it throws an error if players hand is already 7 tiles', () => {
+      const player = new Scrabble.Player('test player');
+      player.hand = ['a', 'a', 'v', 'l', 'h', 'l', 'o'];
+      expect(() => { player.drawTiles(); }).toThrow();
+    });
+
+    test('increases length of players hand to 7', () => {
+      const player = new Scrabble.Player('test player');
+
+      player.hand = ['o', 'e', 'x'];
+      player.drawTiles()
+      expect(player.hand.length).toBe(7);
+
+    });
+
+    test('decreases the length of board by the same amount as it increases players hand', () => {
+      const player = new Scrabble.Player('test player');
+
+      player.hand = ['o', 'e', 'x'];
+      let length = Scrabble.board.length
+
+      player.drawTiles()
+      expect(player.hand.length).toBe(7);
+      expect(Scrabble.board.length).toBe(length - 4);
 
     });
   });
