@@ -133,6 +133,15 @@ Scrabble.Player = class {
     }
   }
 
+  highestScoringWord() {
+    if (this.plays.length === 0) {
+      throw 'Error';
+    }
+
+    return Scrabble.highestScoreFrom(this.plays);
+
+  }
+
 };
 
 
