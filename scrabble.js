@@ -56,33 +56,90 @@ const Scrabble = {
 
   highestScoreFrom(arrayOfWords) {
 
-    if (arrayOfWords.length == 0 || arrayOfWords != []) {
+    if (arrayOfWords.length == 0 || arrayOfWords == []) {
       throw "That is not a valid word!"
 
     }
 
-    if (arrayOfWords.length > 1) {
+    if (arrayOfWords.length > 0) {
 
-      let highScoreWrd = 0
+      let highScoreWrd = 'iii'
 
-      for (word of arrayOfWords) {
-         (word) => {
+      arrayOfWords.forEach((word) => {
+        if (this.score(word) > this.score(highScoreWrd)) {
+          highScoreWrd = word
 
-          if (this.score(word) > highScoreWrd) {
-            highScoreWrd = this.score(word)
+        } else if (this.score(word) == this.score(highScoreWrd)) {
+          if (word.length == 7) {
+            highScoreWrd = word
+
+          }else if (highScoreWrd.length == 7) {
+            return highScoreWrd
+
+          } else if (word.length < highScoreWrd.length) {
+            highScoreWrd = word
 
           }
+
+
         }
 
-      }
+      });
 
+      return highScoreWrd;
     }
-
   },
+
+
 };
 
-
 Scrabble.Player = class {
+  constructor(name){
+    this.name = name;
+    this.plays = []
+    if (name == ' ' || name == null) {
+      throw 'Player must have a name!'
+    }
+  }
+
+  play(word) {
+    if (this.hasWon()) {
+      return false
+    }
+    this.plays.push(word)
+    let score = Scrabble.score(word)
+    return score
+  }
+
+  totalScore() {
+    let overAllScore = 0
+    this.plays.forEach(function(word){
+      overAllScore += Scrabble.score(word)
+
+    });
+    return overAllScore
+
+  }
+
+  hasWon() {
+    if (Scrabble.Player.totalScore() >= 100) {
+      return true
+    } else {
+      return false
+    }
+
+
+
+  }
+
+  highestScoringWord() {
+
+  }
+
+  highestWordScore() {
+
+  }
+
 
 };
 
