@@ -97,6 +97,24 @@ describe('highestScoreFrom', () => {
   });
 });
 
+describe('tieBreaker', () => {
+  test('is defined', () => {
+    expect(Scrabble.tieBreaker).toBeDefined();
+  });
+  test('returns the first word with 7 letters', () =>{
+    expect(Scrabble.score('jazzmen')).toBe(84);
+    expect(Scrabble.score('jazzman')).toBe(84);
+
+    expect(Scrabble.tieBreaker('jazzmen', 'jazzman')).toBe('jazzmen');
+  });
+  test('returns the word with the least characters if both words are less than 7', () =>{
+    expect(Scrabble.score('goat')).toBe(5);
+    expect(Scrabble.score('dog')).toBe(5);
+
+    expect(Scrabble.tieBreaker('goat', 'dog')).toBe('dog');
+  });
+});
+
 describe('Player', () => {
   test('is defined', () => {
     expect(Scrabble.Player).toBeDefined();
@@ -231,7 +249,7 @@ describe('Player', () => {
 
     test('throws an error if no words have been played', () => {
       expect(() => { Scrabble.Player.highestScoringWord([]); }).toThrow();
-      expect(() => { Scrabble.Player.highestScoringWord('not array'); }).toThrow();
+      expect(() => { Scrabble.Player.highestScoringWord(''); }).toThrow();
 
     });
   });
@@ -251,7 +269,7 @@ describe('Player', () => {
 
     test('throws an error if no words have been played', () => {
       expect(() => { Scrabble.Player.highestWordScore([]); }).toThrow();
-      expect(() => { Scrabble.Player.highestWordScore('not array'); }).toThrow();
+      expect(() => { Scrabble.Player.highestWordScore(''); }).toThrow();
 
     });
   });
