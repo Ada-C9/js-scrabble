@@ -123,12 +123,13 @@ Scrabble.Player = class {
   }
 
   play(word) {
-    if ( Scrabble.score(word) >= 1 ) {
-      if ( this.hasWon() == false )  {
+    if ( typeof word === 'string' && this.hasWon() == false )  {
       this.plays.push(word);
-      this.totalScore();
+      return true
      }
-   }
+     else if ( typeof word != 'string') {
+       throw 'A word must be composed of one or more letters.';
+     }
   }
 
   highestScoringWord() {

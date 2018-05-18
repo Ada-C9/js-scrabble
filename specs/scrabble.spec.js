@@ -176,7 +176,6 @@ describe('Player', () => {
         // Assert
         expect(player.totalScore()).toBe(totalScore);
       });
-
     });
   });
 
@@ -205,7 +204,7 @@ describe('Player', () => {
   //   // for highestWordFrom, so we will not repeat it here.
 
     test('returns the highest scoring word played', () => {
-      const player = new Scrabble.Player('testeee');
+      const player = new Scrabble.Player('test player');
       player.plays.push('cat');
       player.plays.push('zardoz');
       player.plays.push('pig');
@@ -213,7 +212,7 @@ describe('Player', () => {
     });
   //
     test('throws an error if no words have been played', () => {
-      const player = new Scrabble.player('testalynn');
+      const player = new Scrabble.Player('test player');
       expect(() => { player.highestScoringWord(); }).toThrow();
     });
   });
@@ -221,13 +220,13 @@ describe('Player', () => {
 
   describe('highestWordScore', () => {
     test('returns the score of the highest scoring word played', () => {
-      const player = new Scrabble.Player('lyle');
+      const player = new Scrabble.Player('test player');
       player.plays = ['zz', 'qqqqqqq', 'gg'];
       expect(player.highestWordScore()).toEqual(120);
     });
 
-    test.skip('throws an error if no words have been played', () => {
-      const player = new Scrabble.player('testopher');
+    test('throws an error if no words have been played', () => {
+      const player = new Scrabble.Player('test player');
       expect(() => { player.highestScoringWord(); }).toThrow();
     });
   });
