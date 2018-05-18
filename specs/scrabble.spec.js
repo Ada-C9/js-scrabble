@@ -210,12 +210,12 @@ describe('Player', () => {
       const player = new Scrabble.Player('test player');
       const words = [{word: 'squeeze', score: 75}, {word: 'cat', score: 5}, {word: 'furzy', score: 20}];
       let totalScore = 0;
-
       expect(player.totalScore()).toBe(0);
       words.forEach((testWords) => {
         // Act
         player.play(testWords.word);
         totalScore += testWords.score;
+        expect(player.totalScore()).toBe(totalScore);
       });
       expect(player.totalScore()).toBe(100);
     });
@@ -228,6 +228,7 @@ describe('Player', () => {
       words.forEach((testWords) => {
         player.play(testWords.word);
         total += testWords.score;
+        expect(player.totalScore()).toBe(total);
       });
       expect(player.totalScore()).toBe(151);
     });
@@ -243,6 +244,7 @@ describe('Player', () => {
       words.forEach((testWords) => {
         player.play(testWords.word);
         total += testWords.score;
+        expect(player.totalScore()).toBe(total);
       });
       expect(player.highestScoringWord()).toBe('zombify');
     });
@@ -250,7 +252,6 @@ describe('Player', () => {
     test('throws an error if no words have been played', () => {
       expect(() => { Scrabble.Player.highestScoringWord([]); }).toThrow();
       expect(() => { Scrabble.Player.highestScoringWord(''); }).toThrow();
-
     });
   });
 
@@ -262,9 +263,9 @@ describe('Player', () => {
       words.forEach((testWords) => {
         player.play(testWords.word);
         total += testWords.score;
+        expect(player.totalScore()).toBe(total);
       });
       expect(player.highestWordScore()).toBe(76);
-
     });
 
     test('throws an error if no words have been played', () => {
