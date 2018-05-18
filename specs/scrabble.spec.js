@@ -208,24 +208,24 @@ describe('Player', () => {
     // for highestWordFrom, so we will not repeat it here.
     test('returns the highest scoring word played', () => {
       const player = new Scrabble.Player('test player');
-      player.this.plays.push('mirror');
+      player.play('mirror');
 
       expect(player.highestScoringWord()).toBe('mirror');
     });
 
-    test.skip('throws an error if no words have been played', () => {
+    test('throws an error if no words have been played', () => {
 
 
     });
   });
 
   describe('highestWordScore', () => {
-    test.skip('returns the score of the highest scoring word played', () => {
+    test('returns the score of the highest scoring word played', () => {
 
 
     });
 
-    test.skip('throws an error if no words have been played', () => {
+    test('throws an error if no words have been played', () => {
 
 
     });
