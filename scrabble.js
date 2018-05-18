@@ -104,42 +104,10 @@ const Scrabble = {
       return false;
     }
     highestScoringWord() {
-      if (this.plays.length == 0) {
-        throw "No words have been played";
-      }
-
-      let play_score_hash = {}
-      this.plays.forEach(function(word) {
-        play_score_hash[word] = Scrabble.score(word);
-      })
-
-      let highestScoreWords = Object.keys(play_score_hash).filter(x => {
-        return play_score_hash[x] == Math.max.apply(null,
-          Object.values(play_score_hash));
-        })
-
-        if (highestScoreWords.length == 1) {
-          return highestScoreWords[0];
-        }
-
-        if (highestScoreWords.some(is_seven)) {
-          const result = highestScoreWords.filter(word => word.length == 7);
-          return result[0];
-        }
-
-        return highestScoreWords.reduce(function(a, b) {
-          return a.length <= b.length ? a : b;
-        })
+      return Scrabble.highestScoreFrom(this.plays)
     }
     highestWordScore() {
-      if (this.plays.length == 0) {
-        throw "No words have been played";
-      }
-      let scores = []
-      this.plays.forEach(function(word) {
-        scores.push(Scrabble.score(word));
-      })
-      return Math.max.apply( Math, scores );
+      return Scrabble.score(Scrabble.highestScoreFrom(this.plays))
     }
   };
 
