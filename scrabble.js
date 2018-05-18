@@ -35,7 +35,7 @@ const Scrabble = {
 
     if (word.length > 7 ) {
       throw "Words more than seven letters long are not allowed"  }
-    if (word.length < 1) {
+    else if (word.length < 1) {
       throw "To be valid, a word needs to have at least one letter."
     }
     let totalScore = 0;

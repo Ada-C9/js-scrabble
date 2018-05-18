@@ -124,8 +124,8 @@ describe('Player', () => {
 
       expect(player.plays.length).toBe(0);
 
-      // expect(player.play(word)).toBeTruthy();
-
+      expect(player.play(word)).toBeTruthy();
+      // player.play(word);
       expect(player.plays.length).toBe(1);
       expect(player.plays[0]).toBe(word);
     });
@@ -149,7 +149,7 @@ describe('Player', () => {
       expect(player.plays.length).toBe(1);
       expect(player.hasWon()).toBeTruthy();
 
-      expect(player.play('dog')).toBe(false);
+      expect(player.play('dog')).toBeFalsy();
       expect(player.plays.length).toBe(1);
     });
   });
@@ -205,9 +205,10 @@ describe('Player', () => {
 
     test('returns the highest scoring word played', () => {
       const player = new Scrabble.Player('test player');
-      player.plays.push('cat');
-      player.plays.push('zardoz');
-      player.plays.push('pig');
+      player.plays = ['cat', 'zardoz', 'pig'];
+      // player.plays.push('cat');
+      // player.plays.push('zardoz');
+      // player.plays.push('pig');
       expect(player.highestScoringWord()).toEqual('zardoz');
     });
   //
