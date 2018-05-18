@@ -184,45 +184,73 @@ describe('Player', () => {
     test('returns false when score < 100', () => {
       const player = new Scrabble.Player('test player');
 
-      expect(player.hasWon()).toBe(false);
+      player.play('dolly');
+
+      expect(player.hasWon()).toBe(false);;
     });
 
-    test.skip('returns true when score == 100', () => {
+    test('returns true when score == 100', () => {
       const player = new Scrabble.Player('test player');
-      let totalScore = 100;
+
+      player.play('banjax');
+      player.play('jalopy');
+      player.play('pyjama');
+      player.play('enzyme');
+      player.play('quiche');
 
       expect(player.hasWon()).toBe(true);
-
     });
 
-    test.skip('returns true when score > 100', () => {
+    test('returns true when score > 100', () => {
+      const player = new Scrabble.Player('test player');
 
+      player.play('pizzazz');
+      player.play('bezique');
 
+      expect(player.hasWon()).toBe(true);
     });
   });
 
   describe('highestScoringWord', () => {
     // Tie-breaking logic is already described in the tests
     // for highestWordFrom, so we will not repeat it here.
-    test.skip('returns the highest scoring word played', () => {
+    test('returns the highest scoring word played', () => {
+      const player = new Scrabble.Player('test player');
 
+      player.play('banjax');
+      player.play('jalopy');
+      player.play('pyjama');
+      player.play('enzyme');
+      player.play('quiche');
+
+      expect(player.highestScoringWord()).toBe("banjax");
 
     });
 
-    test.skip('throws an error if no words have been played', () => {
+    test('throws an error if no words have been played', () => {
+      const player = new Scrabble.Player('test player');
 
+      expect(() => { player.highestScoringWord([]); }).toThrow();
+      expect(() => { player.highestScoringWord('No words played.'); }).toThrow();
 
     });
   });
 
   describe('highestWordScore', () => {
-    test.skip('returns the score of the highest scoring word played', () => {
+    test('returns the score of the highest scoring word played', () => {
+      const player = new Scrabble.Player('test player');
 
+      player.play('pizzazz');
+      player.play('bezique');
 
+      expect(player.highestWordScore()).toBe(95);
     });
 
-    test.skip('throws an error if no words have been played', () => {
+    test('throws an error if no words have been played', () => {
+      const player = new Scrabble.Player('test player');
 
+      expect(() => { player.highestWordScore([]); }).toThrow();
+      expect(() => { player.highestWordScore('No words played.'); }).toThrow();
 
     });
   });

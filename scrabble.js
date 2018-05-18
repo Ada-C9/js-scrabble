@@ -87,7 +87,7 @@ const Scrabble = {
 };
 
 Scrabble.Player = class {
-     // TOTAL: O(1)
+     // O(1)
   constructor(name) {
     if (typeof name === 'undefined') {
       throw new Error('You must provide a name.');
@@ -95,7 +95,7 @@ Scrabble.Player = class {
     this.name = name;
     this.plays = [];
   }
-     // TOTAL: O(1)
+     // O(1)
   hasWon() {
     if (this.totalScore() > 99) {
       return true;
@@ -103,7 +103,7 @@ Scrabble.Player = class {
       return false;
     }
   }
-     // TOTAL: O(n)
+     // O(n)
   totalScore() {
     let sum = 0;
     for (let i = 0; i < this.plays.length; i++) {
@@ -111,7 +111,7 @@ Scrabble.Player = class {
     }
     return sum;
   }
-     // TOTAL: O(1)
+     // O(1)
   play(word) {
     if (typeof word !== "string" || word.length === 0) {
       throw new Error('Invalid word.');
@@ -121,6 +121,21 @@ Scrabble.Player = class {
     } else {
       this.plays.push(word);
       return true;
+    }
+  }
+  highestScoringWord() {
+    if (this.plays.length === 0) {
+      throw new Error("No words played.");
+    } else {
+      let top_word = Scrabble.highestScoreFrom(this.plays);
+      return top_word;
+    }
+  }
+  highestWordScore() {
+    if (this.plays.length === 0) {
+      throw new Error("No words played.");
+    } else {
+      return Scrabble.score(this.highestScoringWord());
     }
   }
 };
