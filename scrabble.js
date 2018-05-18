@@ -82,7 +82,7 @@ Scrabble.Player = class {
 
   play(word) {
 
-    if(this.hasWon() === true){
+    if(this.hasWon()){
       return false;
     } else {
       this.currentScore += Scrabble.score(word);
