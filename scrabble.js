@@ -32,7 +32,7 @@ const Scrabble = {
     let valid = /^[a-zA-Z]+$/;
 
     if (word === "" || word.length > 7 || !word.match(valid)) {
-      throw "Not allowed";
+      throw "You must play a real word that is 7 characters or less";
     }
 
     let word_split = word.toUpperCase().split('');
@@ -62,7 +62,7 @@ const Scrabble = {
   },
   highestScoreFrom(arrayOfWords) {
     if (arrayOfWords === []) {
-      return null;
+      throw "No words to score";
     }
 
     if (arrayOfWords.length == 1) {
@@ -90,7 +90,7 @@ const Scrabble = {
 Scrabble.Player = class {
   constructor(name){
     if (!name) {
-      throw "You must enter a name";
+      throw "You must enter a name for the player";
     }
     this.name = name;
     this.plays = [];
@@ -108,7 +108,7 @@ Scrabble.Player = class {
   wordValidator(word) {
     let valid = /^[a-zA-Z]+$/;
     if (word === "" || word.length > 7 || !word.match(valid)) {
-      throw "Not allowed";
+      throw "You must play a real word that is 7 characters or less";
     }
   }
 
@@ -119,6 +119,7 @@ Scrabble.Player = class {
     this.wordValidator(word);
 
     let word_score = 0;
+
     if (this.plays.includes(word)) {
       throw "You have already played this word";
     } else {
@@ -136,10 +137,10 @@ Scrabble.Player = class {
     return this.score >= 100;
   }
   highestScoringWord() {
-    return Scrabble.highestWordScore(this.plays);
+    return Scrabble.highestScoreFrom(this.plays);
   }
   highestWordScore() {
-    best_word = highestScoringWord();
+    let best_word = this.highestScoringWord();
     return Scrabble.score(best_word);
   }
 
