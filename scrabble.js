@@ -131,9 +131,13 @@ Scrabble.Player = class {
   }
 
   highestScoringWord() {
-    let max_word = "";
+    if (this.plays.length === 0) {
+      throw "No words played";
+    }
+
+    let max_word = this.plays[0];
     this.plays.forEach (function(word) {
-      if ( Scrabble.score(word) > max_word ) {
+      if ( Scrabble.score(word) > Scrabble.score(max_word) ) {
         max_word = word;
       }
     });

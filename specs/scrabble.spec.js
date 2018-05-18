@@ -211,13 +211,22 @@ describe('Player', () => {
     // Tie-breaking logic is already described in the tests
     // for highestWordFrom, so we will not repeat it here.
     test('returns the highest scoring word played', () => {
+      const player = new Scrabble.Player('test player');
+      let words = ["whales", "hello", "zzzzzj"];
 
+      words.forEach (function(word) {
+        player.play(word);
+      });
 
+      expect(player.highestScoringWord()).toEqual("zzzzzj");
     });
 
     test('throws an error if no words have been played', () => {
+      const player = new Scrabble.Player('test player');
+      expect(player.plays.length).toEqual(0);
 
-
+      expect(() => { player.highestScoringWord();
+      }).toThrow();
     });
   });
 
