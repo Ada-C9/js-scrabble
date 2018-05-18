@@ -7,6 +7,7 @@ const sortWordsByLength = function sortWordsByLength(arr){
 }
 
 const Scrabble = {
+   // TOTAL: O(n)
   score(word) {
     // if word played is more than 7 tiles or 0 tiles, it is invalid.
     if (word.length > 7 || word.length === 0) {
@@ -39,6 +40,7 @@ const Scrabble = {
       throw "Invalid word";
     }
   },
+     // TOTAL: O(n)
   highestScoreFrom(arrayOfWords) {
     // instantiate open array to hold word scores and max score variable
     let scores = []
@@ -85,6 +87,7 @@ const Scrabble = {
 };
 
 Scrabble.Player = class {
+     // TOTAL: O(1)
   constructor(name) {
     if (typeof name === 'undefined') {
       throw new Error('You must provide a name.');
@@ -92,13 +95,15 @@ Scrabble.Player = class {
     this.name = name;
     this.plays = [];
   }
+     // TOTAL: O(1)
   hasWon() {
-    if (this.totalScore() >= 100) {
+    if (this.totalScore() > 99) {
       return true;
     } else {
       return false;
     }
   }
+     // TOTAL: O(n)
   totalScore() {
     let sum = 0;
     for (let i = 0; i < this.plays.length; i++) {
@@ -106,6 +111,7 @@ Scrabble.Player = class {
     }
     return sum;
   }
+     // TOTAL: O(1)
   play(word) {
     if (typeof word !== "string" || word.length === 0) {
       throw new Error('Invalid word.');
@@ -125,7 +131,7 @@ module.exports = Scrabble;
 // TESTING
 // words = ['i', 'dog', 'cat']
 // console.log(Scrabble.highestScoreFrom(words));
-const word = 'dog';
-const player = new Scrabble.Player('test player');
-player.play(word);
+// const word = 'dog';
+// const player = new Scrabble.Player('test player');
+// player.play(word);
 //

@@ -181,13 +181,17 @@ describe('Player', () => {
   });
 
   describe('hasWon', () => {
-    test.skip('returns false when score < 100', () => {
+    test('returns false when score < 100', () => {
+      const player = new Scrabble.Player('test player');
 
-
+      expect(player.hasWon()).toBe(false);
     });
 
     test.skip('returns true when score == 100', () => {
+      const player = new Scrabble.Player('test player');
+      let totalScore = 100;
 
+      expect(player.hasWon()).toBe(true);
 
     });
 
