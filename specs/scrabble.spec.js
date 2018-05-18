@@ -118,7 +118,7 @@ describe('Player', () => {
   });
 
   describe('play', () => {
-    test.skip('Records the played word', () => {
+    test('Records the played word', () => {
       const word = 'dog';
       const player = new Scrabble.Player('test player');
 
@@ -130,7 +130,7 @@ describe('Player', () => {
       expect(player.plays[0]).toBe(word);
     });
 
-    test.skip('Requires a real word', () => {
+    test('Requires a real word', () => {
       const player = new Scrabble.Player('test player');
 
       expect(player.plays.length).toBe(0);
@@ -142,7 +142,7 @@ describe('Player', () => {
       expect(player.plays.length).toBe(0);
     });
 
-    test.skip('Returns false and does not update plays if the player has already won', () => {
+    test('Returns false and does not update plays if the player has already won', () => {
       const player = new Scrabble.Player('test player');
 
       expect(player.play('zzzzzzz')).toBeTruthy(); // +120 pts
@@ -155,13 +155,13 @@ describe('Player', () => {
   });
 
   describe('totalScore', () => {
-    test.skip('Is zero if the player has not played anything', () => {
+    test('Is zero if the player has not played anything', () => {
       const player = new Scrabble.Player('test player');
 
       expect(player.totalScore()).toBe(0);
     });
 
-    test.skip('Is updated by play', () => {
+    test('Is updated by play', () => {
       // Arrange
       const player = new Scrabble.Player('test player');
       const words = [{word: 'dog', score: 5}, {word: 'cat', score: 5}, {word: 'goat', score: 5}];
@@ -181,19 +181,28 @@ describe('Player', () => {
   });
 
   describe('hasWon', () => {
-    test.skip('returns false when score < 100', () => {
-
-
+    test('returns false when score < 100', () => {
+      const player = new Scrabble.Player('test player');
+      expect(player.hasWon()).toBeFalsy();
+      player.play('zzz');
+      expect(player.totalScore()).toBe(30);
+      expect(player.hasWon()).toBeFalsy();
     });
 
-    test.skip('returns true when score == 100', () => {
-
-
+    test('returns true when score == 100', () => {
+      const player = new Scrabble.Player('test player');
+      expect(player.hasWon()).toBeFalsy();
+      player.play('zzzkkkk');
+      expect(player.totalScore()).toBe(100);
+      expect(player.hasWon()).toBeTruthy();
     });
 
-    test.skip('returns true when score > 100', () => {
-
-
+    test('returns true when score > 100', () => {
+      const player = new Scrabble.Player('test player');
+      expect(player.hasWon()).toBeFalsy();
+      player.play('zzzzzzz');
+      expect(player.totalScore()).toBe(120);
+      expect(player.hasWon()).toBeTruthy();
     });
   });
 

@@ -111,11 +111,15 @@ Scrabble.Player = class {
   }
 
   hasWon() {
-    return this.totalScore > 100 ? true: false;
+    return this.totalScore() < 100 ? false: true;
   }
 
   play(word) {
-    if (this.hasWon == true) {
+    if (word.null || typeof(word) !== 'string') {
+      throw 'Must be a valid word.';
+    }
+
+    if (this.hasWon()) {
       return false;
     } else {
       this.plays.push(word);
