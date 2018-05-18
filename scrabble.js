@@ -9,7 +9,6 @@ const letterValues = {
 };
 
 const Scrabble = {
-  // playedWords: [],
   score(word) {
     let letters = word.toUpperCase().split("");
     if (letters.length > 7) {
@@ -18,7 +17,7 @@ const Scrabble = {
       throw 'Your word can\'t be empty';
     }
     let totalScore = 0;
-    letters.forEach( function(char) {
+    letters.forEach( char => {
       if (letterValues.one.includes(char)) {
         totalScore += 1;
       } else if (letterValues.two.includes(char)) {
@@ -40,7 +39,6 @@ const Scrabble = {
     if (letters.length === 7) {
       totalScore += 50;
     }
-    // self.playedWords.push(word)
     return totalScore;
   },
   highestScoreFrom(arrayOfWords) {
@@ -50,14 +48,14 @@ const Scrabble = {
       return arrayOfWords[0];
     } else {
       const scores = arrayOfWords.map(word => this.score(word));
-      let highestScore = 0
-      scores.forEach( function(score) {
+      let highestScore = 0;
+      scores.forEach( score => {
         if (score > highestScore) {
           highestScore = score;
         }
       });
       const highestScoringWords = []
-      scores.forEach( function(score, index) {
+      scores.forEach( (score, index) => {
         if (score === highestScore) {
           highestScoringWords.push(arrayOfWords[index]);
         }
@@ -68,10 +66,11 @@ const Scrabble = {
         let shortestLength = 7;
         let shortestIndex = null;
         let sevenIndex = null;
-        highestScoringWords.forEach(function(word, index) {
+        highestScoringWords.forEach( (word, index) => {
           if (word.length === 7) {
             sevenIndex = index;
-          } else if (word.length < shortestLength) {
+          } else
+          if (word.length < shortestLength) {
             shortestLength = word.length;
             shortestIndex = index;
           }
