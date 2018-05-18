@@ -35,39 +35,34 @@ const Scrabble = {
 
     if (word.length > 7 ) {
       throw "Words more than seven letters long are not allowed"  }
-
     if (word.length < 1) {
       throw "To be valid, a word needs to have at least one letter."
     }
-
     let totalScore = 0;
-
     if ( word.length === 7 ) {
           totalScore += 50
         }
-
     for (let ltr of word ) {
-      // if ( ltr.charCodeAt(0) > 90 && ltr.charCodeAt(0) < 97 ) {
-      //    throw 'Words can only contain Latin characters A through Z'
-      //  }
-      //
-      // if ( ltr.charCodeAt(0) < 65 || ltr.charCodeAt(0) < 122 ) {
-      //     throw 'Words can only contain Latin characters A through Z'
-      //   }
       let upcaseLtr = ltr.toUpperCase();
-      // if ( letterValues[upcaseLtr].isNAN() ) {
-      //   throw "Words can only contain Latin characters A through Z"
-      // }
+      if (! Object.keys(letterValues).includes(upcaseLtr) ) {
+        throw 'Words can only contain Latin characters A through Z'
+      }
+
       let letterPoints = letterValues[upcaseLtr];
       totalScore += letterPoints;
       }
+
     return totalScore;
   },
 
   highestScoreFrom(arrayOfWords) {
 
     if ( arrayOfWords.length == 0 ) {
-      throw new Error('Currently, there are no words to score.')
+      throw 'There are no words to score';
+    }
+
+    if ( arrayOfWords == null ) {
+      throw 'We wre not given any words to score';
     }
 
     let highestScoringWord = arrayOfWords[0];
@@ -90,17 +85,8 @@ const Scrabble = {
           else if ( playedWord.length < highestScoringWord.length ) {
             currentHighestScore = Scrabble.score(playedWord);
             highestScoringWord = playedWord;
-          } 
+          }
         }
-
-        // if ( playedWord.length == 7 && highestScoringWord.length < 7 ) {
-        //   highestScoringWord = playedWord;
-        //   currentHighestScore = Scrabble.score(playedWord);
-        // }
-        //   else if ( playedWord.length < highestScoringWord.length ) {
-        //     highestScoringWord = playedWord;
-        //     currentHighestScore = Scrabble.score(playedWord);
-        //   }
       }
     }
     return highestScoringWord;
@@ -108,43 +94,61 @@ const Scrabble = {
 };
 
 Scrabble.Player = class {
-  // constructor(name) {
-  //   this.name = name
-  //   this.plays = []
-  // }
 
-  // hasWon() {
-  //   let won = false;
-  //   let overallScore = 0;
-  //   if (this.plays.length === 0 ) {
-  //     for (let pastWord of this.plays ) {
-  //       overallScore += Scrabble.score(pastWord)
-  //     }
-  //   }
-  //
-  //   if ( overallScore >= 100 ) {
-  //     won = true
-  //   }
-  //   return won
-  // }
+  constructor(name) {
 
-  // play(word) {
-  //   if ( this.hasWon === true ) {
-  //     return false;
-  //   }
-  //   this.plays << word
-  // }
+    if ( name == null )  {
+      throw 'Each player needs a name.';
+    }
+    this.name = name
+    this.plays = []
+  }
 
-  // highestScoringWord() {
-  //   Scrabble.highestScoreFrom(this.plays);
-  // }
+  totalScore() {
+    let total = 0
+    if (this.plays.length != 0 ) {
+    for (let pastWord of this.plays ) {
+      total += Scrabble.score(pastWord)
+      }
+    }
+    return total;
+  }
 
-  // highestWordScore() {
-  //   return `${this.highestScoringWord}`
-  // }
+  hasWon() {
+    let won = false;
+    if ( this.totalScore() >= 100 ) {
+      won = true
+    }
+    return won
+  }
+
+  play(word) {
+    if ( Scrabble.score(word) >= 1 ) {
+      if ( this.hasWon() == false )  {
+      this.plays.push(word);
+      this.totalScore();
+     }
+   }
+  }
+
+  highestScoringWord() {
+    if ( this.plays.length == 0 ) {
+      throw 'There are no words to compare';
+    } else {
+    return Scrabble.highestScoreFrom(this.plays);
+  }
+}
+
+  highestWordScore() {
+    if ( this.plays.length == 0 ) {
+      throw 'There are no words to score';
+    } else {
+    return Scrabble.score(this.highestScoringWord);
+    }
+  }
 };
 
 
 module.exports = Scrabble;
 
-console.log(Scrabble.score('cat'))
+// console.log(Scrabble.score('cat'))
