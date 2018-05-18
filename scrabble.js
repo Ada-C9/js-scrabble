@@ -81,33 +81,52 @@ const Scrabble = {
 
 }
 
-
 Scrabble.Player = class {
-  constructor(name, plays) {
+  constructor(name) {
     this.name = name;
-    this.plays = plays;
+    this.plays = [];
     if (!name || !name.length) {
-      throw 'Player must have a name'
+      throw 'Player must have a name';
     }
   }
 
   play(word) {
-    Scrabble.score(word)
-    if (Scrabble.score(word)) {
+    if (this.hasWon()) {
+      return false;
+    } else if (Scrabble.score(word)) {
       this.plays.push(word);
+      return Scrabble.score(word);
     }
   }
 
   hasWon() {
+    if (this.totalScore() >= 100) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
+  totalScore() {
+    let total = 0;
+    let wordPlayed = this.plays;
+    wordPlayed.forEach(function(play) {
+      total += Scrabble.score(play);
+    });
+    return total;
   }
 
   highestScoringWord() {
-
+    return Scrabble.highestScoreFrom(this.plays);
   }
 
   highestWordScore() {
+    let bestPlay = Scrabble.highestScoreFrom(this.plays);
+    return Scrabble.score(bestPlay);
+  }
 
+  catch(e) {
+    console.log(e);
   }
 
 };
