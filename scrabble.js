@@ -54,32 +54,23 @@ const Scrabble = {
           highestScore = score;
         }
       });
-      const highestScoringWords = []
+      let shortestLength = 7;
+      let shortestIndex = null;
+      let sevenIndex = null;
       scores.forEach( (score, index) => {
         if (score === highestScore) {
-          highestScoringWords.push(arrayOfWords[index]);
-        }
-      });
-      if (highestScoringWords.length === 1) {
-        return highestScoringWords[0];
-      } else {
-        let shortestLength = 7;
-        let shortestIndex = null;
-        let sevenIndex = null;
-        highestScoringWords.forEach( (word, index) => {
-          if (word.length === 7) {
+          if (arrayOfWords[index].length === 7 && sevenIndex === null) {
             sevenIndex = index;
-          } else
-          if (word.length < shortestLength) {
-            shortestLength = word.length;
+          } else if (arrayOfWords[index].length < shortestLength) {
+            shortestLength = arrayOfWords[index].length;
             shortestIndex = index;
           }
-        });
-        if (sevenIndex !== null) {
-          return highestScoringWords[sevenIndex];
-        } else {
-          return highestScoringWords[shortestIndex];
         }
+      });
+      if (sevenIndex !== null) {
+        return arrayOfWords[sevenIndex];
+      } else {
+        return arrayOfWords[shortestIndex];
       }
     }
   },
