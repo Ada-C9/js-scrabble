@@ -237,12 +237,14 @@ describe('Player', () => {
       expect(() => { player.highestScoringWord() }).toThrow();
     });
 
-  // describe('highestWordScore', () => {
-  //   test.skip('returns the score of the highest scoring word played', () => {
-  //
-  //
-  //   });
+    describe('highestWordScore', function() {
+     it('returns the score of the highest scoring word played', function() {
+       let player = new Scrabble.Player('testing');
+       player.play('sad');
+       player.play('QQQQQ');
+       expect(player.highestWordScore()).toBe(50);
+     });
+     });
+     });
   //
   //   test.skip('throws an error if no words have been played', () => {
-
-});
