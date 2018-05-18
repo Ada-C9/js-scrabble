@@ -26,7 +26,7 @@ const Scrabble =  {
 
   highestScoreFrom(arrayOfWords) {
 
-    if (arrayOfWords.length === 0 || arrayOfWords.constructor !== Array) {
+    if (arrayOfWords.length === 0) {
 
       throw new Error('Array of words can not be empty');
 
@@ -113,7 +113,10 @@ Scrabble.Player = class {
 
 };
 
-// optional enhancements
+// Optional Enhancements
+
+// TODO: I need to improve the TilesBag. The way I made the tiles in the constructor
+// I know is not the best way.
 
 Scrabble.TilesBag = class {
   constructor() {
