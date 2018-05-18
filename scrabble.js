@@ -34,13 +34,15 @@ const Scrabble = {
       'q': 10,
       'z': 10
     }
-
+    if (typeof word == 'number'){
+      throw 'Letters only please.';
+    }
 
     for (let i = 0; i < word.length; i++) {
 
       let letter = word[i];
 
-      if (!RegExp(/^[a-z]/i).test(letter)){
+      if (!RegExp(/^[a-zA-Z]+$/).test(letter)){
 
         throw `Letters only please. Letter: ${letter} i == ${i} word: ${word}`
       }
@@ -68,7 +70,6 @@ const Scrabble = {
       highWord = arrayOfWords[0];
     }else {
       let highScore = -1
-
       for (let i = 0; i < arrayOfWords.length; i++){
 
         let compareWord = arrayOfWords[i]
@@ -82,6 +83,30 @@ const Scrabble = {
       }
     }
     return highWord;
+  },
+
+  highestWordScoreWord(arrayOfWords) {
+    let highWord = ''
+    let highScore = -1
+    if (arrayOfWords.length === 0){
+      throw "Empty Array of words to choose the highest score from.";
+    }else if (arrayOfWords.length === 1){
+      highWord = arrayOfWords[0];
+    }else {
+
+      for (let i = 0; i < arrayOfWords.length; i++){
+
+        let compareWord = arrayOfWords[i]
+        let score = this.score(compareWord)
+        if (score > highScore){
+          highWord = compareWord
+          highScore = score
+        }else if (score == highScore){
+          highWord =   Scrabble.tiebreaker(compareWord,highWord)
+        }
+      }
+    }
+    return highScore;
   },
 
   tiebreaker(challenger, incumbent){
@@ -117,43 +142,58 @@ Scrabble.Player = class{
     }
   }
 
-  scrabbleScore(word) {
-    return Scrabble.score(word);
-//LOOSE COUPLIIIIIIIIIIIIING
-  }
+  //   scrabbleScore(word) {
+  //     return Scrabble.score(word);
+  // //LOOSE COUPLING I can't get this to work
+  //   }
 
 
   play(word){
     if (this.hasWon()){
-    //check if it is a word
-    return false;
-}else{
-      if (word.length > 7 || word.length === 0){
-        throw "Words can only be 7 letters long.";
-      }
-
+      //check if it is a word
+      return false;
+    }else if(word.length > 7 || word.length === 0){
+      throw "Words can only be 7 letters long.";
+    }else{
+      let scorePlayWord = Scrabble.score(word);
       this.plays.push(word);
-      return this.plays;
-}
+      return scorePlayWord;
+    }
+
   }
 
   totalScore (){
-  let totalScore = 0
-  for(let word in this.plays) {
-    totalScore += this.scrabbleScore(word);
+    let totalScores = 0;
+    let wordsPlayed = this.plays;
+    wordsPlayed.forEach(function (word){
+      totalScores += Scrabble.score(word);
+    })
+    return totalScores;
   }
-  return totalScore;
-
-}
 
   hasWon(){
     if (this.totalScore() > 100){
+      return true;
+    }else if (this.totalScore() === 100){
       return true;
     }else{
       return false;
     }
   }
 
+  highestScoringWord(){
+    if (this.plays.length === 0){
+      throw "No words played yet.";
+    }
+  return Scrabble.highestScoreFrom(this.plays);
+  }
+
+highestWordScore(){
+  if (this.plays.length === 0){
+    throw "Not a single word played yet.";
+  }
+  return Scrabble.highestWordScoreWord(this.plays);
+}
 };
 
 
