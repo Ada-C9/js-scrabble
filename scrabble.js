@@ -136,20 +136,12 @@ Scrabble.Player = class {
 
   highestWordScore() {
     // returns highest scoring word score
-    let wordsPlayed = this.plays;
-    let highestWord = this.highestScoringWord(wordsPlayed)
-    return highestWord;
+    let highestWord = this.highestScoringWord()
+    return Scrabble.score(highestWord);
   }
 };
 
 module.exports = Scrabble;
-
-let player1 = new Scrabble.Player('slim');
-console.log(player1.play('zzz'));
-console.log(player1.play('zzzz'));
-console.log(player1.totalScore());
-// console.log(player1.highestScoringWord());
-console.log(player1.highestWordScore());
 
 
 
