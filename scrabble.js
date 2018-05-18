@@ -135,10 +135,16 @@ Scrabble.Player = class {
 
   highestScoringWord() {
     if (this.plays.length === 0) {
-      throw 'Error';
+      throw 'Cannot calculate highest scoring word without a played word';
     }
-
     return Scrabble.highestScoreFrom(this.plays);
+  }
+
+  highestWordScore(){
+    if (this.plays.length === 0) {
+      throw 'Cannot calculate highest word score without a played word';
+    }
+      return Scrabble.score(this.highestScoringWord());
 
   }
 
