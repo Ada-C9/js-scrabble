@@ -55,7 +55,7 @@ const Scrabble = {
     if (arrayOfWords.length === 0 || Array.isArray(arrayOfWords) !== true) {
       throw "No played words.";
     }
-    
+
     // FIXME: The test for returning a 7 letter word in the result of a tie is not working despite test case seeming to be covered below
     // FXN for time break on tiedWords array
     const tieBreak = function tieBreak(best_word, challenger_word) {
@@ -86,7 +86,51 @@ const Scrabble = {
 };
 
 Scrabble.Player = class {
+  constructor(name) {
+    this.name = name;
+    if (arguments.length === 0) {
+      throw 'Must provide a name.';
+    }
+    this.plays = [];
+    this.score = 0;
+  }
 
+  play(word) {
+    let word_score = 0;
+    if (this.hasWon()) {
+      return false;
+    }
+
+    if (word.search(/[^a-zA-Z]+/) !== -1 || word.length > 7) {
+      throw 'You must enter a real word that is 7 characters or under.';
+    }
+
+    if (this.plays.includes(word)) {
+      throw "This word was used already.";
+    } else {
+      this.plays.push(word);
+      word_score = Scrabble.score(word);
+      this.score += word_score
+    }
+    return word_score;
+  }
+
+  totalScore() {
+    return this.score;
+  }
+
+  hasWon() {
+    return this.score >= 100;
+  }
+
+  highestScoringWord() {
+    // FIXME: Need to implement the rest of these tests. Tests are currently not working
+    return Scrabble.highestWordFrom(this.plays);
+  }
+
+  highestWordScore() {
+
+  }
 };
 
 
