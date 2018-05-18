@@ -144,7 +144,8 @@ Scrabble.Player = class {
     if ( this.plays.length == 0 ) {
       throw 'There are no words to score';
     } else {
-    return Scrabble.score(this.highestScoringWord);
+      let topWord = Scrabble.highestScoreFrom(this.plays);
+      return Scrabble.score(topWord);
     }
   }
 };
