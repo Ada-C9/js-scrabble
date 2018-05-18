@@ -181,7 +181,7 @@ describe('Player', () => {
   });
 
   describe('plays', () => {
-    test('returns array of played words'), () => {
+    test('returns array of played words', () => {
       const player = new Scrabble.Player('test player');
       const words = [{word: 'academy', score: 65}, {word: 'cat', score: 5}, {word: 'goat', score: 5}];
 
@@ -191,10 +191,11 @@ describe('Player', () => {
         player.play(testWords.word);
 
         // Assert
-        expect(player.plays()).toHaveLength(3);
+
         //kind of array??
       });
-    };
+      expect(player.plays).toHaveLength(3);
+    });
   });
 
   describe('hasWon', () => {
@@ -211,9 +212,9 @@ describe('Player', () => {
 
         // Assert
         expect(player.totalScore()).toBe(totalScore);
-        expect(totalScore).toBeLessThan(100);
-        expect(player.hasWon()).toBe(false);
       });
+      expect(totalScore).toBeLessThan(100);
+      expect(player.hasWon()).toBe(false);
 
     });
 
@@ -227,18 +228,33 @@ describe('Player', () => {
         // Act
         player.play(testWords.word);
         totalScore += testWords.score;
-        console.log(totalScore);
-        console.log(player.playerTotal);
+
+        // Assert
+        expect(player.totalScore()).toBe(totalScore);
+
+
+      });
+      expect(player.totalScore()).toEqual(100);
+      expect(player.hasWon()).toBe(true);
+    });
+
+    test('returns true when score > 100', () => {
+      const player = new Scrabble.Player('best player');
+      const words = [{word: 'academy', score: 65}, {word: 'cat', score: 5}, {word: 'zzzz', score: 40}];
+      let totalScore = 0;
+
+      expect(player.totalScore()).toBe(0);
+      words.forEach((testWords) => {
+        // Act
+        player.play(testWords.word);
+        totalScore += testWords.score;
 
         // Assert
         expect(player.totalScore()).toBe(totalScore);
 
       });
+      expect(player.totalScore()).toEqual(110);
       expect(player.hasWon()).toBe(true);
-    });
-
-    test.skip('returns true when score > 100', () => {
-
     });
   });
 
@@ -254,9 +270,8 @@ describe('Player', () => {
       words.forEach((testWords) => {
         // Act
         player.play(testWords.word);
-
-        expect(player.highestScoringWord()).toEqual('academy');
       });
+      expect(player.highestScoringWord()).toEqual('academy');
     });
 
     test('throws an error if no words have been played', () => {
@@ -281,9 +296,8 @@ describe('Player', () => {
         // Act
         player.play(testWords.word);
 
-        expect(player.highestWordScore()).toEqual(65);
       });
-
+      expect(player.highestWordScore()).toEqual(65);
     });
 
     test('throws an error if no words have been played', () => {

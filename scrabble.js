@@ -131,16 +131,6 @@ Scrabble.Player = class {
   }
 
   totalScore() {
-    //why don't I just return this.playerTotal;
-    // if (this.plays.length === 0) {
-    //   return 0;
-    // } else {
-    //     let totalScore = 0;
-    //     for (let word of this.plays) {
-    //       totalScore += Scrabble.score(word);
-    //     }
-    //   return totalScore;
-    // }
     if (this.plays.length === 0) {
       return 0;
     }
