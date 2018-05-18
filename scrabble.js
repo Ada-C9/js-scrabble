@@ -93,10 +93,10 @@ Scrabble.Player = class {
   }
 
   play(word) {
-    if (this.hasWon()) {
-      return false;
-    } else if (typeof Scrabble.score(word) !== 'number') {
+    if (typeof Scrabble.score(word) !== 'number') {
       throw new Error('Invalid word play');
+    } else if (this.hasWon()) {
+      return false;
     }
 
     return this.plays.push(word);
@@ -107,6 +107,7 @@ Scrabble.Player = class {
     this.plays.forEach((word) => {
       totalScore += Scrabble.score(word)
     });
+
     return totalScore;
   }
 
@@ -129,6 +130,7 @@ Scrabble.Player = class {
         maxWord = Scrabble.tieBreaker(word, maxWord);
       }
     });
+
     return maxWord;
   }
 
@@ -136,6 +138,7 @@ Scrabble.Player = class {
     if (this.plays.length === 0) {
       throw new Error('Player has not played any words yet');
     }
+    
     return Scrabble.score(this.highestScoringWord());
   }
 };
