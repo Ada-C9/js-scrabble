@@ -31,8 +31,8 @@ const LETTER_VALUES =
 const MAX_LENGTH = 7;
 
 const Scrabble = {
-  score(word) {
 
+  isRealWord(word) {
     if (!word.match(/^[a-zA-Z]+$/)) {
       throw "Not a valid word";
     } else if (word.length === 0) {
@@ -40,6 +40,11 @@ const Scrabble = {
     } else if (word.length > MAX_LENGTH) {
       throw "Scrabble words can only be 7 letters!";
     }
+  },
+
+  score(word) {
+
+    Scrabble.isRealWord(word);
 
     word = word.toLowerCase().split("");
     let wordScore = 0;
@@ -55,6 +60,17 @@ const Scrabble = {
 
     return wordScore;
   },
+  breakTie(topWord, word) {
+    if ( topWord.length === 7 ) {
+      return topWord;
+    } else if (word.length === 7) {
+      return word;
+    } else if (word.length < topWord.length) {
+      return word;
+    } else {
+      return topWord;
+    }
+  },
 
   highestScoreFrom(arrayOfWords) {
 
@@ -67,9 +83,9 @@ const Scrabble = {
     arrayOfWords.forEach (function (word) {
       if ( Scrabble.score(word) > Scrabble.score(topWord)) {
         topWord = word;
-      } else if ( Scrabble.score(word) == Scrabble.score(topWord))
-
-
+      } else if ( Scrabble.score(word) == Scrabble.score(topWord)) {
+        topWord = Scrabble.breakTie(topWord, word);
+      }
     });
     return topWord;
   }
@@ -86,11 +102,14 @@ Scrabble.Player = class {
   }
 
   play(word) {
-    if ( this.hasWon ) {
+    Scrabble.isRealWord(word);
+    
+    if (this.hasWon()) {
       return false;
     } else {
       this.plays.push(word);
     }
+    return true;
   }
 
   totalScore() {
