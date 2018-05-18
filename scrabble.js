@@ -5,53 +5,36 @@ const Scrabble = {
   score(word) {
 
     //  Letter Scores Table:
-    // change structure!
-    let letterScoreOf1 = ["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"];
-    let letterScoreOf2 =  ["D", "G"	];
-    let letterScoreOf3 =  ["B", "C", "M", "P"	];
-    let letterScoreOf4 =  ["F", "H", "V", "W", "Y"];
-    let letterScoreOf5 =  ["K"];
-    let letterScoreOf8 =  ["J", "X"];
-    let letterScoreOf10 =  ["Q", "Z"];
+    const LETTERPOINTS = {
+      A: 1, E: 1,I: 1, O: 1, U: 1, L: 1, N: 1, R: 1,
+      S: 1, T: 1, D: 2, G: 2, B: 3, C: 3,M: 3, P: 3,
+      F: 4, H: 4, V: 4, W: 4, Y: 4, K: 5, J: 8, X: 8, Q: 10, Z: 10
+    };
 
     // Split word into letter:
-    let letters = word.toUpperCase().split("");
+    let lettersArray = word.toUpperCase().split("");
     let score = 0
 
     // Validates characters:
-    letters.forEach(function(char) {
+    lettersArray.forEach(function(char) {
       if (!char.match(/[a-z]/i)) {
         throw `${char} is not a letter!`;
       }
     });
 
     // Check and act uppon lenght of word:
-    if (letters.length > 7){
+    if (lettersArray.length > 7){
       throw `Word cannot have more than seven character!`;
-    } else if (letters.length < 1){
+    } else if (lettersArray.length < 1){
       throw `Word should have more than one character!`;
-    } else if (letters.length == 7){
+    } else if (lettersArray.length == 7){
       score += 50;
     }
 
     // Add points for each letter:
-    letters.forEach(function(letter) {
-      if (letterScoreOf1.includes(letter)){
-        score ++;
-      } else if (letterScoreOf2.includes(letter)){
-        score += 2;
-      }else if  (letterScoreOf3.includes(letter)){
-        score += 3;
-      }else if  (letterScoreOf4.includes(letter)){
-        score += 4;
-      }else if  (letterScoreOf5.includes(letter)){
-        score += 5;
-      }else if  (letterScoreOf8.includes(letter)){
-        score += 8;
-      }else if  (letterScoreOf10.includes(letter)){
-        score += 10;
-      }
-    });
+    lettersArray.forEach(function (letter) {
+     score += LETTERPOINTS[letter];
+   });
     return score;
   },
 
@@ -102,7 +85,7 @@ Scrabble.Player = class {
   play(word) {
     // Require a real word:
     if (!word || (typeof word !== 'string')) {
-      throw ('Please enter a real word! (Must have letters and cannot have numbers..)');
+      throw ('Please enter a real word! (Must have only letters and cannot be blank.)');
       // Returns false and does not update plays if the player has already won:
     } else if (this.hasWon()) {
       return false;
