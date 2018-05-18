@@ -56,8 +56,6 @@ const Scrabble = {
       throw "No played words.";
     }
 
-    // FIXME: The test for returning a 7 letter word in the result of a tie is not working despite test case seeming to be covered below
-    // FXN for time break on tiedWords array
     const tieBreak = function tieBreak(best_word, challenger_word) {
       console.log(`Best Word: ${best_word}`);
       console.log(`Challenger Word: ${challenger_word}`);
@@ -126,12 +124,11 @@ Scrabble.Player = class {
   }
 
   highestScoringWord() {
-    // FIXME: Need to implement the rest of these tests. Tests are currently not working  highestScoreFrom
     return Scrabble.highestScoreFrom(this.plays);
   }
 
   highestWordScore() {
-
+    // ran out of time to implement and test this.
   }
 };
 
