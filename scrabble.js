@@ -55,22 +55,30 @@ const Scrabble = {
     if (arrayOfWords.length === 0 || Array.isArray(arrayOfWords) !== true) {
       throw "No played words.";
     }
+    
+    // FIXME: The test for returning a 7 letter word in the result of a tie is not working despite test case seeming to be covered below
+    // FXN for time break on tiedWords array
+    const tieBreak = function tieBreak(best_word, challenger_word) {
+      if (best_word.length === 7) {
+        return best_word;
+      } else if (challenger_word === 7) {
+        return challenger_word;
+      } else if (challenger_word.length < best_word.length) {
+        return challenger_word;
+      } else {
+        return best_word
+      }
+    };
 
     let bestWord = arrayOfWords[0];
     let bestScore = this.score(bestWord);
-    let tiedWords = []
-
-    // Need FXN for time break on tiedWords array
-    // tieBreak()
-
 
     arrayOfWords.forEach((word) => {
       if (this.score(word) > bestScore) {
         bestWord = word;
         bestScore = this.score(word);
-        // } else if (this.score(word) === bestScore) {
-        //   bestWord = tieBreak(bestWord, word)
-        // }
+      } else if (this.score(word) === bestScore) {
+        bestWord = tieBreak(bestWord, word);
       }
     })
     return bestWord
