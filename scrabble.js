@@ -33,12 +33,12 @@ const Scrabble = {
       throw 'Invalid word';
     }
 
-    let uppercase = word.toUpperCase().split('')
-    if ( uppercase.length === 7 ) {
+    let upperCase = word.toUpperCase().split('')
+    if ( upperCase.length === 7 ) {
       wordCount += 50;
     }
 
-    uppercase.forEach(function(letter) {
+    upperCase.forEach(function(letter) {
       if ( scoreChart[letter] === undefined ) {
         throw 'Invalid character(s)!';
       } else {
@@ -63,11 +63,12 @@ const Scrabble = {
         scores[score] = word;
         nums.push(score);
       } else { //tied score
-        if ( scores[score].length != 7 );
-        if ( scores[score].length >  word.length ) {
-          scores[score] = word;
-        } else if ( scores[score].length <  word.length && word.length === 7 ) {
-          scores[score] = word;
+        if ( scores[score].length != 7 ) {
+          if ( scores[score].length >  word.length ) {
+            scores[score] = word;
+          } else if ( scores[score].length <  word.length && word.length === 7 ) {
+            scores[score] = word;
+          }
         }
       }
     });
@@ -77,6 +78,7 @@ const Scrabble = {
   },
 };
 
+// Scrabble Player class
 Scrabble.Player = class {
   constructor(name) {
     if (name === undefined ) {
