@@ -204,8 +204,7 @@ describe('Player', () => {
   });
 
   describe('highestScoringWord', () => {
-    // Tie-breaking logic is already described in the tests
-    // for highestWordFrom, so we will not repeat it here.
+
     test('returns the highest scoring word played', () => {
       const player = new Scrabble.Player('test player');
       player.play("success");

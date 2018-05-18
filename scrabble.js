@@ -30,7 +30,7 @@ const tileBag =
 
 const Scrabble = {
   score(word) {
-    // set total to 0
+
     let total = 0;
 
     word = word.toLowerCase();
@@ -41,27 +41,18 @@ const Scrabble = {
       throw "Word is too long! It must be less than 7 characters";
     } // ends if/else if
 
-    // SPLIT WORD
     let splitWord = word.split('');
 
     if (splitWord.length === 7) {
       total += 50;
     }
 
-    // SCORE THE INDIVIDUAL LETTERS IN THE WORD - USING A LOOP -- example: forEach (function (letter) {<...>})
     splitWord.forEach (function(letter) {
-      // INSIDE OF LOOP: CHECK THE VALUE OF THE LETTER
       total += tileBag[letter].value;
     });
     return total
 
   }, // ends 'score: function (word)'
-
-  ////////////////////////////////////////////////////////////
-  // can't do a constructor here because it's not a class???
-  // "this" can be used because it's part of the scrabble object
-  // score and highestScore from are both functions???
-
 
   highestScoreFrom(arrayOfWords) {
     if (arrayOfWords.length === 0) {
@@ -93,7 +84,6 @@ const Scrabble = {
   }, // ends 'breakTie'
 };// const Scrabble
 
-// Player is a property of the Scrabble object
 Scrabble.Player = class {
   constructor(name) {
     this.name = name;
@@ -136,8 +126,6 @@ Scrabble.Player = class {
     }
   } // ends hasWon
 
-
-// highestScoringWord(): method which returns the highest scoring word the user has played
   highestScoringWord() {
     if (this.plays.length === 0) {
       throw "You haven't made any plays!!!!";
@@ -161,6 +149,3 @@ Scrabble.Player = class {
 
 
 module.exports = Scrabble;
-
-
-// initialize the letter values
