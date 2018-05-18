@@ -29,7 +29,7 @@ let scoreChart = {
 
 
 const Scrabble = {
-  score: function(word) {
+  score(word) {
     let total = 0;
     let letters = word.toUpperCase().split(``);
 
@@ -52,7 +52,7 @@ const Scrabble = {
   },
 
 
-  highestScoreFrom(arrayOfWords) {
+highestScoreFrom(arrayOfWords) {
 
     if (arrayOfWords.length == 0 || Array.isArray(arrayOfWords) == false) {
       throw `No words were passed`;
