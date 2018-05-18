@@ -76,10 +76,13 @@ const Scrabble = {
         throw "Real word is required"
       }
 
+      if (this.hasWon()) {
+        return false
+      }
+
       this.plays.push(word)
 
       return word
-      /// will return false if player has already won
     }
     totalScore() {
       if (this.plays.length == 0) {
@@ -94,15 +97,21 @@ const Scrabble = {
       const reducer = (accumulator, currentValue) => accumulator + currentValue;
       return scores.reduce(reducer);
     }
+    hasWon() {
+      if (this.totalScore() >= 100) {
+        return true
+      }
+
+      return false
+    }
   };
 
 
   module.exports = Scrabble;
-
+  //
   let player = new Scrabble.Player('test')
-  // console.log(player);
-  // console.log(player.play(33));
+
+  console.log();
   console.log(player.play('hello'));
-  console.log(player.play('hello'));
-  console.log(player.play('hello'));
+
   console.log(player.totalScore());
