@@ -1,5 +1,5 @@
-
 const Scrabble = {
+  // time complexity O(n)
   score(word) {
     const ScoreChart = {
       one: ["A", "E", "I", "O", "U", "L", "N", "R", "S", "T"],
@@ -19,7 +19,7 @@ const Scrabble = {
     if (word.length === 7) {
       score = 50;
     }
-
+    // O(n)
     word.toUpperCase().split('').forEach((letter) => {
       if ((ScoreChart.one).includes(letter)) {
         score += 1;
@@ -42,6 +42,7 @@ const Scrabble = {
     return score
 
   },
+  // time complexity O(n*m)
   highestScoreFrom(arrayOfWords) {
     if (arrayOfWords.length < 1 || !(arrayOfWords instanceof Array) ){
       throw new Error('This is not an array of words.')
@@ -79,7 +80,7 @@ Scrabble.Player = class {
     this.plays = [];
     this.currentScore = 0
   }
-
+  // O(n)
   play(word) {
 
     if(this.hasWon()){
@@ -91,15 +92,15 @@ Scrabble.Player = class {
 
     return word;
   }
-
+  // O(1)
   hasWon() {
     return this.currentScore >= 100;
   }
-
+  // O(1)
   totalScore() {
     return this.currentScore;
   }
-
+  // O(n)
   highestScoringWord() {
     if (this.plays == []){
       throw new Error('No words played')
@@ -107,7 +108,7 @@ Scrabble.Player = class {
       return Scrabble.highestScoreFrom(this.plays);
     }
   }
-
+  // O(n)
   highestWordScore() {
     return Scrabble.score(this.highestScoringWord());
   }
