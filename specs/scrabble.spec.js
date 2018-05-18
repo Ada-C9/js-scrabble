@@ -180,24 +180,6 @@ describe('Player', () => {
     });
   });
 
-  describe('plays', () => {
-    test('returns array of played words', () => {
-      const player = new Scrabble.Player('test player');
-      const words = [{word: 'academy', score: 65}, {word: 'cat', score: 5}, {word: 'goat', score: 5}];
-
-      expect(player.totalScore()).toBe(0);
-      words.forEach((testWords) => {
-        // Act
-        player.play(testWords.word);
-
-        // Assert
-
-        //kind of array??
-      });
-      expect(player.plays).toHaveLength(3);
-    });
-  });
-
   describe('hasWon', () => {
     test('returns false when score < 100', () => {
       const player = new Scrabble.Player('test player');

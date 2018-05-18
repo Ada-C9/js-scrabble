@@ -126,18 +126,12 @@ Scrabble.Player = class {
     }
   }
 
-  plays() {
-    return this.plays;
-  }
-
   totalScore() {
     if (this.plays.length === 0) {
       return 0;
     }
     return this.playerTotal;
   }
-
-
 
   hasWon() {
     if (this.playerTotal >= 100) {
