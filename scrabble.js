@@ -15,7 +15,7 @@ const Scrabble = {
   },
 
   isValidString(str) {
-    if (typeof str !== 'string' && !(str instanceof String) || !RegExp(/^[a-z]+$/i).test(str)) {
+    if (typeof str !== 'string' && !(str instanceof String) || !RegExp(/^[A-Z]+$/i).test(str)) {
       throw new Error(`Invalid word: ${str}. It must be a String.`);
     }
   },
@@ -39,7 +39,7 @@ const Scrabble = {
     if (newWord.length === MAX || currHighest.length === MAX) {
       return currHighest.length === MAX ? currHighest : newWord;
     }
-      return currHighest.length > newWord.length ? newWord : currHighest;
+    return currHighest.length > newWord.length ? newWord : currHighest;
   },
 
   highestScoreFrom(words) {
@@ -58,7 +58,6 @@ const Scrabble = {
     return highestScoringWord;
   }
 };
-
 
 Scrabble.Player = class {
   constructor(name) {

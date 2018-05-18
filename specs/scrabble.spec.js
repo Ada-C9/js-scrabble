@@ -120,6 +120,47 @@ describe('highestScoreFrom', () => {
     expect(Scrabble.highestScoreFrom(['cat', 'dog'])).toBe('cat');
     expect(Scrabble.highestScoreFrom(['i', 'dog', 'cat'])).toBe('dog');
   });
+
+  describe('getPointValue', () => {
+    test('throws an error if provided value is not a letter key', () => {
+      expect(() => {
+        Scrabble.getPointValue('!');
+      }).toThrow(new Error('Invalid letter: !'));
+
+      expect(() => {
+        Scrabble.getPointValue('');
+      }).toThrow();
+
+      expect(() => {
+        Scrabble.getPointValue('a'); // must have uppercase
+      }).toThrow();
+
+      expect(() => {
+        Scrabble.getPointValue(null); // must have uppercase
+      }).toThrow();
+
+      expect(() => {
+        Scrabble.getPointValue(4); // must have uppercase
+      }).toThrow();
+
+    //   player.play('hi');
+    //   expect(player.highestWordScore()).toBe(5);
+    //
+    //   player.play('ferret');
+    //   expect(player.highestWordScore()).toBe(9);
+    //
+    //   player.play('iiiiiii');
+    //   expect(player.highestWordScore()).toBe(57);
+    // });
+    //
+    // test('throws an error if no words have been played', () => {
+    //   expect(() => {
+    //     const player = new Scrabble.Player('test player');
+    //     player.highestWordScore();
+    //   }).toThrow();
+    //
+    });
+  });
 });
 
 describe('Player', () => {
@@ -278,4 +319,6 @@ describe('Player', () => {
 
     });
   });
+
+
 });
