@@ -35,7 +35,7 @@ const Scrabble = {
 
     if (word.match(/^[a-zA-Z]{1,7}$/) == null) {
       throw `How'd you get a non-letter tile, even?`;
-    } else if ((word.length > 7)|| (word.length < 0)) {
+    } else if (word.length > 7 || word.length < 0) {
       throw `Words must be between 1 and 7 letters`;
     } else {
       for (let letter of letters) {
@@ -53,18 +53,10 @@ const Scrabble = {
 
 
   highestScoreFrom(arrayOfWords) {
-    // scores = {}
 
-    if ((arrayOfWords.length == 0) || (Array.isArray(arrayOfWords) == false)) {
+    if (arrayOfWords.length == 0 || Array.isArray(arrayOfWords) == false) {
       throw `No words were passed`;
     }
-    // } else {
-    //   for (word of arrayOfWords) {
-    //     scores[word] = Scrabble.score(word);
-    //   }
-    // }
-    //
-    // let maxScore = Math.max(...Object.values(scores));
 
     let winningWord = arrayOfWords[0];
     for (word of arrayOfWords) {
@@ -73,7 +65,7 @@ const Scrabble = {
       } else if (this.score(winningWord) === this.score(word)){
         if (winningWord.length === 7) {
           winningWord;
-        } else if ((word.length === 7) || (winningWord.length > word.length)) {
+        } else if (word.length === 7 || winningWord.length > word.length) {
           winningWord = word;
         }
       }
@@ -84,53 +76,49 @@ const Scrabble = {
 };
 
 Scrabble.Player = class {
+  constructor(name) {
+    if (name === undefined || name === null || name === ``) {
+      throw "Player must have name";
+    }
+    this.name = name;
+    this.plays = [];
+  }
+
+  play(word) {
+    if (this.hasWon()) {
+      return false;
+    } else if (word === undefined || word === null || word === `` || word.match(/^[a-zA-Z]{1,7}$/) == null) {
+      throw "Word must be real";
+    }
+    this.plays.push(word);
+    return word
+  }
+
+  totalScore() {
+    let total = 0;
+    for (let word of this.plays) {
+      total += Scrabble.score(word);
+    }
+    return total;
+  }
+
+  hasWon() {
+    if (this.totalScore() >= 100) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  highestScoringWord() {
+    return Scrabble.highestScoreFrom(this.plays);
+  }
+
+  highestWordScore() {
+    return Scrabble.score(this.highestScoringWord());
+  }
 
 };
 
 // Don't touch!
 module.exports = Scrabble;
-let myWordz = Scrabble.score(`zzzzzz`);
-let myWordid = Scrabble.score(`iiiiddd`);
-console.log(myWordz);
-console.log(myWordid);
-// Scratch paper
-// let myWord = Scrabble.score(`Pickles`);
-// console.log(myWord);
-//
-// let arrayOfWords = [`Petunia`, `Pete`, `Pickles`];
-// let scores = {};
-//
-// for (word of arrayOfWords) {
-//   scores[word] = Scrabble.score(word);
-// }
-//
-// console.log(arrayOfWords);
-// // console.log(scores);
-//
-// let myWords = [`Petunia`, `Pete`, `Pickles`];
-// console.log(myWords);
-// console.log((myWords));
-// let winningWord = arrayOfWords[0];
-// console.log(winningWord);
-// for (word of arrayOfWords) {
-//   console.log(word);
-//   if (Scrabble.score(winningWord) < Scrabble.score(word)) {
-//     winningWord = word;
-//   }
-//
-// }
-//
-// console.log((Scrabble.score(winningWord)));
-// console.log(winningWord);
-// let myWordsScores = Scrabble.highestScoreFrom(myWords);
-// console.log((myWordsScores));
-//
-// let maxScore = Math.max(...Object.values(myWordsScores));
-// console.log((maxScore));
-//
-// let winningWord = arrayOfWords[0];
-// for (word of arrayOfWords) {
-//   scores[word] = Scrabble.score(word);
-// }
-//
-// console.log((myWordsScores[winningWord]));
