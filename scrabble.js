@@ -66,11 +66,11 @@ const Scrabble = {
 
   highestScoreFrom(arrayOfWords) {
 
-    if ( arrayOfWords.length === 0 ) {
-      throw "Currently, there are no words to score."
+    if ( arrayOfWords.length == 0 ) {
+      throw new Error('Currently, there are no words to score.')
     }
 
-    let highestScoringWord = arrayOfWords.first;
+    let highestScoringWord = arrayOfWords[0];
 
     let currentHighestScore = Scrabble.score(highestScoringWord);
 
@@ -82,15 +82,25 @@ const Scrabble = {
 
       else if ( Scrabble.score(playedWord) === currentHighestScore ) {
 
-        if ( playedWord.length === 7 && highestScoringWord.length != 7 ) {
-          highestScoringWord = playedWord;
-          currentHighestScore = Scrabble.score(playedWord);
+        if ( highestScoringWord.length < 7 ) {
+          if ( playedWord.length == 7 ) {
+            currentHighestScore = Scrabble.score(playedWord);
+            highestScoringWord = playedWord;
+          }
+          else if ( playedWord.length < highestScoringWord.length ) {
+            currentHighestScore = Scrabble.score(playedWord);
+            highestScoringWord = playedWord;
+          } 
         }
 
-        else if ( playedWord.length < highestScoringWord.length ) {
-          highestScoringWord = playedWord;
-          currentHighestScore = Scrabble.score(playedWord);
-        }
+        // if ( playedWord.length == 7 && highestScoringWord.length < 7 ) {
+        //   highestScoringWord = playedWord;
+        //   currentHighestScore = Scrabble.score(playedWord);
+        // }
+        //   else if ( playedWord.length < highestScoringWord.length ) {
+        //     highestScoringWord = playedWord;
+        //     currentHighestScore = Scrabble.score(playedWord);
+        //   }
       }
     }
     return highestScoringWord;
