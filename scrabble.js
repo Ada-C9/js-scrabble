@@ -158,17 +158,6 @@ Scrabble.Player = class {
 
 };
 
-Scrabble.TileBag = class {
-
-  constructor(){
-
-  }
-
-  drawTiles(){
-    
-  }
-
-}
 
 
 module.exports = Scrabble;
