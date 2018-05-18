@@ -51,7 +51,7 @@ There are many possible answers to this question, but according to the tests the
 ### Primary Requirements
 Create the following methods within the `Scrabble` object.
 - `score(word)`: returns the total score value for the given word. The word is input as a string (case insensitive). The chart below shows the point value for a given letter.
-- `highestScoreFrom(arrayOfWords)`: returns **the word in the array with the highest score**.
+- `highestScoringWord(arrayOfWords)`: returns **the word in the array with the highest score**.
     - Note that it’s better to use fewer tiles, so if the top score is tied between multiple words, pick the one with the fewest letters.
     - Note that there is a bonus (50 points) for using all seven letters. If the top score is tied between multiple words and one used all seven letters, choose the one with seven letters over the one with fewer tiles.
     - If the there are multiple words that are the same score and same length, pick the first one in supplied list.
