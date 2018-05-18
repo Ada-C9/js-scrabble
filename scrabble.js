@@ -75,10 +75,6 @@ const Scrabble = {
     }
   },
 
-  catch(e) {
-    console.log(e);
-  }
-
 }
 
 Scrabble.Player = class {
@@ -117,16 +113,20 @@ Scrabble.Player = class {
   }
 
   highestScoringWord() {
-    return Scrabble.highestScoreFrom(this.plays);
+    if (!this.plays || !this.plays.length) {
+      throw 'No words have been played';
+    } else {
+      return Scrabble.highestScoreFrom(this.plays);
+    }
   }
 
   highestWordScore() {
     let bestPlay = Scrabble.highestScoreFrom(this.plays);
-    return Scrabble.score(bestPlay);
-  }
-
-  catch(e) {
-    console.log(e);
+    if (!this.plays || !this.plays.length) {
+      throw 'No words have been played';
+    } else {
+      return Scrabble.score(bestPlay);
+    }
   }
 
 };

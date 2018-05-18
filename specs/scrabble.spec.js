@@ -198,10 +198,8 @@ describe('Player', () => {
         // Act
         player.play(testWords.word);
         totalScore += testWords.score;
-
-        // Assert
-        expect(player.totalScore()).toBe(totalScore);
       });
+      expect(player.totalScore()).toBe(100);
     });
 
     test('returns true when score > 100', () => {
@@ -212,9 +210,8 @@ describe('Player', () => {
       words.forEach((testWords) => {
         player.play(testWords.word);
         total += testWords.score;
-        expect(player.totalScore()).toBe(total);
       });
-
+      expect(player.totalScore()).toBe(151);
     });
   });
 
@@ -222,24 +219,39 @@ describe('Player', () => {
     // Tie-breaking logic is already described in the tests
     // for highestWordFrom, so we will not repeat it here.
     test('returns the highest scoring word played', () => {
-
-
+      const player = new Scrabble.Player('test player');
+      const words = [{word: 'cat', score: 5}, {word: 'zombify', score: 76}];
+      let total = 0
+      words.forEach((testWords) => {
+        player.play(testWords.word);
+        total += testWords.score;
+      });
+      expect(player.highestScoringWord()).toBe('zombify');
     });
 
     test('throws an error if no words have been played', () => {
-
+      expect(() => { Scrabble.Player.highestScoringWord([]); }).toThrow();
+      expect(() => { Scrabble.Player.highestScoringWord('not array'); }).toThrow();
 
     });
   });
 
   describe('highestWordScore', () => {
     test('returns the score of the highest scoring word played', () => {
-
+      const player = new Scrabble.Player('test player');
+      const words = [{word: 'cat', score: 5}, {word: 'zombify', score: 76}];
+      let total = 0
+      words.forEach((testWords) => {
+        player.play(testWords.word);
+        total += testWords.score;
+      });
+      expect(player.highestWordScore()).toBe(76);
 
     });
 
     test('throws an error if no words have been played', () => {
-
+      expect(() => { Scrabble.Player.highestWordScore([]); }).toThrow();
+      expect(() => { Scrabble.Player.highestWordScore('not array'); }).toThrow();
 
     });
   });
