@@ -30,7 +30,7 @@ const BONUS = 50;
 
 const Scrabble = {
   score(word) {
-    if (typeof word !== 'string' || word.length === 0 || word.length > 7) {
+    if (!word || typeof word !== 'string' || word.length > 7) {
       throw new Error('Invalid input');
     }
 
@@ -52,18 +52,18 @@ const Scrabble = {
   },
 
   highestScoreFrom(arrayOfWords) {
-    if (typeof arrayOfWords !== 'object' || arrayOfWords.length === 0) {
+    if (!arrayOfWords || typeof arrayOfWords !== 'object' || arrayOfWords.length === 0) {
       throw new Error('Invalid input');
     }
 
     let maxWord = arrayOfWords[0]
 
     arrayOfWords.forEach((word) => {
-      if (Scrabble.score(word) > Scrabble.score(maxWord)) {
+      if (this.score(word) > this.score(maxWord)) {
         maxWord = word;
       }
-      else if (Scrabble.score(word) === Scrabble.score(maxWord)) {
-        maxWord = Scrabble.tieBreaker(maxWord, word);
+      else if (this.score(word) === this.score(maxWord)) {
+        maxWord = this.tieBreaker(maxWord, word);
       }
     });
     return maxWord;
