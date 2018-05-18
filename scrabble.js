@@ -1,4 +1,5 @@
 const Scrabble = {
+  //O(1)
   score(word) {
     let scoreChart = {
       'A': 1,
@@ -47,7 +48,7 @@ const Scrabble = {
     })
     return wordCount;
   },
-
+  //O(mn) where m is the length of the array and n is the length of the word
   highestScoreFrom(arrayOfWords) {
     let scores = {};
     let nums = [];
@@ -90,7 +91,7 @@ Scrabble.Player = class {
       this.score = 0;
     }
   }
-
+  //O(1)
   play(word) {
     if ( this.won === false ) {
       if ( word === undefined || typeof word != 'string' ) {
@@ -107,32 +108,24 @@ Scrabble.Player = class {
       return false;
     }
   }
-
+  //O(1)
   totalScore() {
     return this.score;
   }
-
+  //O(1)
   hasWon() {
     if ( this.score >= 100 ) {
       this.won = true;
     }
     return this.won;
   }
-
+  //O(1)
   highestScoringWord() {
-    if ( this.plays.length === 0 ) {
-      throw new Error (`No words!`);
-    } else {
       return Scrabble.highestScoreFrom(this.plays);
-    }
   }
-
+  //O(1)
   highestWordScore() {
-    if ( this.plays.length === 0 ) {
-      throw new Error (`No words!`);
-    } else {
       return Scrabble.score(Scrabble.highestScoreFrom(this.plays));
-    }
   }
 };
 
