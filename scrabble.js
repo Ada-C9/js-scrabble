@@ -70,7 +70,7 @@ const Scrabble = {
   },
 
   highestScoreFrom(arrayOfWords) {
-    if (arrayOfWords === undefined || arrayOfWords.length == 0) {
+    if (arrayOfWords === undefined || arrayOfWords.length === 0) {
       throw 'No words passed!';
     }
 
