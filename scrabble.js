@@ -101,17 +101,22 @@ Scrabble.Player = class {
   }
 
   play(word) {
-    if (word === undefined) {
-      throw 'Must play a word';
+    if (this.hasWon()){
+      return false;
+    } else {
+      if (word === undefined) {
+        throw 'Must play a word';
+      }
+      if (REGEX.test(word.toUpperCase)!== true){
+        throw 'Must play a real word';
+      }
+      this.plays.push(word);
     }
-    if (REGEX.test(word.toUpperCase)!== true){
-      throw 'Must play a real word';
-    }
-    this.plays.push(word);
     return this.plays;
+
   }
 
-  totalScore () {
+  totalScore() {
     let points = 0;
     this.plays.forEach(function(word) {
       let wScore = Scrabble.score(word);
@@ -121,7 +126,11 @@ Scrabble.Player = class {
   }
 
   hasWon(){
-
+    if (this.totalScore() >= 100) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
 };
