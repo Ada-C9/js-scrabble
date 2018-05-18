@@ -105,10 +105,13 @@ Scrabble.Player = class {
   play(word) {
     if (this.hasWon()) {
       return false
+    }else if (Scrabble.score(word)) {
+      this.plays.push(word)
+      let score = Scrabble.score(word)
+      return score
+
     }
-    this.plays.push(word)
-    let score = Scrabble.score(word)
-    return score
+
   }
 
   totalScore() {
@@ -122,7 +125,7 @@ Scrabble.Player = class {
   }
 
   hasWon() {
-    if (Scrabble.Player.totalScore() >= 100) {
+    if (this.totalScore() >= 100) {
       return true
     } else {
       return false
@@ -133,10 +136,21 @@ Scrabble.Player = class {
   }
 
   highestScoringWord() {
+    if (this.plays == []) {
+      throw "No one has played any words"
+    } else {
+      Scrabble.highestScoreFrom(this.plays)
+    }
+
 
   }
 
   highestWordScore() {
+    if (this.plays == []) {
+      throw "No one has played any words"
+    } else {
+      Scrabble.score(this.highestScoringWord())
+    }
 
   }
 
