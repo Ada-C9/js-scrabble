@@ -229,7 +229,7 @@ describe('Player', () => {
       player.play('koala');
       player.play('quick');
       player.play('to');
-      expect(player.highestScoringWord()).toBe('quick')          
+      expect(player.highestWordScore()).toBe(20)
     });
 
     test('throws an error if no words have been played', () => {

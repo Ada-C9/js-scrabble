@@ -34,8 +34,8 @@ const Scrabble = {
 
   score(word) {
     const upWord = word.toUpperCase()
-    let score = 0
-    let wordLetters = this.splitString(upWord)
+    let score = 0;
+    let wordLetters = this.splitString(upWord);
 
     if (wordLetters.length > 7) {
       throw "Character is not a letter!";
@@ -69,7 +69,7 @@ const Scrabble = {
       } else if (arrayOfWords.length === 1) {
         return arrayOfWords[0];
       } else {
-        let topWord = arrayOfWords[0]
+        let topWord = arrayOfWords[0];
         for (let i = 1; i < arrayOfWords.length; i += 1) {
           if (this.score(arrayOfWords[i]) > this.score(topWord)) {
             topWord = arrayOfWords[i];
@@ -124,6 +124,7 @@ Scrabble.Player = class {
     });
     return true;
   }
+
   totalScore() {
     let score = 0;
     if (this.plays.length === 0) {
@@ -162,12 +163,3 @@ Scrabble.Player = class {
   }
 }
 module.exports = Scrabble;
-
-
-
-// const player = new Scrabble.Player('test player');
-// player.play('hi');
-// player.play('koala');
-// player.play('quick');
-// player.play('to');
-// console.log(player.highestScoringWord());
