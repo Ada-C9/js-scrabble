@@ -6,6 +6,10 @@ const sortWordsByLength = function sortWordsByLength(arr){
   return arr.sort((a, b) => a.length - b.length);
 }
 
+const add = function add(a, b) {
+    return a + b;
+}
+
 const Scrabble = {
    // TOTAL: O(n)
   score(word) {
@@ -34,7 +38,7 @@ const Scrabble = {
         }
       });
       // sum up the values in the lettersScores array using arrow function
-      let wordScore = letterScores.reduce((acc, val) => acc + val);
+      let wordScore = letterScores.reduce(add, 0);
       return wordScore
     } else {
       throw "Invalid word";
@@ -84,6 +88,7 @@ const Scrabble = {
       }
     }
   },
+
 };
 
 Scrabble.Player = class {
